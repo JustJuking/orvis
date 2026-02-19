@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orvis — Campaign Hub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ── HERO — Full-width atmospheric header ─────────── */
+.hero-section {
+  position: relative;
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Deep space gradient backdrop */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(124,79,196,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, rgba(60,30,120,0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 20%, rgba(40,20,90,0.10) 0%, transparent 45%);
+  z-index: 0;
+}
+
+/* Arcane circle behind title */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  border: 1px solid rgba(124,79,196,0.12);
+  box-shadow:
+    0 0 0 40px rgba(124,79,196,0.04),
+    0 0 0 80px rgba(124,79,196,0.025),
+    0 0 0 140px rgba(124,79,196,0.012);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Canvas for floating runes */
+#runeCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+/* Campaign crest */
+.crest {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 28px;
+  position: relative;
+  animation: crestReveal 1.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes crestReveal {
+  from { opacity: 0; transform: scale(0.5) rotate(-20deg); filter: blur(8px); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+}
+
+.crest-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(124,79,196,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  background: radial-gradient(circle at 40% 35%, rgba(124,79,196,0.2), rgba(10,8,20,0.9));
+  box-shadow:
+    0 0 30px rgba(124,79,196,0.3),
+    0 0 60px rgba(124,79,196,0.12),
+    inset 0 0 30px rgba(124,79,196,0.08);
+  animation: crestGlow 4s ease-in-out infinite;
+}
+
+@keyframes crestGlow {
+  0%, 100% { box-shadow: 0 0 30px rgba(124,79,196,0.3), 0 0 60px rgba(124,79,196,0.12), inset 0 0 30px rgba(124,79,196,0.08); }
+  50%       { box-shadow: 0 0 50px rgba(124,79,196,0.5), 0 0 100px rgba(124,79,196,0.2), inset 0 0 40px rgba(124,79,196,0.15); }
+}
+
+.hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--arcane-glow);
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+  text-shadow: 0 0 12px rgba(176,122,255,0.5);
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  color: var(--gold-bright);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeInUp 0.9s 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
+  /* Gold shimmer effect */
+  background: linear-gradient(
+    135deg,
+    #c9963a 0%, #f2c045 25%, #fff8d0 45%, #f2c045 55%, #c9963a 75%, #f2c045 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInUp 0.9s 0.45s cubic-bezier(0.16,1,0.3,1) forwards, titleShimmer 5s 2s linear infinite;
+  filter: drop-shadow(0 2px 20px rgba(242,192,69,0.4));
+}
+
+@keyframes titleShimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Workaround: split animations via wrapper */
+.hero-title-wrap {
+  opacity: 0;
+  animation: fadeInUp 0.9s 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin: 20px 0 22px;
+  opacity: 0;
+  animation: fadeInUp 0.7s 0.65s ease forwards;
+}
+
+.hero-divider-line {
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(124,79,196,0.5));
+}
+.hero-divider-line.right { background: linear-gradient(to left, transparent, rgba(124,79,196,0.5)); }
+
+.hero-divider-gem {
+  font-size: 1.1rem;
+  color: var(--arcane-glow);
+  text-shadow: 0 0 10px var(--arcane-glow);
+}
+
+.hero-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--silver-dim);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeInUp 0.7s 0.75s ease forwards;
+  letter-spacing: 0.02em;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gold-bright);
+  border: 1px solid rgba(242,192,69,0.4);
+  padding: 13px 32px;
+  border-radius: 3px;
+  background: rgba(124,79,196,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,79,196,0.15);
+  transition: all 0.3s;
+  opacity: 0;
+  animation: fadeInUp 0.7s 0.9s ease forwards;
+}
+
+.hero-cta:hover {
+  background: rgba(124,79,196,0.2);
+  border-color: rgba(242,192,69,0.7);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6), 0 0 20px rgba(124,79,196,0.2), 0 0 0 1px rgba(124,79,196,0.3);
+  transform: translateY(-2px);
+  color: var(--gold-bright);
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeInUp 0.5s 1.4s ease forwards;
+  color: var(--text-dim);
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1px solid rgba(124,79,196,0.4);
+  border-bottom: 1px solid rgba(124,79,196,0.4);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50%       { transform: rotate(45deg) translateY(4px); }
+}
+
+/* ── DIRECTORY BAR ───────────────────────────────── */
+.dir-bar {
+  position: relative;
+  z-index: 950;
+  background: rgba(40,24,72,0.97);
+  border-bottom: 1px solid rgba(124,79,196,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 20px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(124,79,196,0.15);
+}
+
+.dir-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(124,79,196,0.35);
+  margin: 0 4px;
+}
+
+.dir-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--arcane-glow);
+  background: rgba(124,79,196,0.12);
+  border: 1px solid rgba(124,79,196,0.35);
+  border-radius: 30px;
+  padding: 5px 14px;
+  transition: all 0.22s;
+  box-shadow: 0 0 8px rgba(124,79,196,0.1), inset 0 1px 0 rgba(176,122,255,0.08);
+}
+
+.dir-pill:hover {
+  color: var(--gold-bright);
+  background: rgba(124,79,196,0.28);
+  border-color: rgba(176,122,255,0.6);
+  box-shadow: 0 0 16px rgba(124,79,196,0.3), inset 0 1px 0 rgba(176,122,255,0.12);
+  transform: translateY(-1px);
+}
+
+
+
+/* ── WELCOME SCROLL SECTION ─────────────────────── */
+.welcome-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-drop-cap::first-letter {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  float: left;
+  line-height: 0.78;
+  margin: 8px 10px 0 0;
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(242,192,69,0.5);
+  filter: drop-shadow(0 2px 8px rgba(242,192,69,0.3));
+}
+
+.signed-line {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  text-align: right;
+  margin-top: 20px;
+}
+
+.wax-seal {
+  display: block;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #c02030, #8b1a2a 55%, #5a0f18);
+  line-height: 52px;
+  font-size: 1.4rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 20px rgba(139,26,42,0.4), inset 0 2px 4px rgba(255,255,255,0.08);
+  margin: 12px 0 0 auto;
+  border: 2px solid rgba(139,26,42,0.6);
+}
+
+/* Keyframes shared */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
+<div class="dir-bar">
+  <a href="index.html" class="dir-home">⚔ Orvis</a>
+  <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill">
+    <span>🗺️</span> The World
+  </a>
+  <a href="talent-tree.html" class="dir-pill">
+    <span>🌿</span> Talent Tree
+  </a>
+  <a href="point-buy.html" class="dir-pill">
+    <span>⚖️</span> Point Buy
+  </a>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════ -->
+<section class="hero-section">
+  <canvas id="runeCanvas"></canvas>
+
+  <div class="hero-content">
+    <div class="crest">
+      <div class="crest-ring">🏰</div>
+    </div>
+
+    <p class="hero-eyebrow">A Campaign Chronicle</p>
+
+    <div class="hero-title-wrap">
+      <h1 class="hero-title">Orvis</h1>
+    </div>
+
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <span class="hero-divider-gem">✦</span>
+      <div class="hero-divider-line right"></div>
+    </div>
+
+    <p class="hero-subtitle">
+      A world of ancient magic, forgotten gods,<br>and legends yet to be written.
+    </p>
+
+    <a href="#welcome" class="hero-cta" onclick="document.getElementById('welcome').scrollIntoView({behavior:'smooth'}); return false;">
+      <span>⚔</span>
+      Enter the Realm
+      <span>⚔</span>
+    </a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══ WELCOME SCROLL ═════════════════════════════ -->
+<section class="welcome-section" id="welcome">
+  <div class="parchment fade-in">
+    <span class="corner-ornament co-tl">❧</span>
+    <span class="corner-ornament co-tr">❧</span>
+    <span class="corner-ornament co-bl">❧</span>
+    <span class="corner-ornament co-br">❧</span>
+
+    <h2 class="page-title" style="font-size:1.7rem; margin-bottom:6px;">Welcome, Adventurer</h2>
+    <p class="page-subtitle">The realm has need of you</p>
+
+    <div class="ornament">⸻ ✦ ⸻</div>
+
+    <p class="welcome-drop-cap fade-in fade-in-delay-1">
+      You have been chosen. Whether by fate, by coin, or by sheer desperation matters little now — the realm has need of you, and your story begins here. Within these pages you will find the knowledge, the rules, and the tools that will guide your path through the world that your Dungeon Master has crafted.
+    </p>
+
+    <p class="fade-in fade-in-delay-2">
+      Read carefully. Study the races and classes available to you. Spend your talent points with wisdom, for every choice shapes who you will become. The world is ancient, dangerous, and full of wonders that no map has ever captured. Your legend is unwritten.
+    </p>
+
+    <p class="fade-in fade-in-delay-2">
+      <em>Replace this welcome text with your own message to your players. Describe the tone of your campaign, set expectations, share a teaser of the opening scene, or simply greet them. This is your space.</em>
+    </p>
+
+    <hr class="hr-ornate">
+
+    <div class="signed-line fade-in fade-in-delay-3">
+      — Your Dungeon Master
+      <div class="wax-seal">⚔</div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* Floating arcane runes on hero canvas */
+const canvas = document.getElementById('runeCanvas');
+const ctx = canvas.getContext('2d');
+
+const RUNES = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
+
+let particles = [];
+let W, H;
+
+function resize() {
+  W = canvas.width  = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+
+function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+function spawnParticle() {
+  return {
+    x: randBetween(0, W),
+    y: randBetween(H * 0.8, H),
+    rune: RUNES[Math.floor(Math.random() * RUNES.length)],
+    size: randBetween(10, 22),
+    speed: randBetween(0.18, 0.55),
+    drift: randBetween(-0.18, 0.18),
+    opacity: 0,
+    maxOpacity: randBetween(0.06, 0.22),
+    fadeIn: true,
+    life: 0,
+    maxLife: randBetween(200, 400),
+  };
+}
+
+for (let i = 0; i < 28; i++) {
+  const p = spawnParticle();
+  p.y = randBetween(0, H);
+  p.life = randBetween(0, p.maxLife);
+  p.opacity = p.maxOpacity * (p.life / p.maxLife);
+  particles.push(p);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  particles.forEach(p => {
+    // fade lifecycle
+    const half = p.maxLife / 2;
+    if (p.life < half) {
+      p.opacity = p.maxOpacity * (p.life / half);
+    } else {
+      p.opacity = p.maxOpacity * (1 - (p.life - half) / half);
+    }
+
+    ctx.save();
+    ctx.globalAlpha = p.opacity;
+    ctx.fillStyle = `rgba(176, 122, 255, 1)`;
+    ctx.font = `${p.size}px serif`;
+    ctx.fillText(p.rune, p.x, p.y);
+    ctx.restore();
+
+    p.y -= p.speed;
+    p.x += p.drift;
+    p.life++;
+
+    if (p.life >= p.maxLife) {
+      Object.assign(p, spawnParticle());
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+
+resize();
+window.addEventListener('resize', resize);
+draw();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Buy Calculator — Campaign Hub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .pb-intro {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  /* Budget bar */
+  .budget-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #2c1a0e, #4a2e10);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 28px;
+    margin-bottom: 32px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 2px 4px rgba(201,150,58,0.3);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .budget-item {
+    text-align: center;
+  }
+
+  .budget-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .budget-value {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    text-shadow: 0 0 12px rgba(240,192,64,0.5);
+    line-height: 1;
+  }
+
+  .budget-value.danger { color: #ff6060; text-shadow: 0 0 12px rgba(255,80,80,0.5); }
+  .budget-value.perfect { color: #80e060; text-shadow: 0 0 12px rgba(120,220,80,0.5); }
+
+  .budget-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(201,150,58,0.3);
+  }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 560px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat-card {
+    background: linear-gradient(145deg, #fdf8e8, var(--parchment-mid));
+    border: 2px solid var(--parchment-shadow);
+    border-radius: 4px;
+    padding: 16px 12px 14px;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.6);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .stat-card:focus-within {
+    border-color: var(--gold);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 10px rgba(201,150,58,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  .stat-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-faded);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .stat-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .stat-btn {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #3a2210, #2c1a0e);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold-bright);
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .stat-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #4a2e10, #3a2210);
+    box-shadow: 0 0 8px rgba(201,150,58,0.3);
+  }
+
+  .stat-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: var(--ink);
+    min-width: 44px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .stat-modifier {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stat-cost {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink-faded);
+    display: block;
+  }
+
+  /* Cost table */
+  .cost-table-wrapper {
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
+  }
+
+  .cost-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    padding: 6px 12px;
+    border-bottom: 2px solid rgba(139,96,16,0.3);
+    text-align: center;
+  }
+
+  .cost-table td {
+    padding: 6px 12px;
+    border-bottom: 1px solid rgba(139,96,16,0.1);
+    text-align: center;
+    color: var(--ink-light);
+  }
+
+  .cost-table td:first-child { font-weight: 600; color: var(--ink); }
+  .cost-table tr.current-row td { background: rgba(201,150,58,0.08); }
+
+  /* Reset */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Summary block */
+  .stat-summary {
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: rgba(44,26,14,0.04);
+    border: 1px solid rgba(139,96,16,0.2);
+    border-radius: 3px;
+  }
+
+  .stat-summary h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .summary-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .summary-stat {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(139,96,16,0.2);
+    border-radius: 2px;
+    padding: 4px 12px;
+    text-align: center;
+  }
+
+  .summary-stat span {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
+<div class="dir-bar">
+  <a href="index.html" class="dir-home">⚔ Orvis</a>
+  <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill">
+    <span>🗺️</span> The World
+  </a>
+  <a href="talent-tree.html" class="dir-pill">
+    <span>🌿</span> Talent Tree
+  </a>
+  <a href="point-buy.html" class="dir-pill">
+    <span>⚖️</span> Point Buy
+  </a>
+</div>
+
+<div class="page-wrapper">
+  <div class="parchment fade-in">
+    <span class="corner-ornament co-tl">❧</span>
+    <span class="corner-ornament co-tr">❧</span>
+    <span class="corner-ornament co-bl">❧</span>
+    <span class="corner-ornament co-br">❧</span>
+
+    <div class="pb-intro">
+      <h1 class="page-title">Point Buy</h1>
+      <p class="page-subtitle">Distribute your ability scores with precision</p>
+    </div>
+
+    <div class="ornament">⸻ ✦ ⸻</div>
+
+    <p>Use the standard D&D 5e point buy system to allocate your six ability scores. All stats start at 8. You have <strong>27 points</strong> to spend. Stats above 13 cost more per point — plan carefully.</p>
+
+    <!-- Budget display -->
+    <div class="budget-bar">
+      <div class="budget-item">
+        <span class="budget-label">Points Spent</span>
+        <div class="budget-value" id="spentDisplay">0</div>
+      </div>
+      <div class="budget-divider"></div>
+      <div class="budget-item">
+        <span class="budget-label">Budget</span>
+        <div class="budget-value" id="totalDisplay">27</div>
+      </div>
+      <div class="budget-divider"></div>
+      <div class="budget-item">
+        <span class="budget-label">Remaining</span>
+        <div class="budget-value" id="remainDisplay">27</div>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stat-grid" id="statGrid">
+      <!-- Generated by JS -->
+    </div>
+
+    <!-- Actions -->
+    <div class="action-row">
+      <button class="btn btn-primary" onclick="resetStats()">✕ Reset All Stats</button>
+    </div>
+
+    <!-- Summary -->
+    <div class="stat-summary" id="statSummary">
+      <h3>Current Array</h3>
+      <div class="summary-stats" id="summaryStats"></div>
+    </div>
+
+    <hr class="hr-ornate">
+
+    <!-- Cost reference table -->
+    <h2 class="section-title">Point Cost Reference</h2>
+    <div class="cost-table-wrapper">
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Cost</th>
+            <th>Modifier</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="costTableBody">
+          <!-- Generated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.85rem; font-style:italic; color:var(--ink-faded); margin-top:8px;">
+      Note: Racial bonuses are applied after point buy and are not reflected in this calculator. The maximum score before racial bonuses is 15.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  const TOTAL_POINTS = 27;
+  const MIN_SCORE = 8;
+  const MAX_SCORE = 15;
+
+  // D&D 5e point costs
+  const COST_TABLE = {
+    8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9
+  };
+
+  const STATS = [
+    { id: 'str', name: 'Strength', abbr: 'STR', icon: '⚔️' },
+    { id: 'dex', name: 'Dexterity', abbr: 'DEX', icon: '🏹' },
+    { id: 'con', name: 'Constitution', abbr: 'CON', icon: '🛡️' },
+    { id: 'int', name: 'Intelligence', abbr: 'INT', icon: '📚' },
+    { id: 'wis', name: 'Wisdom', abbr: 'WIS', icon: '🌿' },
+    { id: 'cha', name: 'Charisma', abbr: 'CHA', icon: '🎭' },
+  ];
+
+  let values = {};
+  STATS.forEach(s => values[s.id] = 8);
+
+  function getModifier(score) {
+    const mod = Math.floor((score - 10) / 2);
+    return mod >= 0 ? '+' + mod : '' + mod;
+  }
+
+  function totalSpent() {
+    return Object.values(values).reduce((sum, v) => sum + COST_TABLE[v], 0);
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('statGrid');
+    grid.innerHTML = '';
+    STATS.forEach(stat => {
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.id = 'card-' + stat.id;
+      card.innerHTML = `
+        <span class="stat-name">${stat.abbr}</span>
+        <div class="stat-control">
+          <button class="stat-btn" id="dec-${stat.id}" onclick="adjustStat('${stat.id}', -1)">−</button>
+          <div class="stat-value" id="val-${stat.id}">${values[stat.id]}</div>
+          <button class="stat-btn" id="inc-${stat.id}" onclick="adjustStat('${stat.id}', 1)">+</button>
+        </div>
+        <span class="stat-modifier" id="mod-${stat.id}">${getModifier(values[stat.id])}</span>
+        <span class="stat-cost" id="cost-${stat.id}">Cost: ${COST_TABLE[values[stat.id]]} pts</span>
+      `;
+      grid.appendChild(card);
+    });
+    buildCostTable();
+    updateDisplay();
+  }
+
+  function adjustStat(id, delta) {
+    const newVal = values[id] + delta;
+    if (newVal < MIN_SCORE || newVal > MAX_SCORE) return;
+
+    const newCost = COST_TABLE[newVal];
+    const oldCost = COST_TABLE[values[id]];
+    const remaining = TOTAL_POINTS - totalSpent();
+
+    if (delta > 0 && (newCost - oldCost) > remaining) return; // can't afford
+
+    values[id] = newVal;
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    const spent = totalSpent();
+    const remaining = TOTAL_POINTS - spent;
+
+    // Update budget bar
+    document.getElementById('spentDisplay').textContent = spent;
+    document.getElementById('remainDisplay').textContent = remaining;
+
+    const remEl = document.getElementById('remainDisplay');
+    remEl.className = 'budget-value';
+    if (remaining === 0) remEl.classList.add('perfect');
+    else if (remaining < 0) remEl.classList.add('danger');
+
+    // Update each stat card
+    STATS.forEach(stat => {
+      const v = values[stat.id];
+      document.getElementById('val-' + stat.id).textContent = v;
+      document.getElementById('mod-' + stat.id).textContent = getModifier(v);
+      document.getElementById('cost-' + stat.id).textContent = 'Cost: ' + COST_TABLE[v] + ' pts';
+
+      // Buttons
+      const dec = document.getElementById('dec-' + stat.id);
+      const inc = document.getElementById('inc-' + stat.id);
+      dec.disabled = v <= MIN_SCORE;
+
+      const nextCost = v < MAX_SCORE ? COST_TABLE[v + 1] - COST_TABLE[v] : 99;
+      inc.disabled = v >= MAX_SCORE || nextCost > remaining;
+    });
+
+    // Summary
+    const summaryEl = document.getElementById('summaryStats');
+    summaryEl.innerHTML = STATS.map(s => `
+      <div class="summary-stat">
+        ${s.abbr}
+        <span>${values[s.id]} <small style="font-size:0.75rem;color:var(--gold)">(${getModifier(values[s.id])})</small></span>
+      </div>
+    `).join('');
+
+    // Highlight cost table
+    document.querySelectorAll('#costTableBody tr').forEach(row => {
+      row.classList.remove('current-row');
+    });
+  }
+
+  function buildCostTable() {
+    const tbody = document.getElementById('costTableBody');
+    tbody.innerHTML = '';
+    for (let score = 8; score <= 15; score++) {
+      const incrementalCost = score > 8 ? COST_TABLE[score] - COST_TABLE[score - 1] : 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${score}</td>
+        <td>${COST_TABLE[score]}</td>
+        <td>${getModifier(score)}</td>
+        <td style="font-style:italic; color:var(--ink-faded); font-size:0.85rem;">${
+          score <= 13 ? '1 pt per increase' :
+          score === 14 ? '2 pts to reach 14' :
+          '2 pts to reach 15'
+        }</td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+
+  function resetStats() {
+    STATS.forEach(s => values[s.id] = 8);
+    updateDisplay();
+  }
+
+  buildGrid();
+</script>
+</body>
+</html>

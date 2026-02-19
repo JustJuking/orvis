@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The World — Campaign Hub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .lore-block {
+    background: rgba(44,26,14,0.04);
+    border-left: 3px solid var(--gold-dim);
+    padding: 14px 18px;
+    margin: 20px 0;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .lore-block p {
+    font-style: italic;
+    color: var(--ink-faded);
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  .lore-block cite {
+    display: block;
+    font-size: 0.82rem;
+    margin-top: 6px;
+    color: var(--gold-dim);
+    font-style: normal;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .info-card {
+    background: linear-gradient(145deg, #fdf8e8, var(--parchment-mid));
+    border: 1px solid var(--parchment-shadow);
+    border-radius: 3px;
+    padding: 16px 18px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .info-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .info-card .card-icon { font-size: 1.6rem; }
+
+  .info-card .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+
+  .info-card .card-subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--gold-dim);
+  }
+
+  .info-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .info-card ul li {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.92rem;
+    color: var(--ink-light);
+    padding: 3px 0;
+    border-bottom: 1px dashed rgba(139,96,16,0.15);
+  }
+
+  .info-card ul li:last-child { border-bottom: none; }
+
+  .info-card ul li span {
+    float: right;
+    font-size: 0.8rem;
+    color: var(--ink-faded);
+    font-style: italic;
+  }
+
+  .trait-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    background: rgba(44,26,14,0.08);
+    border: 1px solid rgba(139,96,16,0.3);
+    border-radius: 2px;
+    padding: 1px 6px;
+    color: var(--ink-faded);
+    margin: 2px 2px 0 0;
+    letter-spacing: 0.04em;
+  }
+
+  .edit-hint {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--gold-dim);
+    text-align: center;
+    margin-top: 16px;
+    opacity: 0.7;
+  }
+
+  /* Rules table */
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
+  }
+
+  .rules-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    padding: 8px 12px;
+    border-bottom: 2px solid rgba(139,96,16,0.3);
+    text-align: left;
+  }
+
+  .rules-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(139,96,16,0.12);
+    color: var(--ink-light);
+    vertical-align: top;
+  }
+
+  .rules-table tr:last-child td { border-bottom: none; }
+
+  .rules-table tr:hover td { background: rgba(44,26,14,0.03); }
+</style>
+</head>
+<body>
+
+<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
+<div class="dir-bar">
+  <a href="index.html" class="dir-home">⚔ Orvis</a>
+  <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill">
+    <span>🗺️</span> The World
+  </a>
+  <a href="talent-tree.html" class="dir-pill">
+    <span>🌿</span> Talent Tree
+  </a>
+  <a href="point-buy.html" class="dir-pill">
+    <span>⚖️</span> Point Buy
+  </a>
+</div>
+
+<div class="page-wrapper">
+  <div class="parchment fade-in">
+    <span class="corner-ornament co-tl">❧</span>
+    <span class="corner-ornament co-tr">❧</span>
+    <span class="corner-ornament co-bl">❧</span>
+    <span class="corner-ornament co-br">❧</span>
+
+    <h1 class="page-title">The World</h1>
+    <p class="page-subtitle">Races, classes, lore & the laws of the land</p>
+
+    <div class="ornament">⸻ ✦ ⸻</div>
+
+    <!-- WORLD LORE -->
+    <h2 class="section-title fade-in fade-in-delay-1">A Word on the Realm</h2>
+
+    <p class="fade-in fade-in-delay-1">
+      Replace this section with your world's overview. Describe the setting, the age of the world, whether magic is common or rare, the political landscape, major factions, and the tone of your campaign. Is it high fantasy, dark and gritty, seafaring, post-apocalyptic? Your players should leave this section with a clear picture of where they exist.
+    </p>
+
+    <div class="lore-block fade-in fade-in-delay-2">
+      <p>"Replace this with a flavour quote — something a sage, king, or god might have once said about the world. It sets tone beautifully at the top of a section."</p>
+      <cite>— Name, Title or Source</cite>
+    </div>
+
+    <hr class="hr-ornate">
+
+    <!-- RACES -->
+    <h2 class="section-title fade-in fade-in-delay-2">Playable Races</h2>
+    <p class="fade-in fade-in-delay-2">The following races are available in this campaign. Edit each card below to reflect your world's races, their traits, and their lore.</p>
+
+    <div class="two-col fade-in fade-in-delay-2">
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🧝</span>
+          <div>
+            <div class="card-title">Human</div>
+            <div class="card-subtitle">Adaptable · Ambitious</div>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; margin-bottom:10px; color:var(--ink-faded); font-style:italic;">Short lore blurb about this race and their place in your world.</p>
+        <div>
+          <span class="trait-badge">+1 All Stats</span>
+          <span class="trait-badge">Extra Skill</span>
+          <span class="trait-badge">Bonus Feat</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🧙</span>
+          <div>
+            <div class="card-title">Elf</div>
+            <div class="card-subtitle">Ancient · Perceptive</div>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; margin-bottom:10px; color:var(--ink-faded); font-style:italic;">Short lore blurb about this race and their place in your world.</p>
+        <div>
+          <span class="trait-badge">+2 DEX</span>
+          <span class="trait-badge">Darkvision</span>
+          <span class="trait-badge">Trance</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">⛏️</span>
+          <div>
+            <div class="card-title">Dwarf</div>
+            <div class="card-subtitle">Stalwart · Resilient</div>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; margin-bottom:10px; color:var(--ink-faded); font-style:italic;">Short lore blurb about this race and their place in your world.</p>
+        <div>
+          <span class="trait-badge">+2 CON</span>
+          <span class="trait-badge">Stonecunning</span>
+          <span class="trait-badge">Poison Resist</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🐉</span>
+          <div>
+            <div class="card-title">Dragonborn</div>
+            <div class="card-subtitle">Proud · Draconic</div>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; margin-bottom:10px; color:var(--ink-faded); font-style:italic;">Short lore blurb about this race and their place in your world.</p>
+        <div>
+          <span class="trait-badge">+2 STR</span>
+          <span class="trait-badge">Breath Weapon</span>
+          <span class="trait-badge">Damage Resist</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="edit-hint">✦ Edit the cards above to match your campaign's races — change names, icons, traits, and lore ✦</p>
+
+    <hr class="hr-ornate">
+
+    <!-- CLASSES -->
+    <h2 class="section-title fade-in fade-in-delay-3">Available Classes</h2>
+    <p class="fade-in fade-in-delay-3">Choose a class that fits your character concept. Each class brings a distinct role to the party and a unique flavour to your story.</p>
+
+    <div class="two-col fade-in fade-in-delay-3">
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">⚔️</span>
+          <div>
+            <div class="card-title">Fighter</div>
+            <div class="card-subtitle">Martial · Versatile</div>
+          </div>
+        </div>
+        <ul>
+          <li>Hit Die <span>d10</span></li>
+          <li>Primary Stat <span>STR or DEX</span></li>
+          <li>Armour <span>All armour & shields</span></li>
+          <li>Role <span>Frontline combatant</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🔮</span>
+          <div>
+            <div class="card-title">Wizard</div>
+            <div class="card-subtitle">Arcane · Scholarly</div>
+          </div>
+        </div>
+        <ul>
+          <li>Hit Die <span>d6</span></li>
+          <li>Primary Stat <span>INT</span></li>
+          <li>Armour <span>None</span></li>
+          <li>Role <span>Spellcaster & utility</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🌿</span>
+          <div>
+            <div class="card-title">Druid</div>
+            <div class="card-subtitle">Nature · Shapeshifter</div>
+          </div>
+        </div>
+        <ul>
+          <li>Hit Die <span>d8</span></li>
+          <li>Primary Stat <span>WIS</span></li>
+          <li>Armour <span>Light & medium (no metal)</span></li>
+          <li>Role <span>Support & wild shape</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="card-header">
+          <span class="card-icon">🗡️</span>
+          <div>
+            <div class="card-title">Rogue</div>
+            <div class="card-subtitle">Swift · Cunning</div>
+          </div>
+        </div>
+        <ul>
+          <li>Hit Die <span>d8</span></li>
+          <li>Primary Stat <span>DEX</span></li>
+          <li>Armour <span>Light armour</span></li>
+          <li>Role <span>Striker & skill expert</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="edit-hint">✦ Add, remove, or modify classes to match your campaign's available options ✦</p>
+
+    <hr class="hr-ornate">
+
+    <!-- HOUSE RULES -->
+    <h2 class="section-title fade-in fade-in-delay-4">House Rules</h2>
+    <p class="fade-in fade-in-delay-4">The following modifications to standard rules are in effect for this campaign. Add or remove rows as needed.</p>
+
+    <table class="rules-table fade-in fade-in-delay-4">
+      <thead>
+        <tr>
+          <th>Rule</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Critical Hits</strong></td>
+          <td>On a natural 20, roll all damage dice twice and add modifiers once.</td>
+        </tr>
+        <tr>
+          <td><strong>Death Saves</strong></td>
+          <td>Players may spend a Luck point to reroll a failed death saving throw once per rest.</td>
+        </tr>
+        <tr>
+          <td><strong>Inspiration</strong></td>
+          <td>Inspiration can be stored and is awarded for excellent roleplay, creative solutions, and heroic moments.</td>
+        </tr>
+        <tr>
+          <td><strong>Your Rule Here</strong></td>
+          <td>Describe your custom rule. Edit this table to match your campaign's specific rules.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

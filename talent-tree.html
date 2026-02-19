@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talent Tree — Campaign Hub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Point counter */
+  .point-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #2c1a0e, #4a2e10);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 12px 24px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(201,150,58,0.3);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .point-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .point-display {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    text-shadow: 0 0 12px rgba(240,192,64,0.6);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .point-total {
+    font-family: 'Crimson Text', serif;
+    color: var(--ink-faded);
+    font-size: 1rem;
+  }
+
+  .reset-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--red-wax);
+    color: #c44;
+    padding: 6px 14px;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--red-wax); color: var(--parchment); }
+
+  /* Tree container */
+  .tree-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .tree-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .tree-svg line {
+    stroke: var(--ink-faded);
+    stroke-width: 2;
+    stroke-dasharray: 5 3;
+    opacity: 0.5;
+  }
+  .tree-svg line.active {
+    stroke: var(--gold);
+    stroke-width: 2.5;
+    stroke-dasharray: none;
+    opacity: 0.9;
+  }
+
+  /* Tier rows */
+  .tier {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    padding: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .branch-tag {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    text-align: center;
+    margin: -8px 0 8px;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  /* Node cards */
+  .node {
+    width: 130px;
+    background: linear-gradient(160deg, #fdf5d8 0%, var(--parchment) 50%, #dfc887 100%);
+    border: 2px solid var(--parchment-shadow);
+    border-radius: 3px;
+    padding: 10px 10px 8px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+    text-align: center;
+    user-select: none;
+  }
+
+  .node.locked {
+    opacity: 0.55;
+    filter: grayscale(30%);
+    cursor: not-allowed;
+    border-color: var(--locked, #a89070);
+  }
+
+  .node.available {
+    border-color: var(--gold);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.25), 0 0 8px rgba(201,150,58,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .node.available:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.3), 0 0 16px rgba(201,150,58,0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .node.purchased {
+    background: linear-gradient(160deg, #e8f0d8, #d4e8b8 50%, #b8d490 100%);
+    border-color: #4a7c2f;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2), 0 0 10px rgba(74,124,47,0.25);
+  }
+
+  .node.branch-a.purchased {
+    background: linear-gradient(160deg, #e8e0f0, #d4c8e8 50%, #b8a8d4 100%);
+    border-color: #4a3080;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2), 0 0 10px rgba(74,48,128,0.25);
+  }
+  .node.branch-b.purchased {
+    background: linear-gradient(160deg, #d8f0e0, #b8e8c8 50%, #90d4a8 100%);
+    border-color: #2a5a3a;
+  }
+
+  .node.excluded {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(60%) sepia(20%);
+  }
+
+  .node.purchased::after {
+    content: '✦';
+    position: absolute;
+    top: 4px; right: 6px;
+    font-size: 0.6rem;
+    color: #4a7c2f;
+    opacity: 0.8;
+  }
+  .node.branch-a.purchased::after { color: #4a3080; }
+  .node.branch-b.purchased::after { color: #2a5a3a; }
+
+  .node-icon { font-size: 1.6rem; line-height: 1; margin-bottom: 4px; display: block; }
+
+  .node-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    margin-bottom: 3px;
+    line-height: 1.2;
+  }
+
+  .node-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.78rem;
+    color: var(--ink-light);
+    font-style: italic;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .node-cost {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--gold);
+    background: rgba(44,26,14,0.08);
+    border: 1px solid rgba(201,150,58,0.4);
+    border-radius: 2px;
+    padding: 1px 7px;
+  }
+
+  .node.purchased .node-cost { color: #4a7c2f; border-color: rgba(74,124,47,0.4); }
+  .node.locked .node-cost { color: #a89070; border-color: rgba(168,144,112,0.4); }
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'Crimson Text', serif;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    border: 1px solid var(--gold);
+  }
+  .node:hover .tooltip { display: block; }
+
+  /* Summary */
+  .summary { margin-top: 28px; border-top: 1px solid var(--parchment-shadow); padding-top: 20px; }
+
+  .summary h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .summary-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .summary-list li {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    background: rgba(44,26,14,0.05);
+    border: 1px solid rgba(44,26,14,0.15);
+    border-radius: 2px;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .empty-msg {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    color: var(--ink-faded);
+    font-size: 0.95rem;
+  }
+
+  .refund-hint {
+    text-align: center;
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--ink-faded);
+    margin-top: 12px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
+<div class="dir-bar">
+  <a href="index.html" class="dir-home">⚔ Orvis</a>
+  <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill">
+    <span>🗺️</span> The World
+  </a>
+  <a href="talent-tree.html" class="dir-pill">
+    <span>🌿</span> Talent Tree
+  </a>
+  <a href="point-buy.html" class="dir-pill">
+    <span>⚖️</span> Point Buy
+  </a>
+</div>
+
+<div class="page-wrapper">
+  <div class="parchment fade-in">
+    <span class="corner-ornament co-tl">❧</span>
+    <span class="corner-ornament co-tr">❧</span>
+    <span class="corner-ornament co-bl">❧</span>
+    <span class="corner-ornament co-br">❧</span>
+
+    <h1 class="page-title">Arcane Talent Tree</h1>
+    <p class="page-subtitle">Spend your points wisely, adventurer</p>
+
+    <div class="ornament">⸻ ✦ ⸻</div>
+
+    <div class="point-bar">
+      <div>
+        <div class="point-label">Points Remaining</div>
+        <div class="point-display" id="pointsLeft">10</div>
+      </div>
+      <div class="point-total" id="pointsSummary">of 10 total · 0 spent</div>
+      <button class="reset-btn" onclick="resetAll()">✕ Reset All</button>
+    </div>
+
+    <div class="tree-container" id="treeContainer">
+      <svg class="tree-svg" id="treeSvg"></svg>
+
+      <div class="tier" id="tier1">
+        <div class="node available" id="node-foundation" data-id="foundation" data-cost="1" data-prereq="" data-branch="" onclick="toggleNode(this)">
+          <span class="node-icon">🕯️</span>
+          <div class="node-name">Arcane Foundation</div>
+          <div class="node-desc">The spark of magical potential awakens within.</div>
+          <span class="node-cost">1 pt</span>
+          <div class="tooltip">Required for all paths</div>
+        </div>
+      </div>
+
+      <div class="branch-tag">Choose your Path</div>
+      <div class="tier" id="tier2">
+        <div class="node locked branch-a" id="node-illusion" data-id="illusion" data-cost="2" data-prereq="foundation" data-branch="a" onclick="toggleNode(this)">
+          <span class="node-icon">🌙</span>
+          <div class="node-name">Veil of Illusion</div>
+          <div class="node-desc">Bend perception, twist reality.</div>
+          <span class="node-cost">2 pts</span>
+          <div class="tooltip">Path of Illusion</div>
+        </div>
+        <div class="node locked branch-b" id="node-evocation" data-id="evocation" data-cost="2" data-prereq="foundation" data-branch="b" onclick="toggleNode(this)">
+          <span class="node-icon">🔥</span>
+          <div class="node-name">Evocation Arts</div>
+          <div class="node-desc">Raw magical force made manifest.</div>
+          <span class="node-cost">2 pts</span>
+          <div class="tooltip">Path of Evocation</div>
+        </div>
+      </div>
+
+      <div class="tier" id="tier3">
+        <div class="node locked branch-a" id="node-mirror" data-id="mirror" data-cost="2" data-prereq="illusion" data-branch="a" onclick="toggleNode(this)">
+          <span class="node-icon">🪞</span>
+          <div class="node-name">Mirror Image</div>
+          <div class="node-desc">Summon duplicates to confound foes.</div>
+          <span class="node-cost">2 pts</span>
+        </div>
+        <div class="node locked branch-a" id="node-glamour" data-id="glamour" data-cost="2" data-prereq="illusion" data-branch="a" onclick="toggleNode(this)">
+          <span class="node-icon">✨</span>
+          <div class="node-name">Glamour</div>
+          <div class="node-desc">Charm and disguise made irresistible.</div>
+          <span class="node-cost">2 pts</span>
+        </div>
+        <div class="node locked branch-b" id="node-bolt" data-id="bolt" data-cost="2" data-prereq="evocation" data-branch="b" onclick="toggleNode(this)">
+          <span class="node-icon">⚡</span>
+          <div class="node-name">Chain Lightning</div>
+          <div class="node-desc">Arc electricity between enemies.</div>
+          <span class="node-cost">2 pts</span>
+        </div>
+        <div class="node locked branch-b" id="node-shield" data-id="shield" data-cost="2" data-prereq="evocation" data-branch="b" onclick="toggleNode(this)">
+          <span class="node-icon">🛡️</span>
+          <div class="node-name">Arcane Ward</div>
+          <div class="node-desc">Forge a barrier of pure magical force.</div>
+          <span class="node-cost">2 pts</span>
+        </div>
+      </div>
+
+      <div class="tier" id="tier4">
+        <div class="node locked branch-a" id="node-phantasm" data-id="phantasm" data-cost="3" data-prereq="mirror,glamour" data-branch="a" data-requireall="true" onclick="toggleNode(this)">
+          <span class="node-icon">👁️</span>
+          <div class="node-name">Grand Phantasm</div>
+          <div class="node-desc">Weave an inescapable dreamscape reality.</div>
+          <span class="node-cost">3 pts</span>
+          <div class="tooltip">Requires: Mirror Image + Glamour</div>
+        </div>
+        <div class="node locked branch-b" id="node-meteor" data-id="meteor" data-cost="3" data-prereq="bolt,shield" data-branch="b" data-requireall="true" onclick="toggleNode(this)">
+          <span class="node-icon">☄️</span>
+          <div class="node-name">Meteor Swarm</div>
+          <div class="node-desc">Call down devastation from the heavens.</div>
+          <span class="node-cost">3 pts</span>
+          <div class="tooltip">Requires: Chain Lightning + Arcane Ward</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refund-hint">Click a purchased talent to refund it · Locked talents cannot be selected</div>
+
+    <div class="summary">
+      <h3>Chosen Talents</h3>
+      <ul class="summary-list" id="summaryList">
+        <li class="empty-msg">No talents chosen yet.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  const TOTAL_POINTS = 10;
+  let purchased = new Set();
+
+  function getNode(id) { return document.getElementById('node-' + id); }
+  function getPrereqs(node) { const p = node.dataset.prereq; return p ? p.split(',').filter(Boolean) : []; }
+  function getBranch(id) { const n = getNode(id); return n ? n.dataset.branch : ''; }
+
+  function getChosenBranch() {
+    for (let id of purchased) { const b = getBranch(id); if (b) return b; }
+    return '';
+  }
+
+  function spentPoints() { return [...purchased].reduce((s, id) => s + parseInt(getNode(id).dataset.cost), 0); }
+
+  function prereqsMet(node) {
+    const prereqs = getPrereqs(node);
+    if (!prereqs.length) return true;
+    return node.dataset.requireall === 'true'
+      ? prereqs.every(p => purchased.has(p))
+      : prereqs.some(p => purchased.has(p));
+  }
+
+  function isExcluded(node) {
+    const branch = node.dataset.branch;
+    if (!branch) return false;
+    const chosen = getChosenBranch();
+    return chosen && branch !== chosen;
+  }
+
+  function canAfford(node) { return parseInt(node.dataset.cost) <= (TOTAL_POINTS - spentPoints()); }
+
+  function toggleNode(node) {
+    const id = node.dataset.id;
+    if (purchased.has(id)) {
+      const deps = [...document.querySelectorAll('.node')].filter(n => getPrereqs(n).includes(id) && purchased.has(n.dataset.id));
+      if (deps.length) { node.style.outline = '2px solid #c44'; setTimeout(() => node.style.outline = '', 600); return; }
+      purchased.delete(id);
+    } else {
+      if (node.classList.contains('locked') || node.classList.contains('excluded')) return;
+      if (!canAfford(node) || !prereqsMet(node)) return;
+      purchased.add(id);
+    }
+    updateTree();
+  }
+
+  function resetAll() { purchased.clear(); updateTree(); }
+
+  function updateTree() {
+    const spent = spentPoints();
+    document.getElementById('pointsLeft').textContent = TOTAL_POINTS - spent;
+    document.getElementById('pointsSummary').textContent = `of ${TOTAL_POINTS} total · ${spent} spent`;
+
+    document.querySelectorAll('.node').forEach(node => {
+      const id = node.dataset.id;
+      node.classList.remove('purchased', 'available', 'locked', 'excluded');
+      if (purchased.has(id)) node.classList.add('purchased');
+      else if (isExcluded(node)) node.classList.add('excluded', 'locked');
+      else if (prereqsMet(node) && canAfford(node)) node.classList.add('available');
+      else node.classList.add('locked');
+    });
+
+    const list = document.getElementById('summaryList');
+    if (purchased.size === 0) { list.innerHTML = '<li class="empty-msg">No talents chosen yet.</li>'; }
+    else {
+      list.innerHTML = '';
+      purchased.forEach(id => {
+        const node = getNode(id);
+        const li = document.createElement('li');
+        li.textContent = node.querySelector('.node-icon').textContent + ' ' + node.querySelector('.node-name').textContent;
+        const badge = document.createElement('span');
+        badge.style.cssText = 'font-size:0.7rem;color:var(--gold);opacity:0.8;';
+        badge.textContent = `(${node.dataset.cost}pt)`;
+        li.appendChild(badge);
+        list.appendChild(li);
+      });
+    }
+    drawLines();
+  }
+
+  function getCenter(node) {
+    const cr = document.getElementById('treeContainer').getBoundingClientRect();
+    const nr = node.getBoundingClientRect();
+    return { x: nr.left - cr.left + nr.width / 2, y: nr.top - cr.top + nr.height / 2 };
+  }
+
+  function drawLines() {
+    const svg = document.getElementById('treeSvg');
+    const container = document.getElementById('treeContainer');
+    svg.innerHTML = '';
+    svg.setAttribute('viewBox', `0 0 ${container.offsetWidth} ${container.offsetHeight}`);
+
+    const connections = [
+      ['foundation','illusion'],['foundation','evocation'],
+      ['illusion','mirror'],['illusion','glamour'],
+      ['evocation','bolt'],['evocation','shield'],
+      ['mirror','phantasm'],['glamour','phantasm'],
+      ['bolt','meteor'],['shield','meteor']
+    ];
+
+    connections.forEach(([from, to]) => {
+      const fn = getNode(from), tn = getNode(to);
+      if (!fn || !tn) return;
+      const fc = getCenter(fn), tc = getCenter(tn);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', fc.x); line.setAttribute('y1', fc.y);
+      line.setAttribute('x2', tc.x); line.setAttribute('y2', tc.y);
+      if (purchased.has(from) && purchased.has(to)) line.classList.add('active');
+      svg.appendChild(line);
+    });
+  }
+
+  updateTree();
+  window.addEventListener('resize', drawLines);
+  setTimeout(drawLines, 100);
+</script>
+</body>
+</html>
