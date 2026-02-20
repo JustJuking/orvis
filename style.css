@@ -549,3 +549,10 @@ em { color: var(--text-gold); }
   .nav-brand { font-size: 0.85rem; }
   .nav-links a { padding: 18px 10px; font-size: 0.62rem; letter-spacing: 0.08em; }
 }
+
+/* Responsive Images */
+.responsive-img {
+  max-width: 100%;  /* Keeps it from leaking out of the panel */
+  height: auto;     /* Maintains the correct proportions so it doesn't look squashed */
+  display: block;   /* Removes the tiny gap at the bottom of images */
+}
