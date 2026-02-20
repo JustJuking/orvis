@@ -684,33 +684,23 @@ em { color: var(--text-gold); }
 
 /* ─── TABLES ─────────────────────────────────────── */
 
-/* The Frame & Reclaimed Space Logic */
 .cost-table-wrapper.gold-frame {
-  margin: 40px -40px;           /* Pulls the table 40px into the parchment's side padding */
-  width: calc(100% + 80px);     /* Reclaims 80px of horizontal space */
+  margin: 40px -40px;
+  width: calc(100% + 80px);
   padding: 8px !important;
   background-color: var(--stone-light) !important;
   border: 1px solid var(--gold-dim) !important;
   border-radius: 4px;
-  box-shadow: 
-    0 0 0 1px var(--gold-dim),  
-    0 0 30px var(--arcane-mist), 
-    0 15px 45px rgba(0,0,0,0.9) !important;
-  overflow-x: auto;             /* Safety scroll for tiny mobile screens */
-  scrollbar-width: none;        /* Hides scrollbar for Firefox */
-}
-
-/* Hide scrollbar for Chrome/Safari/Edge */
-.cost-table-wrapper.gold-frame::-webkit-scrollbar {
-  display: none;
+  box-shadow: 0 0 0 1px var(--gold-dim), 0 0 30px var(--arcane-mist), 0 15px 45px rgba(0,0,0,0.9) !important;
+  overflow-x: auto;
 }
 
 .rules-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;           /* Shrunk font for fitting */
+  font-size: 0.82rem;
   letter-spacing: -0.01em;
-  table-layout: fixed;          /* CRITICAL: This forces the widths below to be obeyed */
+  table-layout: fixed; /* Keep this, it's necessary for the widths below */
 }
 
 .rules-table th, 
@@ -719,54 +709,35 @@ em { color: var(--text-gold); }
   line-height: 1.2;
   border-bottom: 1px solid rgba(124,79,196,0.1);
   text-align: center;
+  overflow: hidden; /* Prevents text from leaking if a column gets too small */
 }
 
-/* --- COLUMN WIDTH DEFINITIONS --- */
+/* --- COLUMN WIDTH DEFINITIONS (Targeting Data Cells) --- */
 
-/* 1. Level */
-.rules-table th:nth-child(1), 
-.rules-table td:nth-child(1) { width: 45px; color: var(--silver); font-weight: 700; }
-
-/* 2. PB */
-.rules-table th:nth-child(2), 
-.rules-table td:nth-child(2) { width: 40px; }
-
-/* 3. FEATURES (Stretches to fill space) */
-.rules-table td:nth-child(3) {
-  text-align: left;
-  white-space: normal;
-  word-wrap: break-word;
-  font-size: 0.8rem;
-  color: var(--text-bright);
-  width: auto;                  /* This column takes up all the leftover room */
-}
-
-/* 4 & 5. Frightening Presence (Uses & Area) */
-.rules-table th:nth-child(4), .rules-table td:nth-child(4) { width: 45px; }
-.rules-table th:nth-child(5), .rules-table td:nth-child(5) { width: 55px; white-space: nowrap; }
-
-/* 6, 7, 8, 9. Spellcasting Columns (The narrow numbers at the end) */
-.rules-table td:nth-child(n+6) {
-  width: 38px;
-  font-style: italic;
-  color: var(--text-mid);
-}
+.rules-table td:nth-child(1) { width: 45px; color: var(--silver); font-weight: 700; } /* Level */
+.rules-table td:nth-child(2) { width: 40px; }                                       /* PB */
+.rules-table td:nth-child(3) { width: auto; text-align: left; white-space: normal; } /* Features */
+.rules-table td:nth-child(4) { width: 45px; }                                       /* Presence Uses */
+.rules-table td:nth-child(5) { width: 55px; }                                       /* Presence Area */
+.rules-table td:nth-child(6) { width: 45px; }                                       /* Cantrips */
+.rules-table td:nth-child(7) { width: 45px; }                                       /* Spells */
+.rules-table td:nth-child(8) { width: 40px; }                                       /* Slots */
+.rules-table td:nth-child(9) { width: 40px; }                                       /* Spell Level */
 
 /* Header Specifics */
 .rules-table th {
   font-family: 'Cinzel', serif;
   font-size: 0.7rem;
   color: var(--silver-dim);
-  white-space: nowrap;
   text-transform: uppercase;
   background: rgba(22, 18, 40, 0.5);
 }
 
-/* Zebra Striping */
-.rules-table tr:nth-child(even) {
-  background: rgba(124,79,196,0.04);
+/* Ensure the double-header rows wrap if they need to */
+.rules-table thead th {
+  white-space: normal;
+  vertical-align: bottom;
 }
 
-.rules-table tr:hover td {
-  background: rgba(124,79,196,0.08);
-}
+.rules-table tr:nth-child(even) { background: rgba(124,79,196,0.04); }
+.rules-table tr:hover td { background: rgba(124,79,196,0.08); }
