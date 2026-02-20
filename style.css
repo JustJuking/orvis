@@ -724,3 +724,18 @@ em { color: var(--text-gold); }
   text-shadow: 0 0 8px var(--gold-glow);
   line-height: 1.6;         /* Matches the li line-height for perfect vertical centering */
 }
+
+.info-card .lore-list li {
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.info-card .lore-list {
+  padding: 0;
+  margin: 8px 0 8px 16px;
+}
+
+.info-card .lore-list li {
+  padding-left: 28px;
+  border-bottom: none;
+}
