@@ -696,3 +696,29 @@ em { color: var(--text-gold); }
   .parchment { padding: 36px 24px; }
   .page-title { font-size: 1.6rem; }
 }
+
+/* ─── LISTS ─────────────────────────────────── */
+/* Container for the list */
+.lore-list {
+  list-style: none;         /* Removes the default black dot */
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+/* The individual items */
+.lore-list li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 25px;       /* Makes room for our custom bullet */
+  line-height: 1.5;
+}
+
+/* The custom "Bullet" (A gold diamond) */
+.lore-list li::before {
+  content: '✦';             /* You can use ✦, ◈, or • */
+  position: absolute;
+  left: 0;
+  color: var(--gold);       /* Using your gold variable */
+  font-size: 0.8rem;
+  text-shadow: 0 0 8px var(--gold-glow);
+}
