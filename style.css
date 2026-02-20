@@ -110,6 +110,8 @@ body::before {
 .dir-home {
   position: absolute;
   left: 16px;
+  top: 50%; /* Anchor to the vertical middle */
+  transform: translateY(-50%); /* Offset by its own height to be perfectly centered */
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -123,6 +125,7 @@ body::before {
   text-shadow: 0 0 10px rgba(242,192,69,0.6), 0 0 24px rgba(242,192,69,0.3);
   animation: dirHomeGlow 3s ease-in-out infinite;
   transition: text-shadow 0.22s;
+  z-index: 10; /* Ensure it stays above the glass blur */
 }
 
 .dir-home:hover {
@@ -137,7 +140,9 @@ body::before {
 
 .dir-end {
   position: absolute;
-  right: 16px;
+  right: 16px; /* This pins it to the right */
+  top: 50%; 
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -151,6 +156,7 @@ body::before {
   text-shadow: 0 0 10px rgba(242,192,69,0.6), 0 0 24px rgba(242,192,69,0.3);
   animation: dirEndGlow 3s ease-in-out infinite;
   transition: text-shadow 0.22s;
+  z-index: 10;
 }
 
 .dir-end:hover {
