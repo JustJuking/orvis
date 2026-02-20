@@ -99,6 +99,8 @@ body::before {
   border-bottom: 1px solid rgba(124,79,196,0.35);
   display: flex;
   align-items: center;
+  position: relative;
+  width: 100%;
   justify-content: center;
   gap: 8px;
   padding: 7px 20px;
@@ -134,7 +136,7 @@ body::before {
 }
 
 .dir-end {
-  position: flex;
+  position: absolute;
   right: 16px;
   display: inline-flex;
   align-items: center;
@@ -605,7 +607,7 @@ em { color: var(--text-gold); }
 }
 
 .lore-image {
-  flex: 0 0 50%;         /* Image takes exactly 50% and won't shrink */
+  flex: 0 0 55%;         /* Image takes exactly 50% and won't shrink */
   max-width: 700px;
 }
 
