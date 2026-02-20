@@ -662,3 +662,16 @@ em { color: var(--text-gold); }
     gap: 20px;
   }
 }
+
+/* ─── FANCY FRAMES ───────────────────────────── */
+.gold-frame {
+  border: 1px solid var(--gold-dim) !important;
+  padding: 8px !important;               /* Slightly thicker padding for the map */
+  background-color: var(--stone-light) !important;
+  border-radius: 4px;
+  box-shadow: 
+    0 0 0 1px var(--gold-dim),  
+    0 0 30px var(--arcane-mist), 
+    0 15px 45px rgba(0,0,0,0.9) !important;
+  margin: 20px auto;                     /* Centers it and adds space around it */
+}
