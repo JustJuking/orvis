@@ -126,6 +126,7 @@ body::before {
 }
 
 .dir-end {
+  position: flex;
   right: 16px;
   display: inline-flex;
   align-items: center;
@@ -596,7 +597,7 @@ em { color: var(--text-gold); }
 }
 
 .lore-image {
-  flex: 0 0 35%;         /* Image takes exactly 35% and won't shrink */
+  flex: 0 0 50%;         /* Image takes exactly 50% and won't shrink */
   max-width: 350px;
 }
 
@@ -620,4 +621,7 @@ em { color: var(--text-gold); }
     flex-direction: column;
     padding: 0 20px;
   }
+}
+html {
+  overflow-y: scroll;
 }
