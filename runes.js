@@ -19,7 +19,7 @@
   function spawnParticle() {
     return {
       x: randBetween(0, W),
-      y: randBetween(H * 0.8, H),
+      y: randBetween(H * 0.9, H + 40),
       rune: RUNES[Math.floor(Math.random() * RUNES.length)],
       size: randBetween(16, 36),
       speed: randBetween(0.25, 0.7),
@@ -31,11 +31,11 @@
     };
   }
 
-  // Seed with spread-out starting positions
+  // Seed with spread-out starting positions across full screen
   for (let i = 0; i < 36; i++) {
     const p = spawnParticle();
-    p.y = randBetween(0, H);
-    p.life = randBetween(0, p.maxLife);
+    p.y = randBetween(0, H);           // start anywhere on screen
+    p.life = randBetween(0, p.maxLife); // stagger lifecycle so they don't all fade in at once
     particles.push(p);
   }
 

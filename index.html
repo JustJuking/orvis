@@ -11,7 +11,7 @@
 /* ── HERO — Full-width atmospheric header ─────────── */
 .hero-section {
   position: relative;
-  min-height: 82vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +58,35 @@
   position: relative;
   z-index: 2;
   max-width: 700px;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeInUp 0.5s 1.4s ease forwards;
+  color: var(--text-dim);
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1px solid rgba(124,79,196,0.4);
+  border-bottom: 1px solid rgba(124,79,196,0.4);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
 }
 
 /* Campaign crest */
@@ -207,89 +236,6 @@
   color: var(--gold-bright);
 }
 
-/* Scroll indicator */
-.scroll-hint {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-  animation: fadeInUp 0.5s 1.4s ease forwards;
-  color: var(--text-dim);
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.scroll-arrow {
-  width: 18px;
-  height: 18px;
-  border-right: 1px solid rgba(124,79,196,0.4);
-  border-bottom: 1px solid rgba(124,79,196,0.4);
-  transform: rotate(45deg);
-  animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: rotate(45deg) translateY(0); }
-  50%       { transform: rotate(45deg) translateY(4px); }
-}
-
-/* ── DIRECTORY BAR ───────────────────────────────── */
-.dir-bar {
-  position: relative;
-  z-index: 950;
-  background: rgba(40,24,72,0.97);
-  border-bottom: 1px solid rgba(124,79,196,0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 7px 20px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(124,79,196,0.15);
-}
-
-.dir-divider {
-  width: 1px;
-  height: 14px;
-  background: rgba(124,79,196,0.35);
-  margin: 0 4px;
-}
-
-.dir-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  font-family: 'Cinzel', serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--arcane-glow);
-  background: rgba(124,79,196,0.12);
-  border: 1px solid rgba(124,79,196,0.35);
-  border-radius: 30px;
-  padding: 5px 14px;
-  transition: all 0.22s;
-  box-shadow: 0 0 8px rgba(124,79,196,0.1), inset 0 1px 0 rgba(176,122,255,0.08);
-}
-
-.dir-pill:hover {
-  color: var(--gold-bright);
-  background: rgba(124,79,196,0.28);
-  border-color: rgba(176,122,255,0.6);
-  box-shadow: 0 0 16px rgba(124,79,196,0.3), inset 0 1px 0 rgba(176,122,255,0.12);
-  transform: translateY(-1px);
-}
-
-
-
 /* ── WELCOME SCROLL SECTION ─────────────────────── */
 .welcome-section {
   max-width: 960px;
@@ -357,7 +303,7 @@
 <section class="hero-section">
   <div class="hero-content">
     <div class="crest">
-      <div class="crest-ring">🏰</div>
+      <div class="crest-ring"><img src="favicon.png" alt="crest"></div>
     </div>
 
     <p class="hero-eyebrow">A Campaign Chronicle</p>
