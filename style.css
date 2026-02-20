@@ -700,9 +700,9 @@ em { color: var(--text-gold); }
 /* ─── LISTS ─────────────────────────────────── */
 /* Container for the list */
 .lore-list {
-  list-style: none;         
-  padding: 0;               /* Reset default browser padding */
-  margin: 20px 0 20px 30px; /* Moves the whole list 30px from the left edge */
+  list-style: none !important;
+  padding: 0;
+  margin: 20px 0 20px 30px;
 }
 
 .lore-list li {
