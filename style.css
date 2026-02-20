@@ -48,7 +48,6 @@ body {
   
   font-family: 'Crimson Text', serif;
   color: var(--text-mid);
-  position: relative;
   margin: 0; /* Ensures no weird default browser spacing */
 }
 
