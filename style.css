@@ -558,21 +558,23 @@ em { color: var(--text-gold); }
 }
 
 .lore-row {
-  display: flex;
-  gap: 2.5rem;
-  padding: 0 40px; /* Equal padding for symmetry */
-  margin-bottom: 2rem;
-  align-items: flex-start;
+  display: flex;         /* This is the magic line that puts them side-by-side */
+  flex-direction: row;   /* Ensures they stay in a line */
+  align-items: flex-start; 
+  gap: 30px;             /* Space between image and text */
+  padding: 0 40px;       /* Keeps things away from your corner ornaments */
+  margin-top: 20px;
+  width: 100%;           /* Ensures it takes up the full parchment width */
+  box-sizing: border-box; /* Important: keeps padding from pushing the box out */
 }
 
 .lore-image {
-  flex: 1;
-  max-width: 300px; /* Keeps the image from getting too wide */
+  flex: 0 0 35%;         /* Image takes exactly 35% and won't shrink */
+  max-width: 350px;
 }
 
 .lore-text {
-  flex: 2;
-  text-align: left;
+  flex: 1;               /* Text takes up the rest of the space */
 }
 
 .lore-details {
