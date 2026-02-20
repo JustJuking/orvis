@@ -108,6 +108,40 @@
     letter-spacing: 0.04em;
   }
 
+  .wax-seal {
+    display: block;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #c02030, #8b1a2a 55%, #5a0f18);
+    line-height: 44px;
+    font-size: 1.2rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 20px rgba(139,26,42,0.4), inset 0 2px 4px rgba(255,255,255,0.08);
+    margin: 12px 0 0 auto;
+    border: 2px solid rgba(139,26,42,0.6);
+  }
+
+  .signed-line {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  .welcome-drop-cap::first-letter {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.78;
+    margin: 8px 10px 0 0;
+    color: var(--gold-bright);
+    text-shadow: 0 0 20px rgba(242,192,69,0.5);
+    filter: drop-shadow(0 2px 8px rgba(242,192,69,0.3));
+  }
+
   .edit-hint {
     font-family: 'Crimson Text', serif;
     font-style: italic;
@@ -157,10 +191,10 @@
 <div class="dir-bar">
   <a href="index.html" class="dir-home">⚔ Orvis</a>
   <div class="dir-divider"></div>
-  <a href="world.html" class="dir-pill"><span>🗺️</span> The World</a>
-  <a href="talent-tree.html" class="dir-pill"><span>🌿</span> Talent Tree</a>
-  <a href="point-buy.html" class="dir-pill"><span>⚖️</span> Point Buy</a>
-  <a href="house-rules.html" class="dir-pill"><span>📜</span> House Rules</a>
+  <a href="world.html" class="dir-pill">The World</a>
+  <a href="talent-tree.html" class="dir-pill">Talent Tree</a>
+  <a href="point-buy.html" class="dir-pill">Point Buy</a>
+  <a href="house-rules.html" class="dir-pill">House Rules</a>
 </div>
 
 <div class="page-wrapper">
@@ -174,6 +208,29 @@
     <p class="page-subtitle">Races, classes, lore & the laws of the land</p>
 
     <div class="ornament">⸻ ✦ ⸻</div>
+
+    <!-- WELCOME -->
+    <h2 class="page-title" style="font-size:1.7rem; margin-bottom:6px;">Welcome, Adventurer</h2>
+    <p class="page-subtitle">Orvis has need of you</p>
+
+    <p class="welcome-drop-cap fade-in fade-in-delay-1">
+      You have been chosen. Whether by fate, by coin, or by sheer desperation matters little now — Orvis has need of you, and your story begins here. Within these pages you will find the knowledge, the rules, and the tools that will guide your path through a world of myth and legend.
+    </p>
+
+    <p class="fade-in fade-in-delay-2">
+      Read carefully. New races populate these lands, and new classes and subclasses can be mastered. A carefully curated talent point system awaits, spend these points with wisdom, for every choice shapes who you will become. The world is ancient, dangerous, and full of wonders that no map has ever captured. Your legend is unwritten.
+    </p>
+
+    <p class="fade-in fade-in-delay-2">
+      <em>Orvis is a homebrew module for DND 5e that offers new systems, races, subclasses and an all new class called the Sentinel. Use these pages as a resource to understand the talent system, as well as the homebrew content that is available to you.</em>
+    </p>
+
+    <div class="signed-line fade-in fade-in-delay-3">
+      — JustJuking
+      <div class="wax-seal">⚔</div>
+    </div>
+
+    <hr class="hr-ornate">
 
     <!-- WORLD LORE -->
     <h2 class="section-title fade-in fade-in-delay-1">A Word on the Realm</h2>

@@ -4,20 +4,20 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orvis Unbound</title>
+<title>Orvis — Campaign Hub</title>
 <link rel="stylesheet" href="style.css">
 <style>
 
 /* ── HERO — Full-width atmospheric header ─────────── */
 .hero-section {
   position: relative;
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0px 24px 60px;
+  padding: 80px 24px 60px;
   z-index: 1;
 }
 
@@ -27,9 +27,9 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 50%, rgba(124,79,196,0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 50%, rgba(60,30,120,0.12) 0%, transparent 35%),
-    radial-gradient(ellipse at 50% 50%, rgba(40,20,90,0.10) 0%, transparent 15%);
+    radial-gradient(ellipse at 50% 40%, rgba(124,79,196,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, rgba(60,30,120,0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 20%, rgba(40,20,90,0.10) 0%, transparent 45%);
   z-index: 0;
 }
 
@@ -58,6 +58,35 @@
   position: relative;
   z-index: 2;
   max-width: 700px;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeInUp 0.5s 1.4s ease forwards;
+  color: var(--text-dim);
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1px solid rgba(124,79,196,0.4);
+  border-bottom: 1px solid rgba(124,79,196,0.4);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
 }
 
 /* Campaign crest */
@@ -211,7 +240,7 @@
 .welcome-section {
   max-width: 960px;
   margin: 0 auto;
-  padding: 0px 20px 0px;
+  padding: 40px 20px 60px;
   position: relative;
   z-index: 1;
 }
@@ -263,19 +292,20 @@
 <!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">⚔ Orvis</a>
-  <a href="world.html" class="dir-pill"><span>🗺️</span> The World</a>
-  <a href="talent-tree.html" class="dir-pill"><span>🌿</span> Talent Tree</a>
-  <a href="point-buy.html" class="dir-pill"><span>⚖️</span> Point Buy</a>
-  <a href="house-rules.html" class="dir-pill"><span>📜</span> House Rules</a>
+  <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill">The World</a>
+  <a href="talent-tree.html" class="dir-pill">Talent Tree</a>
+  <a href="point-buy.html" class="dir-pill">Point Buy</a>
+  <a href="house-rules.html" class="dir-pill">House Rules</a>
 </div>
 
 <!-- ══ HERO ════════════════════════════════════════ -->
 <section class="hero-section">
-
-    <p class="hero-eyebrow">Chronicles of a New World</p>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A Campaign Chronicle</p>
 
     <div class="hero-title-wrap">
-      <h1 class="hero-title">Orvis Unbound</h1>
+      <h1 class="hero-title">Orvis</h1>
     </div>
 
     <div class="hero-divider">
@@ -285,50 +315,16 @@
     </div>
 
     <p class="hero-subtitle">
-      A world of unstable magic, legendary foes,<br>and volatile politics.
+      A world of ancient magic, forgotten gods,<br>and legends yet to be written.
     </p>
 
-    <a href="#welcome" class="hero-cta" onclick="document.getElementById('welcome').scrollIntoView({behavior:'smooth'}); return false;">
+    <a href="world.html" class="hero-cta">
       <span>⚔</span>
       Enter the Realm
       <span>⚔</span>
     </a>
   </div>
-</section>
 
-<!-- ══ WELCOME SCROLL ═════════════════════════════ -->
-<section class="welcome-section" id="welcome">
-  <div class="parchment fade-in">
-    <span class="corner-ornament co-tl">❧</span>
-    <span class="corner-ornament co-tr">❧</span>
-    <span class="corner-ornament co-bl">❧</span>
-    <span class="corner-ornament co-br">❧</span>
-
-    <h2 class="page-title" style="font-size:1.7rem; margin-bottom:6px;">Welcome, Adventurer</h2>
-    <p class="page-subtitle">Orvis has need of you</p>
-
-    <div class="ornament">⸻ ✦ ⸻</div>
-
-    <p class="welcome-drop-cap fade-in fade-in-delay-1">
-      You have been chosen. Whether by fate, by coin, or by sheer desperation matters little now — Orvis has need of you, and your story begins here. Within these pages you will find the knowledge, the rules, and the tools that will guide your path through a world of myth and legend.
-    </p>
-
-    <p class="fade-in fade-in-delay-2">
-      Read carefully. New races populate these lands, and new classes and subclasses can be mastered. A carefully curated talent point system awaits, spend these points with wisdom, for every choice shapes who you will become. The world is ancient, dangerous, and full of wonders that no map has ever captured. Your legend is unwritten.
-    </p>
-
-    <p class="fade-in fade-in-delay-2">
-      <em>Orvis is a homebrew module for DND 5e that offers new systems, races, subclasses and an all new class called the Sentinel. Use these pages as a resource to understand the talent system, as well as the homebrew content that is available to you.</em>
-    </p>
-
-    <hr class="hr-ornate">
-
-    <div class="signed-line fade-in fade-in-delay-3">
-      — JustJuking
-      <div class="wax-seal">⚔</div>
-    </div>
-
-  </div>
 </section>
 
 <canvas id="runeCanvas"></canvas>
