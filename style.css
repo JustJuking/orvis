@@ -589,15 +589,15 @@ em { color: var(--text-gold); }
 .rules-table tr:nth-child(even) { background: rgba(124,79,196,0.04); }
 .rules-table tr:hover td { background: rgba(124,79,196,0.08); }
 
-.rules-table td:nth-child(1) { width: 6%; }
-.rules-table td:nth-child(2) { width: 5%; }
-.rules-table td:nth-child(3) { width: 37%; text-align: left; white-space: normal; }
+.rules-table td:nth-child(1) { width: 4%; }
+.rules-table td:nth-child(2) { width: 9%; }
+.rules-table td:nth-child(3) { width: 35%; text-align: left; white-space: normal; }
 .rules-table td:nth-child(4) { width: 7%; }
-.rules-table td:nth-child(5) { width: 9%; }
+.rules-table td:nth-child(5) { width: 7%; }
 .rules-table td:nth-child(6) { width: 7%; }
 .rules-table td:nth-child(7) { width: 7%; }
-.rules-table td:nth-child(8) { width: 6%; }
-.rules-table td:nth-child(9) { width: 6%; }
+.rules-table td:nth-child(8) { width: 7%; }
+.rules-table td:nth-child(9) { width: 7%; }
 
 .cost-table-wrapper { overflow-x: auto; margin: 16px 0; }
 
