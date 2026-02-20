@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orvis — Campaign Hub</title>
@@ -11,7 +11,7 @@
 /* ── HERO — Full-width atmospheric header ─────────── */
 .hero-section {
   position: relative;
-  min-height: 82vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -215,34 +215,6 @@
   color: var(--gold-bright);
 }
 
-/* Scroll indicator */
-.scroll-hint {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-  animation: fadeInUp 0.5s 1.4s ease forwards;
-  color: var(--text-dim);
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.scroll-arrow {
-  width: 18px;
-  height: 18px;
-  border-right: 1px solid rgba(124,79,196,0.4);
-  border-bottom: 1px solid rgba(124,79,196,0.4);
-  transform: rotate(45deg);
-  animation: bounce 2s ease-in-out infinite;
-}
-
 @keyframes bounce {
   0%, 100% { transform: rotate(45deg) translateY(0); }
   50%       { transform: rotate(45deg) translateY(4px); }
@@ -372,7 +344,7 @@
 
   <div class="hero-content">
     <div class="crest">
-      <div class="crest-ring">🏰</div>
+      <div class="crest-ring"><img src="favicon.png" alt="crest"></div>
     </div>
 
     <p class="hero-eyebrow">A Campaign Chronicle</p>
@@ -413,26 +385,26 @@
     <span class="corner-ornament co-br">❧</span>
 
     <h2 class="page-title" style="font-size:1.7rem; margin-bottom:6px;">Welcome, Adventurer</h2>
-    <p class="page-subtitle">The realm has need of you</p>
+    <p class="page-subtitle">Orvis has need of you</p>
 
     <div class="ornament">⸻ ✦ ⸻</div>
 
     <p class="welcome-drop-cap fade-in fade-in-delay-1">
-      You have been chosen. Whether by fate, by coin, or by sheer desperation matters little now — the realm has need of you, and your story begins here. Within these pages you will find the knowledge, the rules, and the tools that will guide your path through the world that your Dungeon Master has crafted.
+      You have been chosen. Whether by fate, by coin, or by sheer desperation matters little now — Orvis has need of you, and your story begins here. Within these pages you will find the knowledge, the rules, and the tools that will guide your path through a world of myth and legend.
     </p>
 
     <p class="fade-in fade-in-delay-2">
-      Read carefully. Study the races and classes available to you. Spend your talent points with wisdom, for every choice shapes who you will become. The world is ancient, dangerous, and full of wonders that no map has ever captured. Your legend is unwritten.
+      Read carefully. New races populate these lands, and new classes and subclasses can be mastered. A carefully curated talent point system awaits, spend these points with wisdom, for every choice shapes who you will become. The world is ancient, dangerous, and full of wonders that no map has ever captured. Your legend is unwritten.
     </p>
 
     <p class="fade-in fade-in-delay-2">
-      <em>Replace this welcome text with your own message to your players. Describe the tone of your campaign, set expectations, share a teaser of the opening scene, or simply greet them. This is your space.</em>
+      <em>Orvis is a homebrew module for DND 5e that offers new systems, races, subclasses and an all new class called the Sentinel. Use these pages as a resource to understand the talent system, as well as the homebrew content that is availabel to you.</em>
     </p>
 
     <hr class="hr-ornate">
 
     <div class="signed-line fade-in fade-in-delay-3">
-      — Your Dungeon Master
+      — JustJuking
       <div class="wax-seal">⚔</div>
     </div>
 
