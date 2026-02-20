@@ -610,7 +610,7 @@ em { color: var(--text-gold); }
 }
 
 .lore-image {
-  flex: 0 0 35%;         /* Image takes exactly % and won't shrink */
+  flex: 0 0 50%;         /* Image takes exactly % and won't shrink */
   max-width: 700px;
 }
 
