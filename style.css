@@ -484,7 +484,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.88rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: var(--silver);
   letter-spacing: 0.04em;
@@ -492,7 +492,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-subtitle {
   font-family: 'Crimson Text', serif;
-  font-size: 0.78rem;
+  font-size: 0.98rem;
   font-style: italic;
   color: var(--arcane-glow);
 }
