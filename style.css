@@ -682,10 +682,13 @@ em { color: var(--text-gold); }
   max-width: 100%;
 }
 
-/* ─── TABLES ─────────────────────────────*/
+/* ─── TABLES ─────────────────────────────────────── */
+
+/* The Frame & Reclaimed Space Logic */
 .cost-table-wrapper.gold-frame {
-  margin: 40px auto;
-  padding: 8px !important;               /* The "Matting" around the table */
+  margin: 40px -40px;           /* Pulls the table 40px into the parchment's side padding */
+  width: calc(100% + 80px);     /* Reclaims 80px of horizontal space */
+  padding: 8px !important;
   background-color: var(--stone-light) !important;
   border: 1px solid var(--gold-dim) !important;
   border-radius: 4px;
@@ -693,32 +696,26 @@ em { color: var(--text-gold); }
     0 0 0 1px var(--gold-dim),  
     0 0 30px var(--arcane-mist), 
     0 15px 45px rgba(0,0,0,0.9) !important;
-  overflow-x: auto;                      /* Still there just in case, but we'll try to hide it */
+  overflow-x: auto;             /* Safety scroll for tiny mobile screens */
+  scrollbar-width: none;        /* Hides scrollbar for Firefox */
+}
+
+/* Hide scrollbar for Chrome/Safari/Edge */
+.cost-table-wrapper.gold-frame::-webkit-scrollbar {
+  display: none;
 }
 
 .rules-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;                    /* Shrunk font size slightly */
-  letter-spacing: -0.01em;               /* Tighter character spacing */
+  font-size: 0.82rem;           /* Shrunk font for fitting */
+  letter-spacing: -0.01em;
+  table-layout: fixed;          /* Helps force the widths we set below */
 }
 
 .rules-table th, 
 .rules-table td {
-  padding: 8px 4px;                      /* Tighter internal spacing */
+  padding: 8px 4px;
   line-height: 1.2;
-}
-
-/* Specific column tightening */
-.rules-table th:first-child, 
-.rules-table td:first-child { width: 45px; } /* Level column */
-
-.rules-table th:nth-child(2), 
-.rules-table td:nth-child(2) { width: 70px; } /* Prof Bonus column */
-
-/* This ensures the Feature column still reads well */
-.rules-table td:nth-child(3) {
-  font-size: 0.8rem;
-  line-height: 1.1;
-  max-width: 200px;                      /* Limits how wide the features can push the table */
-}
+  border-bottom: 1px solid rgba(124,79,196,0.1);
+  text-align: center;
