@@ -710,7 +710,7 @@ em { color: var(--text-gold); }
   border-collapse: collapse;
   font-size: 0.82rem;           /* Shrunk font for fitting */
   letter-spacing: -0.01em;
-  table-layout: fixed;          /* Helps force the widths we set below */
+  table-layout: fixed;          /* CRITICAL: This forces the widths below to be obeyed */
 }
 
 .rules-table th, 
@@ -719,3 +719,54 @@ em { color: var(--text-gold); }
   line-height: 1.2;
   border-bottom: 1px solid rgba(124,79,196,0.1);
   text-align: center;
+}
+
+/* --- COLUMN WIDTH DEFINITIONS --- */
+
+/* 1. Level */
+.rules-table th:nth-child(1), 
+.rules-table td:nth-child(1) { width: 45px; color: var(--silver); font-weight: 700; }
+
+/* 2. PB */
+.rules-table th:nth-child(2), 
+.rules-table td:nth-child(2) { width: 40px; }
+
+/* 3. FEATURES (Stretches to fill space) */
+.rules-table td:nth-child(3) {
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  font-size: 0.8rem;
+  color: var(--text-bright);
+  width: auto;                  /* This column takes up all the leftover room */
+}
+
+/* 4 & 5. Frightening Presence (Uses & Area) */
+.rules-table th:nth-child(4), .rules-table td:nth-child(4) { width: 45px; }
+.rules-table th:nth-child(5), .rules-table td:nth-child(5) { width: 55px; white-space: nowrap; }
+
+/* 6, 7, 8, 9. Spellcasting Columns (The narrow numbers at the end) */
+.rules-table td:nth-child(n+6) {
+  width: 38px;
+  font-style: italic;
+  color: var(--text-mid);
+}
+
+/* Header Specifics */
+.rules-table th {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--silver-dim);
+  white-space: nowrap;
+  text-transform: uppercase;
+  background: rgba(22, 18, 40, 0.5);
+}
+
+/* Zebra Striping */
+.rules-table tr:nth-child(even) {
+  background: rgba(124,79,196,0.04);
+}
+
+.rules-table tr:hover td {
+  background: rgba(124,79,196,0.08);
+}
