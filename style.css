@@ -683,37 +683,42 @@ em { color: var(--text-gold); }
 }
 
 /* ─── TABLES ─────────────────────────────*/
-.cost-table-wrapper {
-  overflow-x: auto; /* Adds a scrollbar on small screens */
-  margin: 20px 0;
-  border: 1px solid rgba(124,79,196,0.1);
+.cost-table-wrapper.gold-frame {
+  margin: 40px auto;
+  padding: 8px !important;               /* The "Matting" around the table */
+  background-color: var(--stone-light) !important;
+  border: 1px solid var(--gold-dim) !important;
   border-radius: 4px;
+  box-shadow: 
+    0 0 0 1px var(--gold-dim),  
+    0 0 30px var(--arcane-mist), 
+    0 15px 45px rgba(0,0,0,0.9) !important;
+  overflow-x: auto;                      /* Still there just in case, but we'll try to hide it */
 }
 
 .rules-table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(13, 11, 24, 0.4); /* Subtle backing to make rows pop */
+  font-size: 0.82rem;                    /* Shrunk font size slightly */
+  letter-spacing: -0.01em;               /* Tighter character spacing */
 }
 
-/* Zebra striping for readability */
-.rules-table tr:nth-child(even) {
-  background: rgba(124,79,196,0.03);
-}
-
-.rules-table th {
-  background: rgba(22, 18, 40, 0.8);
-  white-space: nowrap; /* Prevents headers from getting squished */
-}
-
+.rules-table th, 
 .rules-table td {
-  text-align: center; /* Most D&D tables look better centered */
-  padding: 12px 8px;
+  padding: 8px 4px;                      /* Tighter internal spacing */
+  line-height: 1.2;
 }
 
-/* The 'Features' column usually looks better left-aligned */
+/* Specific column tightening */
+.rules-table th:first-child, 
+.rules-table td:first-child { width: 45px; } /* Level column */
+
+.rules-table th:nth-child(2), 
+.rules-table td:nth-child(2) { width: 70px; } /* Prof Bonus column */
+
+/* This ensures the Feature column still reads well */
 .rules-table td:nth-child(3) {
-  text-align: left;
-  color: var(--text-bright);
-  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  max-width: 200px;                      /* Limits how wide the features can push the table */
 }
