@@ -616,6 +616,7 @@ em { color: var(--text-gold); }
 
 .lore-text {
   flex: 1;               /* Text takes up the rest of the space */
+  min-width: 300px;
 }
 
 .lore-details {
