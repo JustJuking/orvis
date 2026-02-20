@@ -614,6 +614,27 @@ em { color: var(--text-gold); }
   max-width: 700px;
 }
 
+.lore-image img {
+  border: 1px solid var(--gold-dim);
+  padding: 5px;                 /* Space for the inner glow */
+  background: var(--stone-light); /* Frame background */
+  border-radius: 4px;
+  box-shadow: 
+    0 0 0 1px var(--gold-dim),  /* Outer gold ring */
+    0 0 20px var(--arcane-mist), /* Purple ambient glow */
+    0 10px 30px rgba(0,0,0,0.8); /* Depth shadow */
+  transition: all 0.3s ease;
+}
+
+/* Add a subtle shine on hover */
+.lore-image img:hover {
+  border-color: var(--gold-bright);
+  box-shadow: 
+    0 0 0 1px var(--gold-bright),
+    0 0 30px rgba(176,122,255,0.25);
+  transform: translateY(-2px);
+}
+
 .lore-text {
   flex: 1;               /* Text takes up the rest of the space */
   min-width: 200px;
