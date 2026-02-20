@@ -27,10 +27,12 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 html {
-  /* This ensures the scrollbar space is ALWAYS reserved */
+  scroll-behavior: smooth;
+  min-height: 100%;
+  overflow-y: scroll;
   scrollbar-gutter: stable;
-  overflow-y: scroll !important;
 }
 
 body {
@@ -41,22 +43,16 @@ body {
     radial-gradient(ellipse at 85% 70%, rgba(60,40,120,0.12) 0%, transparent 50%);
   background-attachment: fixed;
   background-size: cover;
-  
-  /* CHANGE THESE LINES */
   min-height: 100vh;
-  height: auto; /* Allow the body to grow with your lore content */
-  
   font-family: 'Crimson Text', serif;
   color: var(--text-mid);
-  margin: 0; /* Ensures no weird default browser spacing */
 }
 
-/* Starfield */
+/* ─── STARFIELD ──────────────────────────────────── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  min-height: 100vh;
   background-image:
     radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.65) 0%, transparent 100%),
     radial-gradient(1px 1px at 22% 40%, rgba(255,255,255,0.45) 0%, transparent 100%),
@@ -77,7 +73,7 @@ body::before {
   z-index: 0;
 }
 
-/* ─── RUNE CANVAS (global) ───────────────────────── */
+/* ─── RUNE CANVAS ────────────────────────────────── */
 #runeCanvas {
   position: fixed;
   top: 0; left: 0;
@@ -107,38 +103,7 @@ body::before {
 .dir-home {
   position: absolute;
   left: 16px;
-  top: 50%; /* Anchor to the vertical middle */
-  transform: translateY(-50%); /* Offset by its own height to be perfectly centered */
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #f2c045;
-  text-shadow: 0 0 10px rgba(242,192,69,0.6), 0 0 24px rgba(242,192,69,0.3);
-  animation: dirHomeGlow 3s ease-in-out infinite;
-  transition: text-shadow 0.22s;
-  z-index: 10; /* Ensure it stays above the glass blur */
-}
-
-.dir-home:hover {
-  color: #fff8d0;
-  text-shadow: 0 0 14px rgba(242,192,69,0.9), 0 0 32px rgba(242,192,69,0.5);
-}
-
-@keyframes dirHomeGlow {
-  0%, 100% { text-shadow: 0 0 8px rgba(242,192,69,0.5), 0 0 20px rgba(242,192,69,0.25); }
-  50%       { text-shadow: 0 0 14px rgba(242,192,69,0.9), 0 0 36px rgba(242,192,69,0.45); }
-}
-
-.dir-end {
-  position: absolute;
-  right: 16px; /* This pins it to the right */
-  top: 50%; 
+  top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
@@ -150,18 +115,13 @@ body::before {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #f2c045;
-  text-shadow: 0 0 10px rgba(242,192,69,0.6), 0 0 24px rgba(242,192,69,0.3);
-  animation: dirEndGlow 3s ease-in-out infinite;
-  transition: text-shadow 0.22s;
-  z-index: 10;
+  animation: dirHomeGlow 3s ease-in-out infinite;
+  transition: color 0.22s;
 }
 
-.dir-end:hover {
-  color: #fff8d0;
-  text-shadow: 0 0 14px rgba(242,192,69,0.9), 0 0 32px rgba(242,192,69,0.5);
-}
+.dir-home:hover { color: #fff8d0; }
 
-@keyframes dirEndGlow {
+@keyframes dirHomeGlow {
   0%, 100% { text-shadow: 0 0 8px rgba(242,192,69,0.5), 0 0 20px rgba(242,192,69,0.25); }
   50%       { text-shadow: 0 0 14px rgba(242,192,69,0.9), 0 0 36px rgba(242,192,69,0.45); }
 }
@@ -206,7 +166,7 @@ body::before {
   border-color: rgba(242,192,69,0.4);
 }
 
-/* ─── PAGE WRAPPER ──────────────────────────────── */
+/* ─── PAGE WRAPPER ───────────────────────────────── */
 .page-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -222,13 +182,7 @@ body::before {
   border-radius: 6px;
   padding: 52px 64px;
   position: relative;
-  
-  /* CRITICAL CHANGES START HERE */
-  overflow: visible;      /* Allows the image glow to bleed out slightly */
-  display: flow-root;    /* Forces the background to wrap around ALL content */
-  height: auto;           /* Ensures it grows with your lore */
-  /* CRITICAL CHANGES END HERE */
-
+  display: flow-root;
   box-shadow:
     0 0 0 1px rgba(124,79,196,0.08),
     0 0 80px rgba(0,0,0,0.85),
@@ -246,7 +200,6 @@ body::before {
     transparent 0%, var(--arcane-dim) 15%, var(--arcane) 35%,
     var(--gold) 50%, var(--arcane) 65%, var(--arcane-dim) 85%, transparent 100%);
   opacity: 0.75;
-  z-index: 10; /* Keeps the top decorative line above the image frame */
 }
 
 .parchment::after {
@@ -417,7 +370,12 @@ em { color: var(--text-gold); }
   color: var(--text-mid);
   border: 1px solid rgba(124,79,196,0.3);
 }
-.btn-secondary:hover { background: rgba(124,79,196,0.08); color: var(--silver); border-color: rgba(124,79,196,0.5); }
+
+.btn-secondary:hover {
+  background: rgba(124,79,196,0.08);
+  color: var(--silver);
+  border-color: rgba(124,79,196,0.5);
+}
 
 /* ─── DIVIDER ────────────────────────────────────── */
 .hr-ornate {
@@ -456,13 +414,13 @@ em { color: var(--text-gold); }
   100% { background-position:  200% center; }
 }
 
-.fade-in             { animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
-.fade-in-delay-1     { animation-delay: 0.10s; }
-.fade-in-delay-2     { animation-delay: 0.22s; }
-.fade-in-delay-3     { animation-delay: 0.34s; }
-.fade-in-delay-4     { animation-delay: 0.46s; }
+.fade-in         { animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+.fade-in-delay-1 { animation-delay: 0.10s; }
+.fade-in-delay-2 { animation-delay: 0.22s; }
+.fade-in-delay-3 { animation-delay: 0.34s; }
+.fade-in-delay-4 { animation-delay: 0.46s; }
 
-/* ─── WORLD PAGE COMPONENTS ─────────────────────── */
+/* ─── INFO CARDS ─────────────────────────────────── */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
 @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
 
@@ -507,6 +465,7 @@ em { color: var(--text-gold); }
   padding: 4px 0;
   border-bottom: 1px solid rgba(124,79,196,0.07);
 }
+
 .info-card ul li:last-child { border-bottom: none; }
 .info-card ul li span { float: right; font-size: 0.82rem; color: var(--text-dim); font-style: italic; }
 
@@ -552,8 +511,55 @@ em { color: var(--text-gold); }
   margin-top: 16px;
 }
 
+/* ─── IMAGES & LORE LAYOUT ───────────────────────── */
+.lore-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.lore-image { flex: 0 0 50%; max-width: 700px; }
+.lore-text  { flex: 1; min-width: 200px; }
+
+.lore-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--gold-dim);
+  padding: 6px;
+  background-color: var(--stone-light);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--gold-dim), 0 0 20px var(--arcane-mist), 0 10px 30px rgba(0,0,0,0.8);
+  transition: box-shadow 0.3s ease;
+}
+
+.gold-frame {
+  display: block;
+  margin: 40px auto;
+  max-width: 100%;
+  border: 1px solid var(--gold-dim);
+  padding: 8px;
+  background-color: var(--stone-light);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--gold-dim), 0 0 30px var(--arcane-mist), 0 15px 45px rgba(0,0,0,0.9);
+}
+
+@media (max-width: 768px) {
+  .lore-row { flex-direction: column; }
+}
+
 /* ─── TABLES ─────────────────────────────────────── */
-.rules-table { width: 100%; border-collapse: collapse; font-family: 'Crimson Text', serif; font-size: 0.95rem; margin: 16px 0; }
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: 'Crimson Text', serif;
+  font-size: 0.82rem;
+  margin: 16px 0;
+}
 
 .rules-table th {
   font-family: 'Cinzel', serif;
@@ -561,18 +567,46 @@ em { color: var(--text-gold); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
-  padding: 10px 14px;
+  padding: 10px 4px;
   border-bottom: 1px solid rgba(124,79,196,0.28);
-  text-align: left;
+  text-align: center;
+  background: rgba(22,18,40,0.5);
+  white-space: normal;
+  vertical-align: bottom;
 }
 
-.rules-table td { padding: 10px 14px; border-bottom: 1px solid rgba(124,79,196,0.08); color: var(--text-mid); vertical-align: top; }
-.rules-table td:first-child { color: var(--silver); font-weight: 600; }
+.rules-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(124,79,196,0.08);
+  color: var(--text-mid);
+  vertical-align: top;
+  text-align: center;
+  overflow: hidden;
+}
+
+.rules-table td:first-child { color: var(--silver); font-weight: 700; }
 .rules-table tr:last-child td { border-bottom: none; }
-.rules-table tr:hover td { background: rgba(124,79,196,0.04); }
+.rules-table tr:nth-child(even) { background: rgba(124,79,196,0.04); }
+.rules-table tr:hover td { background: rgba(124,79,196,0.08); }
+
+.rules-table td:nth-child(1) { width: 6%; }
+.rules-table td:nth-child(2) { width: 5%; }
+.rules-table td:nth-child(3) { width: 37%; text-align: left; white-space: normal; }
+.rules-table td:nth-child(4) { width: 7%; }
+.rules-table td:nth-child(5) { width: 9%; }
+.rules-table td:nth-child(6) { width: 7%; }
+.rules-table td:nth-child(7) { width: 7%; }
+.rules-table td:nth-child(8) { width: 6%; }
+.rules-table td:nth-child(9) { width: 6%; }
 
 .cost-table-wrapper { overflow-x: auto; margin: 16px 0; }
-.cost-table { width: 100%; border-collapse: collapse; font-family: 'Crimson Text', serif; font-size: 0.95rem; }
+
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+}
 
 .cost-table th {
   font-family: 'Cinzel', serif;
@@ -585,7 +619,13 @@ em { color: var(--text-gold); }
   text-align: center;
 }
 
-.cost-table td { padding: 7px 14px; border-bottom: 1px solid rgba(124,79,196,0.08); text-align: center; color: var(--text-mid); }
+.cost-table td {
+  padding: 7px 14px;
+  border-bottom: 1px solid rgba(124,79,196,0.08);
+  text-align: center;
+  color: var(--text-mid);
+}
+
 .cost-table td:first-child { font-weight: 600; color: var(--silver); }
 .cost-table tr:last-child td { border-bottom: none; }
 .cost-table tr:hover td { background: rgba(124,79,196,0.05); }
@@ -594,150 +634,4 @@ em { color: var(--text-gold); }
 @media (max-width: 640px) {
   .parchment { padding: 36px 24px; }
   .page-title { font-size: 1.6rem; }
-  .nav-brand { font-size: 0.85rem; }
-  .nav-links a { padding: 18px 10px; font-size: 0.62rem; letter-spacing: 0.08em; }
 }
-
-/* ─── IMAGES & LORE FRAMES ─────────────────────── */
-.responsive-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* This is the fix for your border */
-.lore-image img.responsive-img {
-  width: 100% !important;
-  height: auto !important;
-  display: block !important;
-  border: 1px solid var(--gold-dim) !important;
-  padding: 6px !important;
-  background-color: var(--stone-light) !important;
-  border-radius: 4px;
-  box-shadow: 
-    0 0 0 1px var(--gold-dim),  
-    0 0 20px var(--arcane-mist), 
-    0 10px 30px rgba(0,0,0,0.8) !important;
-  transition: all 0.3s ease-in-out;
-}
-
-/* ─── LORE LAYOUT ────────────────── */
-.lore-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start; 
-  gap: 30px;
-  padding: 0;
-  margin-top: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.lore-image {
-  flex: 0 0 50%;
-  max-width: 700px;
-}
-
-.lore-text {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* ─── DETAILS & CARDS ────────────── */
-.lore-details {
-  padding: 0 40px;
-}
-
-.card-body-text {
-  font-size: 0.88rem; 
-  margin-bottom: 10px; 
-  color: var(--text-dim); /* Fixed from ink-faded */
-  font-style: italic;
-}
-
-@media (max-width: 768px) {
-  .lore-row {
-    flex-direction: column;
-    padding: 0 20px;
-    gap: 20px;
-  }
-}
-
-/* ─── FANCY FRAMES ───────────────────────────── */
-.gold-frame {
-  display: block;             /* Necessary for centering and margins to work */
-  margin: 40px auto;          /* 40px space on top/bottom, centered left/right */
-  
-  /* The Frame Styles */
-  border: 1px solid var(--gold-dim) !important;
-  padding: 8px !important;               
-  background-color: var(--stone-light) !important;
-  border-radius: 4px;
-  box-shadow: 
-    0 0 0 1px var(--gold-dim),  
-    0 0 30px var(--arcane-mist), 
-    0 15px 45px rgba(0,0,0,0.9) !important;
-    
-  /* Ensure the map doesn't get wider than the parchment */
-  max-width: 100%;
-}
-
-/* ─── TABLES ─────────────────────────────────────── */
-
-.cost-table-wrapper.gold-frame {
-  margin: 40px -40px;
-  width: calc(100% + 80px);
-  padding: 8px !important;
-  background-color: var(--stone-light) !important;
-  border: 1px solid var(--gold-dim) !important;
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px var(--gold-dim), 0 0 30px var(--arcane-mist), 0 15px 45px rgba(0,0,0,0.9) !important;
-  overflow-x: auto;
-}
-
-.rules-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.82rem;
-  letter-spacing: -0.01em;
-  table-layout: fixed; /* Keep this, it's necessary for the widths below */
-}
-
-.rules-table th, 
-.rules-table td {
-  padding: 8px 4px;
-  line-height: 1.2;
-  border-bottom: 1px solid rgba(124,79,196,0.1);
-  text-align: center;
-  overflow: hidden; /* Prevents text from leaking if a column gets too small */
-}
-
-/* --- COLUMN WIDTH DEFINITIONS (Targeting Data Cells) --- */
-
-.rules-table td:nth-child(1) { width: 45px; color: var(--silver); font-weight: 700; } /* Level */
-.rules-table td:nth-child(2) { width: 40px; }                                       /* PB */
-.rules-table td:nth-child(3) { width: auto; text-align: left; white-space: normal; } /* Features */
-.rules-table td:nth-child(4) { width: 45px; }                                       /* Presence Uses */
-.rules-table td:nth-child(5) { width: 55px; }                                       /* Presence Area */
-.rules-table td:nth-child(6) { width: 45px; }                                       /* Cantrips */
-.rules-table td:nth-child(7) { width: 45px; }                                       /* Spells */
-.rules-table td:nth-child(8) { width: 40px; }                                       /* Slots */
-.rules-table td:nth-child(9) { width: 40px; }                                       /* Spell Level */
-
-/* Header Specifics */
-.rules-table th {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  color: var(--silver-dim);
-  text-transform: uppercase;
-  background: rgba(22, 18, 40, 0.5);
-}
-
-/* Ensure the double-header rows wrap if they need to */
-.rules-table thead th {
-  white-space: normal;
-  vertical-align: bottom;
-}
-
-.rules-table tr:nth-child(even) { background: rgba(124,79,196,0.04); }
-.rules-table tr:hover td { background: rgba(124,79,196,0.08); }
