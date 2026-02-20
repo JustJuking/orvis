@@ -700,25 +700,27 @@ em { color: var(--text-gold); }
 /* ─── LISTS ─────────────────────────────────── */
 /* Container for the list */
 .lore-list {
-  list-style: none;         /* Removes the default black dot */
-  padding-left: 20px;
-  margin: 15px 0;
+  list-style: none;         
+  padding: 0;               /* Reset default browser padding */
+  margin: 20px 0 20px 30px; /* Moves the whole list 30px from the left edge */
 }
 
-/* The individual items */
 .lore-list li {
   position: relative;
-  margin-bottom: 10px;
-  padding-left: 25px;       /* Makes room for our custom bullet */
-  line-height: 1.5;
+  margin-bottom: 12px;
+  padding-left: 28px;       /* This creates the gap where the bullet sits */
+  line-height: 1.6;
+  color: var(--text-mid);
+  text-align: left;         /* Ensures text doesn't try to center and break alignment */
 }
 
-/* The custom "Bullet" (A gold diamond) */
 .lore-list li::before {
-  content: '✦';             /* You can use ✦, ◈, or • */
+  content: '✦';             
   position: absolute;
-  left: 0;
-  color: var(--gold);       /* Using your gold variable */
-  font-size: 0.8rem;
+  left: 0;                  /* Pins the bullet to the start of the padding-left */
+  top: 0;                   /* Aligns with the first line of text */
+  color: var(--gold);       
+  font-size: 0.9rem;
   text-shadow: 0 0 8px var(--gold-glow);
+  line-height: 1.6;         /* Matches the li line-height for perfect vertical centering */
 }
