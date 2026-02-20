@@ -614,20 +614,22 @@ em { color: var(--text-gold); }
   max-width: 700px;
 }
 
-.lore-image img {
+.lore-image .responsive-img {
+  width: 100%;                  /* Forces the image to fill the 50% container */
+  height: auto;
   border: 1px solid var(--gold-dim);
-  padding: 5px;                 /* Space for the inner glow */
-  background: var(--stone-light); /* Frame background */
+  padding: 5px;                 /* This creates the space for the frame */
+  background: var(--stone-light); /* This is the "frame" color */
   border-radius: 4px;
   box-shadow: 
-    0 0 0 1px var(--gold-dim),  /* Outer gold ring */
-    0 0 20px var(--arcane-mist), /* Purple ambient glow */
-    0 10px 30px rgba(0,0,0,0.8); /* Depth shadow */
+    0 0 0 1px var(--gold-dim),  
+    0 0 20px var(--arcane-mist), 
+    0 10px 30px rgba(0,0,0,0.8); 
   transition: all 0.3s ease;
+  display: block;               /* Fixes alignment gaps */
 }
 
-/* Add a subtle shine on hover */
-.lore-image img:hover {
+.lore-image .responsive-img:hover {
   border-color: var(--gold-bright);
   box-shadow: 
     0 0 0 1px var(--gold-bright),
@@ -647,7 +649,7 @@ em { color: var(--text-gold); }
 .card-body-text {
   font-size: 0.88rem; 
   margin-bottom: 10px; 
-  color: var(--ink-faded); 
+  color: var(--text-dim); /* Or var(--text-mid) */ 
   font-style: italic;
 }
 
