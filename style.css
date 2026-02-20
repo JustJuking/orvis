@@ -550,9 +550,49 @@ em { color: var(--text-gold); }
   .nav-links a { padding: 18px 10px; font-size: 0.62rem; letter-spacing: 0.08em; }
 }
 
-/* Responsive Images */
+/* ─── IMAGES ─────────────────────────────────── */
 .responsive-img {
   max-width: 100%;  /* Keeps it from leaking out of the panel */
   height: auto;     /* Maintains the correct proportions so it doesn't look squashed */
   display: block;   /* Removes the tiny gap at the bottom of images */
+}
+
+.lore-row {
+  display: flex;
+  gap: 2.5rem;
+  padding: 0 40px; /* Equal padding for symmetry */
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.lore-image {
+  flex: 1;
+  max-width: 300px; /* Keeps the image from getting too wide */
+}
+
+.lore-text {
+  flex: 2;
+  text-align: left;
+}
+
+.lore-details {
+  padding: 0 40px; /* Matches the row padding above */
+}
+
+.card-body-text {
+  font-size: 0.88rem; 
+  margin-bottom: 10px; 
+  color: var(--ink-faded); 
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .lore-row {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+  .lore-image {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
