@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Point Buy Calculator — Campaign Hub</title>
@@ -251,10 +251,17 @@
 </head>
 <body>
 
+<canvas id="runeCanvas"></canvas>
+
 <!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">⚔ Orvis</a>
   <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill"><span>🗺️</span> The World</a>
+  <a href="talent-tree.html" class="dir-pill"><span>🌿</span> Talent Tree</a>
+  <a href="point-buy.html" class="dir-pill"><span>⚖️</span> Point Buy</a>
+  <a href="house-rules.html" class="dir-pill"><span>📜</span> House Rules</a>
+</div>
   <a href="world.html" class="dir-pill">
     <span>🗺️</span> The World
   </a>
@@ -482,5 +489,6 @@
 
   buildGrid();
 </script>
+<script src="runes.js"></script>
 </body>
 </html>

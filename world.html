@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The World — Campaign Hub</title>
@@ -153,10 +153,17 @@
 </head>
 <body>
 
+<canvas id="runeCanvas"></canvas>
+
 <!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">⚔ Orvis</a>
   <div class="dir-divider"></div>
+  <a href="world.html" class="dir-pill"><span>🗺️</span> The World</a>
+  <a href="talent-tree.html" class="dir-pill"><span>🌿</span> Talent Tree</a>
+  <a href="point-buy.html" class="dir-pill"><span>⚖️</span> Point Buy</a>
+  <a href="house-rules.html" class="dir-pill"><span>📜</span> House Rules</a>
+</div>
   <a href="world.html" class="dir-pill">
     <span>🗺️</span> The World
   </a>
@@ -340,41 +347,9 @@
 
     <p class="edit-hint">✦ Add, remove, or modify classes to match your campaign's available options ✦</p>
 
-    <hr class="hr-ornate">
-
-    <!-- HOUSE RULES -->
-    <h2 class="section-title fade-in fade-in-delay-4">House Rules</h2>
-    <p class="fade-in fade-in-delay-4">The following modifications to standard rules are in effect for this campaign. Add or remove rows as needed.</p>
-
-    <table class="rules-table fade-in fade-in-delay-4">
-      <thead>
-        <tr>
-          <th>Rule</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Critical Hits</strong></td>
-          <td>On a natural 20, roll all damage dice twice and add modifiers once.</td>
-        </tr>
-        <tr>
-          <td><strong>Death Saves</strong></td>
-          <td>Players may spend a Luck point to reroll a failed death saving throw once per rest.</td>
-        </tr>
-        <tr>
-          <td><strong>Inspiration</strong></td>
-          <td>Inspiration can be stored and is awarded for excellent roleplay, creative solutions, and heroic moments.</td>
-        </tr>
-        <tr>
-          <td><strong>Your Rule Here</strong></td>
-          <td>Describe your custom rule. Edit this table to match your campaign's specific rules.</td>
-        </tr>
-      </tbody>
-    </table>
-
   </div>
 </div>
 
+<script src="runes.js"></script>
 </body>
 </html>

@@ -11,14 +11,13 @@
 /* ── HERO — Full-width atmospheric header ─────────── */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 82vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 80px 24px 60px;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -53,13 +52,7 @@
   z-index: 0;
 }
 
-/* Canvas for floating runes */
-#runeCanvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
+/* Canvas handled globally by style.css */
 
 .hero-content {
   position: relative;
@@ -85,23 +78,22 @@
 .crest-ring {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  border: 2px solid rgba(124,79,196,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.2rem;
-  background: radial-gradient(circle at 40% 35%, rgba(124,79,196,0.2), rgba(10,8,20,0.9));
-  box-shadow:
-    0 0 30px rgba(124,79,196,0.3),
-    0 0 60px rgba(124,79,196,0.12),
-    inset 0 0 30px rgba(124,79,196,0.08);
   animation: crestGlow 4s ease-in-out infinite;
 }
 
+.crest-ring img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(124,79,196,0.5)) drop-shadow(0 0 40px rgba(124,79,196,0.2));
+}
+
 @keyframes crestGlow {
-  0%, 100% { box-shadow: 0 0 30px rgba(124,79,196,0.3), 0 0 60px rgba(124,79,196,0.12), inset 0 0 30px rgba(124,79,196,0.08); }
-  50%       { box-shadow: 0 0 50px rgba(124,79,196,0.5), 0 0 100px rgba(124,79,196,0.2), inset 0 0 40px rgba(124,79,196,0.15); }
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(124,79,196,0.4)); }
+  50%       { filter: drop-shadow(0 0 24px rgba(124,79,196,0.7)); }
 }
 
 .hero-eyebrow {
@@ -215,6 +207,34 @@
   color: var(--gold-bright);
 }
 
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeInUp 0.5s 1.4s ease forwards;
+  color: var(--text-dim);
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1px solid rgba(124,79,196,0.4);
+  border-bottom: 1px solid rgba(124,79,196,0.4);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
 @keyframes bounce {
   0%, 100% { transform: rotate(45deg) translateY(0); }
   50%       { transform: rotate(45deg) translateY(4px); }
@@ -274,7 +294,7 @@
 .welcome-section {
   max-width: 960px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 40px 20px 60px;
   position: relative;
   z-index: 1;
 }
@@ -327,15 +347,10 @@
 <div class="dir-bar">
   <a href="index.html" class="dir-home">⚔ Orvis</a>
   <div class="dir-divider"></div>
-  <a href="world.html" class="dir-pill">
-    <span>🗺️</span> The World
-  </a>
-  <a href="talent-tree.html" class="dir-pill">
-    <span>🌿</span> Talent Tree
-  </a>
-  <a href="point-buy.html" class="dir-pill">
-    <span>⚖️</span> Point Buy
-  </a>
+  <a href="world.html" class="dir-pill"><span>🗺️</span> The World</a>
+  <a href="talent-tree.html" class="dir-pill"><span>🌿</span> Talent Tree</a>
+  <a href="point-buy.html" class="dir-pill"><span>⚖️</span> Point Buy</a>
+  <a href="house-rules.html" class="dir-pill"><span>📜</span> House Rules</a>
 </div>
 
 <!-- ══ HERO ════════════════════════════════════════ -->
@@ -344,7 +359,7 @@
 
   <div class="hero-content">
     <div class="crest">
-      <div class="crest-ring"><img src="favicon.png" alt="crest"></div>
+      <div class="crest-ring">🏰</div>
     </div>
 
     <p class="hero-eyebrow">A Campaign Chronicle</p>
@@ -398,7 +413,7 @@
     </p>
 
     <p class="fade-in fade-in-delay-2">
-      <em>Orvis is a homebrew module for DND 5e that offers new systems, races, subclasses and an all new class called the Sentinel. Use these pages as a resource to understand the talent system, as well as the homebrew content that is availabel to you.</em>
+      <em>Orvis is a homebrew module for DND 5e that offers new systems, races, subclasses and an all new class called the Sentinel. Use these pages as a resource to understand the talent system, as well as the homebrew content that is available to you.</em>
     </p>
 
     <hr class="hr-ornate">
@@ -411,82 +426,7 @@
   </div>
 </section>
 
-<script>
-/* Floating arcane runes on hero canvas */
-const canvas = document.getElementById('runeCanvas');
-const ctx = canvas.getContext('2d');
-
-const RUNES = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
-
-let particles = [];
-let W, H;
-
-function resize() {
-  W = canvas.width  = canvas.offsetWidth;
-  H = canvas.height = canvas.offsetHeight;
-}
-
-function randBetween(a, b) { return a + Math.random() * (b - a); }
-
-function spawnParticle() {
-  return {
-    x: randBetween(0, W),
-    y: randBetween(H * 0.8, H),
-    rune: RUNES[Math.floor(Math.random() * RUNES.length)],
-    size: randBetween(10, 22),
-    speed: randBetween(0.18, 0.55),
-    drift: randBetween(-0.18, 0.18),
-    opacity: 0,
-    maxOpacity: randBetween(0.06, 0.22),
-    fadeIn: true,
-    life: 0,
-    maxLife: randBetween(200, 400),
-  };
-}
-
-for (let i = 0; i < 28; i++) {
-  const p = spawnParticle();
-  p.y = randBetween(0, H);
-  p.life = randBetween(0, p.maxLife);
-  p.opacity = p.maxOpacity * (p.life / p.maxLife);
-  particles.push(p);
-}
-
-function draw() {
-  ctx.clearRect(0, 0, W, H);
-
-  particles.forEach(p => {
-    // fade lifecycle
-    const half = p.maxLife / 2;
-    if (p.life < half) {
-      p.opacity = p.maxOpacity * (p.life / half);
-    } else {
-      p.opacity = p.maxOpacity * (1 - (p.life - half) / half);
-    }
-
-    ctx.save();
-    ctx.globalAlpha = p.opacity;
-    ctx.fillStyle = `rgba(176, 122, 255, 1)`;
-    ctx.font = `${p.size}px serif`;
-    ctx.fillText(p.rune, p.x, p.y);
-    ctx.restore();
-
-    p.y -= p.speed;
-    p.x += p.drift;
-    p.life++;
-
-    if (p.life >= p.maxLife) {
-      Object.assign(p, spawnParticle());
-    }
-  });
-
-  requestAnimationFrame(draw);
-}
-
-resize();
-window.addEventListener('resize', resize);
-draw();
-</script>
+<script src="runes.js"></script>
 
 </body>
 </html>
