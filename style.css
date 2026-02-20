@@ -619,13 +619,6 @@ em { color: var(--text-gold); }
     0 0 20px var(--arcane-mist), 
     0 10px 30px rgba(0,0,0,0.8) !important;
   transition: all 0.3s ease-in-out;
-}
-
-.lore-image img.responsive-img:hover {
-  border-color: var(--gold-bright) !important;
-  box-shadow: 0 0 0 2px var(--gold-bright), 0 0 40px rgba(176,122,255,0.4) !important;
-  transform: translateY(-4px);
-}
 
 /* ─── LORE LAYOUT ────────────────── */
 .lore-row {
