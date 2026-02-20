@@ -222,13 +222,19 @@ body::before {
   border-radius: 6px;
   padding: 52px 64px;
   position: relative;
+  
+  /* CRITICAL CHANGES START HERE */
+  overflow: visible;      /* Allows the image glow to bleed out slightly */
+  display: flow-root;    /* Forces the background to wrap around ALL content */
+  height: auto;           /* Ensures it grows with your lore */
+  /* CRITICAL CHANGES END HERE */
+
   box-shadow:
     0 0 0 1px rgba(124,79,196,0.08),
     0 0 80px rgba(0,0,0,0.85),
     0 0 120px rgba(124,79,196,0.04),
     inset 0 1px 0 rgba(176,122,255,0.1),
     inset 0 0 80px rgba(124,79,196,0.025);
-  overflow: hidden;
 }
 
 .parchment::before {
@@ -240,6 +246,7 @@ body::before {
     transparent 0%, var(--arcane-dim) 15%, var(--arcane) 35%,
     var(--gold) 50%, var(--arcane) 65%, var(--arcane-dim) 85%, transparent 100%);
   opacity: 0.75;
+  z-index: 10; /* Keeps the top decorative line above the image frame */
 }
 
 .parchment::after {
@@ -591,65 +598,66 @@ em { color: var(--text-gold); }
   .nav-links a { padding: 18px 10px; font-size: 0.62rem; letter-spacing: 0.08em; }
 }
 
-/* ─── IMAGES ─────────────────────────────────── */
+/* ─── IMAGES & LORE FRAMES ─────────────────────── */
 .responsive-img {
-  max-width: 100%;  /* Keeps it from leaking out of the panel */
-  height: auto;     /* Maintains the correct proportions so it doesn't look squashed */
-  display: block;   /* Removes the tiny gap at the bottom of images */
-}
-
-.lore-row {
-  display: flex;         /* This is the magic line that puts them side-by-side */
-  flex-direction: row;   /* Ensures they stay in a line */
-  align-items: flex-start; 
-  gap: 30px;             /* Space between image and text */
-  padding: 0 0px;       /* Keeps things away from your corner ornaments */
-  margin-top: 20px;
-  width: 100%;           /* Ensures it takes up the full parchment width */
-  box-sizing: border-box; /* Important: keeps padding from pushing the box out */
-}
-
-.lore-image {
-  flex: 0 0 50%;         /* Image takes exactly % and won't shrink */
-  max-width: 700px;
-}
-
-.lore-image .responsive-img {
-  width: 100%;                  /* Forces the image to fill the 50% container */
+  max-width: 100%;
   height: auto;
-  border: 1px solid var(--gold-dim);
-  padding: 5px;                 /* This creates the space for the frame */
-  background: var(--stone-light); /* This is the "frame" color */
+  display: block;
+}
+
+/* This is the fix for your border */
+.lore-image img.responsive-img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  border: 1px solid var(--gold-dim) !important;
+  padding: 6px !important;
+  background-color: var(--stone-light) !important;
   border-radius: 4px;
   box-shadow: 
     0 0 0 1px var(--gold-dim),  
     0 0 20px var(--arcane-mist), 
-    0 10px 30px rgba(0,0,0,0.8); 
-  transition: all 0.3s ease;
-  display: block;               /* Fixes alignment gaps */
+    0 10px 30px rgba(0,0,0,0.8) !important;
+  transition: all 0.3s ease-in-out;
 }
 
-.lore-image .responsive-img:hover {
-  border-color: var(--gold-bright);
-  box-shadow: 
-    0 0 0 1px var(--gold-bright),
-    0 0 30px rgba(176,122,255,0.25);
-  transform: translateY(-2px);
+.lore-image img.responsive-img:hover {
+  border-color: var(--gold-bright) !important;
+  box-shadow: 0 0 0 2px var(--gold-bright), 0 0 40px rgba(176,122,255,0.4) !important;
+  transform: translateY(-4px);
+}
+
+/* ─── LORE LAYOUT ────────────────── */
+.lore-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; 
+  gap: 30px;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lore-image {
+  flex: 0 0 50%;
+  max-width: 700px;
 }
 
 .lore-text {
-  flex: 1;               /* Text takes up the rest of the space */
+  flex: 1;
   min-width: 200px;
 }
 
+/* ─── DETAILS & CARDS ────────────── */
 .lore-details {
-  padding: 0 40px; /* Matches the row padding above */
+  padding: 0 40px;
 }
 
 .card-body-text {
   font-size: 0.88rem; 
   margin-bottom: 10px; 
-  color: var(--text-dim); /* Or var(--text-mid) */ 
+  color: var(--text-dim); /* Fixed from ink-faded */
   font-style: italic;
 }
 
@@ -657,5 +665,6 @@ em { color: var(--text-gold); }
   .lore-row {
     flex-direction: column;
     padding: 0 20px;
+    gap: 20px;
   }
 }
