@@ -665,13 +665,19 @@ em { color: var(--text-gold); }
 
 /* ─── FANCY FRAMES ───────────────────────────── */
 .gold-frame {
+  display: block;             /* Necessary for centering and margins to work */
+  margin: 40px auto;          /* 40px space on top/bottom, centered left/right */
+  
+  /* The Frame Styles */
   border: 1px solid var(--gold-dim) !important;
-  padding: 8px !important;               /* Slightly thicker padding for the map */
+  padding: 8px !important;               
   background-color: var(--stone-light) !important;
   border-radius: 4px;
   box-shadow: 
     0 0 0 1px var(--gold-dim),  
     0 0 30px var(--arcane-mist), 
     0 15px 45px rgba(0,0,0,0.9) !important;
-  margin: 20px auto;                     /* Centers it and adds space around it */
+    
+  /* Ensure the map doesn't get wider than the parchment */
+  max-width: 100%;
 }
