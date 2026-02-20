@@ -681,3 +681,39 @@ em { color: var(--text-gold); }
   /* Ensure the map doesn't get wider than the parchment */
   max-width: 100%;
 }
+
+/* ─── TABLES ─────────────────────────────*/
+.cost-table-wrapper {
+  overflow-x: auto; /* Adds a scrollbar on small screens */
+  margin: 20px 0;
+  border: 1px solid rgba(124,79,196,0.1);
+  border-radius: 4px;
+}
+
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(13, 11, 24, 0.4); /* Subtle backing to make rows pop */
+}
+
+/* Zebra striping for readability */
+.rules-table tr:nth-child(even) {
+  background: rgba(124,79,196,0.03);
+}
+
+.rules-table th {
+  background: rgba(22, 18, 40, 0.8);
+  white-space: nowrap; /* Prevents headers from getting squished */
+}
+
+.rules-table td {
+  text-align: center; /* Most D&D tables look better centered */
+  padding: 12px 8px;
+}
+
+/* The 'Features' column usually looks better left-aligned */
+.rules-table td:nth-child(3) {
+  text-align: left;
+  color: var(--text-bright);
+  font-weight: 600;
+}
