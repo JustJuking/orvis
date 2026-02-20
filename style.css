@@ -619,6 +619,7 @@ em { color: var(--text-gold); }
     0 0 20px var(--arcane-mist), 
     0 10px 30px rgba(0,0,0,0.8) !important;
   transition: all 0.3s ease-in-out;
+}
 
 /* ─── LORE LAYOUT ────────────────── */
 .lore-row {
