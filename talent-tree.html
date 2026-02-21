@@ -330,6 +330,76 @@
     margin-top: 32px;
   }
 
+  /* ── PROFICIENCY PANEL ────────────────────────── */
+  .prof-panel {
+    background: rgba(44,26,14,0.04);
+    border: 1px solid rgba(139,96,16,0.2);
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+
+  .prof-panel-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 12px;
+  }
+
+  .prof-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .prof-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(139,96,16,0.2);
+    border-radius: 2px;
+    padding: 4px 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+  }
+
+  .prof-chip:hover { border-color: var(--gold); color: var(--ink); }
+
+  .prof-chip.active {
+    background: linear-gradient(135deg, #e8f5d8, #d4edb8);
+    border-color: #4a7c2f;
+    color: #2a5a1a;
+  }
+
+  .prof-chip input[type=checkbox] {
+    accent-color: #4a7c2f;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+  }
+
+  /* ── BASE NODE FREE STYLING ─────────────────── */
+  .tree-node.base-free {
+    border-color: #4a7c2f !important;
+    background: linear-gradient(145deg, #eef8e0, #dff0c8) !important;
+  }
+
+  .base-free-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    color: #4a7c2f;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+    display: block;
+  }
+
   .refund-hint {
     text-align: center;
     font-family: 'Crimson Text', serif;
@@ -362,6 +432,17 @@
     <span class="corner-ornament co-bl">❧</span>
     <span class="corner-ornament co-br">❧</span>
 
+    <!-- ALWAYS-VISIBLE HEADER -->
+    <h1 class="page-title">Talent Trees</h1>
+    <p class="page-subtitle">Spend your points wisely, adventurer</p>
+    <div class="ornament">⸻ ✦ ⸻</div>
+
+    <!-- PROFICIENCY PANEL -->
+    <div class="prof-panel" id="profPanel">
+      <div class="prof-panel-label">Skill Proficiencies — tick any skill your character is proficient in to unlock its base talent for free</div>
+      <div class="prof-grid" id="profGrid"></div>
+    </div>
+
     <!-- POINT BAR (always visible) -->
     <div class="point-bar">
       <div class="point-bar-left">
@@ -374,11 +455,6 @@
 
     <!-- MAIN VIEW -->
     <div id="mainView">
-      <h1 class="page-title">Arcane Talent Trees</h1>
-      <p class="page-subtitle">Choose your path, adventurer</p>
-      <div class="ornament">⸻ ✦ ⸻</div>
-      <p style="margin-bottom:20px;">Each talent tree represents a domain of expertise. Spend talent points to unlock abilities within a tree. Click any tree to explore its talents.</p>
-
       <div class="talent-section-label">Core Talents</div>
       <div class="featured-grid" id="featuredGrid"></div>
 
@@ -756,14 +832,74 @@ const TREES = [
 const purchased = {};
 TREES.forEach(t => purchased[t.id] = new Set());
 
+// proficient: Set of tree ids where character has skill proficiency
+const proficient = new Set();
+
+// Skill trees that can have proficiency
+const SKILL_TREE_IDS = TREES.filter(t => t.type === 'skill').map(t => t.id);
+
 let currentTree = null;
 
+function isBaseFreeThroughProf(treeId) {
+  return proficient.has(treeId);
+}
+
 function totalSpent() {
-  return Object.values(purchased).reduce((sum, s) => sum + s.size, 0);
+  // Only count points that were actively purchased (not free from proficiency)
+  return Object.entries(purchased).reduce((sum, [treeId, s]) => {
+    let count = s.size;
+    // If base is purchased and this tree has proficiency, don't count the base
+    if (s.has('base') && isBaseFreeThroughProf(treeId)) count -= 1;
+    return sum + count;
+  }, 0);
 }
 
 function treeSpent(treeId) {
-  return purchased[treeId].size;
+  let count = purchased[treeId].size;
+  if (purchased[treeId].has('base') && isBaseFreeThroughProf(treeId)) count -= 1;
+  return count;
+}
+
+function toggleProficiency(treeId) {
+  if (proficient.has(treeId)) {
+    proficient.delete(treeId);
+    // If base was unlocked via proficiency and nothing else is purchased, remove base
+    const ps = purchased[treeId];
+    if (ps.has('base') && ps.size === 1) {
+      ps.delete('base');
+    } else if (ps.has('base')) {
+      // Base remains but now costs a point — keep it, just recount
+    }
+  } else {
+    proficient.add(treeId);
+    // Auto-unlock base for free
+    purchased[treeId].add('base');
+  }
+  updatePointBar();
+  refreshMainCards();
+  if (currentTree && currentTree.id === treeId) renderTree();
+  refreshProfChips();
+}
+
+function refreshProfChips() {
+  document.querySelectorAll('.prof-chip').forEach(chip => {
+    const tid = chip.dataset.treeid;
+    if (proficient.has(tid)) chip.classList.add('active');
+    else chip.classList.remove('active');
+    chip.querySelector('input').checked = proficient.has(tid);
+  });
+}
+
+function buildProfPanel() {
+  const grid = document.getElementById('profGrid');
+  grid.innerHTML = '';
+  TREES.filter(t => t.type === 'skill').forEach(tree => {
+    const chip = document.createElement('label');
+    chip.className = 'prof-chip';
+    chip.dataset.treeid = tree.id;
+    chip.innerHTML = `<input type="checkbox" onchange="toggleProficiency('${tree.id}')"> ${tree.name}`;
+    grid.appendChild(chip);
+  });
 }
 
 // ═══════════════════════════════════════════════
@@ -780,6 +916,7 @@ function buildMainView() {
   const sg = document.getElementById('skillsGrid');
   sg.innerHTML = '';
   skills.forEach(t => sg.appendChild(makeTalentCard(t)));
+  buildProfPanel();
 }
 
 function makeTalentCard(tree) {
@@ -879,6 +1016,7 @@ function makeLevel(nodes) {
 function makeTreeNode(treeId, nodeId, name, desc, cost, extraClass, ps, tree, branch, prereqOverride) {
   const isPurchased = ps.has(nodeId);
   const isBase = nodeId === 'base';
+  const isFreeBase = isBase && isBaseFreeThroughProf(treeId);
 
   let prereqMet;
   if (isBase) {
@@ -889,31 +1027,40 @@ function makeTreeNode(treeId, nodeId, name, desc, cost, extraClass, ps, tree, br
     prereqMet = ps.has('base');
   }
 
-  const canAfford = true; // no point limit
   let state = 'locked';
   if (isPurchased) state = 'purchased';
-  else if (prereqMet && canAfford) state = 'available';
+  else if (prereqMet) state = 'available';
 
   const div = document.createElement('div');
-  div.className = `tree-node ${state} ${extraClass}`;
-  if (!isBase) {
-    div.onclick = () => handleNodeClick(treeId, nodeId, tree, branch);
-  }
+  let classes = `tree-node ${state} ${extraClass}`;
+  if (isFreeBase && isPurchased) classes += ' base-free';
+  div.className = classes;
+
+  // All nodes (including base) are clickable
+  div.onclick = () => handleNodeClick(treeId, nodeId, tree, branch);
 
   let badge = '';
-  if (isPurchased) badge = '<span class="node-badge">✦ Acquired</span>';
+  if (isPurchased && isFreeBase) badge = '<span class="node-badge" style="color:#4a7c2f;">✦ Free (Proficient)</span>';
+  else if (isPurchased) badge = '<span class="node-badge">✦ Acquired</span>';
 
   let label = '';
   if (isBase) label = '<span class="tn-label">Foundation</span>';
   else if (extraClass.includes('finale')) label = '<span class="tn-label">Finale</span>';
   else if (branch) label = `<span class="tn-label">Path ${branch.toUpperCase()}</span>`;
 
+  let costHtml = '';
+  if (isBase && isFreeBase) {
+    costHtml = '<span class="base-free-badge">Unlocked via Proficiency</span>';
+  } else {
+    costHtml = `<span class="tn-cost">${cost} pt</span>`;
+  }
+
   div.innerHTML = `
     ${badge}
     ${label}
     <div class="tn-name">${name}</div>
     <div class="tn-desc">${desc}</div>
-    ${!isBase ? `<span class="tn-cost">${cost} pt</span>` : ''}
+    ${costHtml}
   `;
   return div;
 }
@@ -925,11 +1072,14 @@ function handleNodeClick(treeId, nodeId, tree, branch) {
   const isTier2 = tree.tier2.some(n => n.id === nodeId);
   const isFinale = nodeId === 'finale';
   const isBase = nodeId === 'base';
+  const isFreeBase = isBase && isBaseFreeThroughProf(treeId);
 
   if (ps.has(nodeId)) {
     // ── REFUND ──────────────────────────────────
 
     if (isBase) {
+      // Can't refund base if locked via proficiency
+      if (isFreeBase) { flash('Remove your proficiency tick to unlearn this foundation.'); return; }
       // Can only refund base if nothing else is purchased
       if (ps.size > 1) { flash('Refund all other talents first.'); return; }
       ps.delete(nodeId);
@@ -1020,6 +1170,7 @@ function resetAll() {
 
 // ── INIT ─────────────────────────────────────
 buildMainView();
+buildProfPanel();
 updatePointBar();
 </script>
 
