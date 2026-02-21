@@ -452,6 +452,8 @@ You can only put points in a skill tree if you are proficient with that skill. T
 You gain 1 feat point every 2nd level (2,4,6 e.t.c).<br>
 Instead of gaining an ASI, you may instead gain 1 additional feat point.<br>
 Finale abilities (the capstone of a feat tree) cost 2 feat points and require at least one Tier 2 ability from that tree.</p>
+    
+<h2>A Bonus for Specialising</h2>
 <p>If you have the finale and 2 completed branches in a tree, you gain the following benefit:<br>
 <strong>Skill Talents:</strong> expertise with the skill (or another skill that makes sense if you already have expertise).<br>
 <strong>Armor Talents:</strong> +1 to your AC<br>
@@ -577,7 +579,7 @@ const TREES = [
   // ── SKILLS ───────────────────────────────────
   {
     id: 'acrobatics', name: 'Acrobatics', subtitle: 'Grace and agility in motion', type: 'skill',
-    base: { name: 'Acrobatic Training', desc: 'Your body moves with practiced elegance. You gain proficiency in Acrobatics. If already proficient, you gain expertise.' },
+    base: { name: 'Handspring', desc: 'Whenever you are knocked prone, you can use a reaction to immediately stand up.' },
     tier1: [
       { id: 'acro-a', branch: 'a', name: 'Tumble', desc: 'You can roll through enemy spaces. As part of your movement, you can attempt to move through a hostile creature\'s space. Make a DC 15 Acrobatics check; on a success, you pass through without provoking opportunity attacks.' },
       { id: 'acro-b', branch: 'b', name: 'Wall Runner', desc: 'Vertical surfaces are no obstacle. You can run along walls for up to 10 feet per turn without falling, as long as you end your turn on a horizontal surface.' },
@@ -974,6 +976,7 @@ function showDetail(treeId) {
   document.getElementById('detailTitle').textContent = currentTree.name;
   document.getElementById('detailSubtitle').textContent = currentTree.subtitle;
   renderTree();
+  window.scrollTo(0, 0);
 }
 
 function showMain() {
