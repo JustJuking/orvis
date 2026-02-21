@@ -206,15 +206,6 @@
     position: relative;
   }
 
-  .tree-connector::before {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%; 
-    width: 2px;
-    background: rgba(139,96,16,0.25);
-  }
-
   .tree-connector-fan {
     height: 32px;
     position: relative;
@@ -1005,24 +996,100 @@ function renderTree() {
 
   const hasAnyTier2 = tree.tier2.some(n => ps.has(n.id));
 
-  // BASE
-  area.appendChild(makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 1, 'base-node', ps, tree)]));
-  area.appendChild(makeDivider());
+  const wrap = document.createElement('div');
+  wrap.style.position = 'relative';
+  area.appendChild(wrap);
 
-  // TIER 1
-  area.appendChild(makeLevel(tree.tier1.map(n => makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch))));
-  area.appendChild(makeDivider());
+  const rowBase = makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 1, 'base-node', ps, tree)]);
+  rowBase.id = 'row-base';
+  wrap.appendChild(rowBase);
 
-  // TIER 2
-  area.appendChild(makeLevel(tree.tier2.map(n => {
+  const gap1 = document.createElement('div'); gap1.style.height = '48px'; wrap.appendChild(gap1);
+
+  const rowT1 = makeLevel(tree.tier1.map(n => makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch)));
+  rowT1.id = 'row-t1';
+  wrap.appendChild(rowT1);
+
+  const gap2 = document.createElement('div'); gap2.style.height = '48px'; wrap.appendChild(gap2);
+
+  const rowT2 = makeLevel(tree.tier2.map(n => {
     const parent = tree.tier1.find(t => t.branch === n.branch);
     const prereqMet = parent && ps.has(parent.id);
     return makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch, prereqMet);
-  })));
-  area.appendChild(makeDivider());
+  }));
+  rowT2.id = 'row-t2';
+  wrap.appendChild(rowT2);
 
-  // FINALE
-  area.appendChild(makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 2, 'finale-node', ps, tree, '', hasAnyTier2)]));
+  const gap3 = document.createElement('div'); gap3.style.height = '48px'; wrap.appendChild(gap3);
+
+  const rowFin = makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 2, 'finale-node', ps, tree, '', hasAnyTier2)]);
+  rowFin.id = 'row-fin';
+  wrap.appendChild(rowFin);
+
+  requestAnimationFrame(() => drawConnectors(wrap, tree, ps));
+}
+
+function drawConnectors(wrap, tree, ps) {
+  const old = wrap.querySelector('svg.tree-svg');
+  if (old) old.remove();
+
+  const wrapRect = wrap.getBoundingClientRect();
+
+  function cx(el) {
+    const r = el.getBoundingClientRect();
+    return r.left - wrapRect.left + r.width / 2;
+  }
+  function bot(el) {
+    const r = el.getBoundingClientRect();
+    return { x: cx(el), y: r.bottom - wrapRect.top };
+  }
+  function top(el) {
+    const r = el.getBoundingClientRect();
+    return { x: cx(el), y: r.top - wrapRect.top };
+  }
+
+  const baseEl = wrap.querySelector('.base-node');
+  const t1Els  = [...wrap.querySelectorAll('#row-t1 .tree-node')];
+  const t2Els  = [...wrap.querySelectorAll('#row-t2 .tree-node')];
+  const finEl  = wrap.querySelector('.finale-node');
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('tree-svg');
+  svg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;';
+  wrap.appendChild(svg);
+
+  function line(x1, y1, x2, y2, active) {
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+    l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+    l.setAttribute('stroke', active ? '#4a7c2f' : 'rgba(139,96,16,0.3)');
+    l.setAttribute('stroke-width', active ? '2.5' : '1.5');
+    if (!active) l.setAttribute('stroke-dasharray', '4 3');
+    svg.appendChild(l);
+  }
+
+  // Base → each Tier 1
+  const baseBot = bot(baseEl);
+  t1Els.forEach((el, i) => {
+    const t = top(el);
+    const active = ps.has('base') && ps.has(tree.tier1[i].id);
+    line(baseBot.x, baseBot.y, t.x, t.y, active);
+  });
+
+  // Each Tier 1 → its Tier 2
+  t1Els.forEach((t1El, i) => {
+    const t2El = t2Els[i];
+    if (!t2El) return;
+    const active = ps.has(tree.tier1[i].id) && ps.has(tree.tier2[i].id);
+    line(bot(t1El).x, bot(t1El).y, top(t2El).x, top(t2El).y, active);
+  });
+
+  // Each Tier 2 → Finale
+  const finTop = top(finEl);
+  t2Els.forEach((t2El, i) => {
+    const active = ps.has(tree.tier2[i].id) && ps.has('finale');
+    line(bot(t2El).x, bot(t2El).y, finTop.x, finTop.y, active);
+  });
 }
 
 function makeTierLabel(text) {
