@@ -19,6 +19,16 @@
     text-shadow: 0 0 20px rgba(242,192,69,0.5);
     filter: drop-shadow(0 2px 8px rgba(242,192,69,0.3));
   }
+
+  .tn-desc ul {
+  margin: 6px 0 0 16px;
+  padding: 0;
+}
+
+.tn-desc li {
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
   
   /* ── POINT BAR ─────────────────────────────── */
   .point-bar {
@@ -578,15 +588,15 @@ const TREES = [
 
   // ── SKILLS ───────────────────────────────────
   {
-    id: 'acrobatics', name: 'Acrobatics', subtitle: 'Grace and agility in motion', type: 'skill',
+    id: 'acrobatics', name: 'Acrobatics', subtitle: 'Maintain your balance, agility, and footing when the ground gives way.', type: 'skill',
     base: { name: 'Handspring', desc: 'Whenever you are knocked prone, you can use a reaction to immediately stand up.' },
     tier1: [
-      { id: 'acro-a', branch: 'a', name: 'Tumble', desc: 'You can roll through enemy spaces. As part of your movement, you can attempt to move through a hostile creature\'s space. Make a DC 15 Acrobatics check; on a success, you pass through without provoking opportunity attacks.' },
+      { id: 'acro-a', branch: 'a', name: 'Making Tracks', desc: 'Whenever you take the dash action, you can move up to 10 additional feet and difficult terrain costs no extra movement this turn.' },
       { id: 'acro-b', branch: 'b', name: 'Wall Runner', desc: 'Vertical surfaces are no obstacle. You can run along walls for up to 10 feet per turn without falling, as long as you end your turn on a horizontal surface.' },
       { id: 'acro-c', branch: 'c', name: 'Evasive Footwork', desc: 'You are difficult to pin down. When a creature misses you with a melee attack, you can move 5 feet without provoking opportunity attacks.' },
     ],
     tier2: [
-      { id: 'acro-a2', branch: 'a', name: 'Untouchable', desc: 'You flow around attacks like water. While you have not used your full movement this turn, you have a +2 bonus to AC.' },
+      { id: 'acro-a2', branch: 'a', name: 'Untouchable', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>Your speed increases by 10ft</li><li>Whenever you dash you can move along vertical surfaces and across liquids without falling during the move.</li><li>Whenever you make a melee attack against a creature, you can choose to move in such a way that distracts them causing the creature to strike out where they thought you were. Whether you hit or miss, the creature loses it's reaction and its speed is halved until the end of its next turn. You can do this a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest.</li></ul>' },
       { id: 'acro-b2', branch: 'b', name: 'Parkour Mastery', desc: 'The battlefield is your playground. You ignore difficult terrain and can climb at your full movement speed.' },
       { id: 'acro-c2', branch: 'c', name: 'Reflexive Dodge', desc: 'You can dodge instinctively. Once per round, when you are targeted by an attack, you can add your proficiency bonus to your AC against that attack as a reaction.' },
     ],
