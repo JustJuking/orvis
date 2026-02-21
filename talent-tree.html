@@ -1008,24 +1008,6 @@ function renderTree() {
   // BASE
   area.appendChild(makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 1, 'base-node', ps, tree)]));
   area.appendChild(makeDivider());
-
-  // TIER 1
-  area.appendChild(makeTierLabel('Tier I — Choose your path (1 pt each)'));
-  area.appendChild(makeLevel(tree.tier1.map(n => makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch))));
-  area.appendChild(makeDivider());
-
-  // TIER 2
-  area.appendChild(makeTierLabel('Tier II — Deepen your mastery (1 pt each)'));
-  area.appendChild(makeLevel(tree.tier2.map(n => {
-    const parent = tree.tier1.find(t => t.branch === n.branch);
-    const prereqMet = parent && ps.has(parent.id);
-    return makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch, prereqMet);
-  })));
-  area.appendChild(makeDivider());
-
-  // FINALE
-  area.appendChild(makeTierLabel('Finale — The pinnacle of mastery (2 pts)'));
-  area.appendChild(makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 2, 'finale-node', ps, tree, '', hasAnyTier2)]));
 }
 
 function makeTierLabel(text) {
