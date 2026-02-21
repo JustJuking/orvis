@@ -345,23 +345,27 @@
     gap: 6px;
     font-family: 'Cinzel', serif;
     font-size: 0.72rem;
-    color: var(--ink-light);
-    background: rgba(255,255,255,0.5);
-    border: 1px solid rgba(139,96,16,0.2);
+    color: var(--gold);
+    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    border: 1px solid var(--arcane);
     border-radius: 2px;
     padding: 4px 10px;
     cursor: pointer;
     user-select: none;
-    transition: all 0.15s;
+    transition: all 0.2s;
   }
 
-  .prof-chip:hover { border-color: var(--arcane); color: var(--ink); }
+  .prof-chip:hover {
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    box-shadow: 0 0 8px rgba(201,150,58,0.3);
+  }
 
   .prof-chip.active {
     background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
-    border-color: var(--arcane);
+    border-color: var(--arcane-glow);
     color: var(--gold-bright);
-    box-shadow: 0 0 8px rgba(124,79,196,0.3);
+    box-shadow: 0 0 12px rgba(176,122,255,0.6), 0 0 24px rgba(124,79,196,0.3);
   }
 
   .prof-chip input[type=checkbox] {
