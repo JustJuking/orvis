@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orvis Unbound — Talent Trees</title>
+<title>Orvis Unbound</title>
 <link rel="stylesheet" href="style.css">
 <style>
 
@@ -423,13 +423,16 @@
     <span class="corner-ornament co-br">❧</span>
 
     <!-- ALWAYS-VISIBLE HEADER -->
-    <h1 class="page-title">Talent Trees</h1>
-    <p class="page-subtitle">Spend your points wisely, adventurer</p>
+    <h1 class="page-title">Pathways of Myth and Mastery</h1>
+    <p class="page-subtitle">Specialize your skills to survive the wilds of Orvis.</p>
     <div class="ornament">⸻ ✦ ⸻</div>
 
+
+Survival in the frostbitten wastes and crowded city sprawls of Orvis requires more than just basic training—it demands specialization. In this campaign, standard feats are replaced by custom Talent Trees. As your character faces the harsh realities of the world, they will earn Talent Points to spend across these branching paths. Whether you are mastering brutal martial techniques or refining volatile magic, these trees allow you to carve a unique path of mastery that reflects your character's personal journey and survival instincts.</p>
+    
     <!-- PROFICIENCY PANEL -->
     <div class="prof-panel" id="profPanel">
-      <div class="prof-panel-label">Skill Proficiencies — tick any skill your character is proficient in to unlock its base talent for free</div>
+      <div class="prof-panel-label">Skill Proficiencies — tick any skill your character is proficient in. These base talents will be unlocked for free.</div>
       <div class="prof-grid" id="profGrid"></div>
     </div>
 
@@ -1147,8 +1150,8 @@ function flash(msg) {
 function updatePointBar() {
   const spent = totalSpent();
   document.getElementById('globalSpent').textContent = spent;
-  const trees = spent === 1 ? 'talent' : 'talents';
-  document.getElementById('globalSub').textContent = `${trees} acquired`;
+  const trees = spent === 1 ? 'talent' : ' ';
+  document.getElementById('globalSub').textContent = `${trees}  `;
 }
 
 function resetAll() {
