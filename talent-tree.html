@@ -986,7 +986,7 @@ function showDetail(treeId) {
   document.getElementById('detailTitle').textContent = currentTree.name;
   document.getElementById('detailSubtitle').textContent = currentTree.subtitle;
   renderTree();
-  window.scrollTo(0, 0);
+  document.querySelector('.point-bar').scrollIntoView({ behavior: 'smooth' });
 }
 
 function showMain() {
