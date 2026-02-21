@@ -216,8 +216,6 @@
 
   .tree-node.base-node {
     width: 280px;
-    background: linear-gradient(145deg, #f5f0e0, #e8e0c8);
-    border-color: var(--gold-dim);
     text-align: center;
   }
 
@@ -247,19 +245,6 @@
   .tree-node.finale-node {
     width: 300px;
     text-align: center;
-    background: linear-gradient(145deg, #f0ecd8, #e0d8b8);
-    border-color: var(--gold-dim);
-  }
-
-  .tree-node.finale-node.available {
-    background: linear-gradient(145deg, #f8f0d0, #f0e4a8);
-    border-color: var(--gold);
-  }
-
-  .tree-node.finale-node.purchased {
-    background: linear-gradient(145deg, #f0e8d0, #e8d890);
-    border-color: var(--gold);
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 16px rgba(201,150,58,0.4);
   }
 
   .node-badge {
@@ -370,16 +355,17 @@
     transition: all 0.15s;
   }
 
-  .prof-chip:hover { border-color: var(--gold); color: var(--ink); }
+  .prof-chip:hover { border-color: var(--arcane); color: var(--ink); }
 
   .prof-chip.active {
-    background: linear-gradient(135deg, #e8f5d8, #d4edb8);
-    border-color: #4a7c2f;
-    color: #2a5a1a;
+    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    border-color: var(--arcane);
+    color: var(--gold-bright);
+    box-shadow: 0 0 8px rgba(124,79,196,0.3);
   }
 
   .prof-chip input[type=checkbox] {
-    accent-color: #4a7c2f;
+    accent-color: var(--arcane-glow);
     width: 13px;
     height: 13px;
     cursor: pointer;
@@ -971,7 +957,7 @@ function renderTree() {
   const hasAnyTier2 = tree.tier2.some(n => ps.has(n.id));
 
   // BASE
-  area.appendChild(makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 0, 'base-node', ps, tree)]));
+  area.appendChild(makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 1, 'base-node', ps, tree)]));
   area.appendChild(makeDivider());
 
   // TIER 1
@@ -989,8 +975,8 @@ function renderTree() {
   area.appendChild(makeDivider());
 
   // FINALE
-  area.appendChild(makeTierLabel('Finale — The pinnacle of mastery (1 pt)'));
-  area.appendChild(makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 1, 'finale-node', ps, tree, '', hasAnyTier2)]));
+  area.appendChild(makeTierLabel('Finale — The pinnacle of mastery (2 pts)'));
+  area.appendChild(makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 2, 'finale-node', ps, tree, '', hasAnyTier2)]));
 }
 
 function makeTierLabel(text) {
