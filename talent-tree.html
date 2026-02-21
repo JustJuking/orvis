@@ -4,28 +4,34 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orvis Unbound</title>
+<title>Orvis Unbound — Talent Trees</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Point counter */
+
+  /* ── POINT BAR ─────────────────────────────── */
   .point-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
     background: linear-gradient(135deg, #2c1a0e, #4a2e10);
     border: 2px solid var(--gold);
     border-radius: 4px;
     padding: 12px 24px;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(201,150,58,0.3);
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
+  }
+
+  .point-bar-left {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
   }
 
   .point-label {
     font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--gold);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -33,254 +39,311 @@
 
   .point-display {
     font-family: 'Cinzel', serif;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--gold-bright);
     text-shadow: 0 0 12px rgba(240,192,64,0.6);
-    min-width: 60px;
-    text-align: center;
+    line-height: 1;
   }
 
-  .point-total {
+  .point-sub {
     font-family: 'Crimson Text', serif;
-    color: var(--ink-faded);
-    font-size: 1rem;
+    color: var(--gold);
+    font-size: 0.9rem;
+    opacity: 0.7;
   }
 
   .reset-btn {
     font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     background: transparent;
-    border: 1px solid var(--red-wax);
+    border: 1px solid rgba(180,60,60,0.6);
     color: #c44;
-    padding: 6px 14px;
+    padding: 6px 16px;
     cursor: pointer;
     border-radius: 2px;
     letter-spacing: 0.05em;
     transition: all 0.2s;
   }
-  .reset-btn:hover { background: var(--red-wax); color: var(--parchment); }
+  .reset-btn:hover { background: rgba(180,60,60,0.15); }
 
-  /* Tree container */
-  .tree-container {
-    position: relative;
-    width: 100%;
-  }
-
-  .tree-svg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  .tree-svg line {
-    stroke: var(--ink-faded);
-    stroke-width: 2;
-    stroke-dasharray: 5 3;
-    opacity: 0.5;
-  }
-  .tree-svg line.active {
-    stroke: var(--gold);
-    stroke-width: 2.5;
-    stroke-dasharray: none;
-    opacity: 0.9;
-  }
-
-  /* Tier rows */
-  .tier {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    position: relative;
-    padding: 20px 0;
-    flex-wrap: wrap;
-  }
-
-  .branch-tag {
-    font-family: 'Crimson Text', serif;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
+  /* ── SECTION HEADERS ───────────────────────── */
+  .talent-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-faded);
-    text-align: center;
-    margin: -8px 0 8px;
-    font-style: italic;
-    opacity: 0.7;
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(139,96,16,0.2);
   }
 
-  /* Node cards */
-  .node {
-    width: 130px;
-    background: linear-gradient(160deg, #fdf5d8 0%, var(--parchment) 50%, #dfc887 100%);
-    border: 2px solid var(--parchment-shadow);
+  /* ── MAIN GRID CARDS ───────────────────────── */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .featured-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .talent-card {
+    background: linear-gradient(145deg, #fdf5d8, var(--parchment));
+    border: 1px solid var(--parchment-shadow);
     border-radius: 3px;
-    padding: 10px 10px 8px;
+    padding: 12px 14px;
     cursor: pointer;
-    position: relative;
-    transition: all 0.25s;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
-    text-align: center;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
     user-select: none;
   }
 
-  .node.locked {
-    opacity: 0.55;
-    filter: grayscale(30%);
-    cursor: not-allowed;
-    border-color: var(--locked, #a89070);
-  }
-
-  .node.available {
+  .talent-card:hover {
     border-color: var(--gold);
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.25), 0 0 8px rgba(201,150,58,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2), 0 0 10px rgba(201,150,58,0.2);
+    transform: translateY(-1px);
   }
 
-  .node.available:hover {
-    transform: translateY(-2px);
-    box-shadow: 2px 4px 12px rgba(0,0,0,0.3), 0 0 16px rgba(201,150,58,0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+  .talent-card.has-points {
+    border-color: rgba(74,124,47,0.5);
+    background: linear-gradient(145deg, #f0f8e8, #e8f5d8);
   }
 
-  .node.purchased {
-    background: linear-gradient(160deg, #e8f0d8, #d4e8b8 50%, #b8d490 100%);
-    border-color: #4a7c2f;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.2), 0 0 10px rgba(74,124,47,0.25);
-  }
-
-  .node.branch-a.purchased {
-    background: linear-gradient(160deg, #e8e0f0, #d4c8e8 50%, #b8a8d4 100%);
-    border-color: #4a3080;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.2), 0 0 10px rgba(74,48,128,0.25);
-  }
-  .node.branch-b.purchased {
-    background: linear-gradient(160deg, #d8f0e0, #b8e8c8 50%, #90d4a8 100%);
-    border-color: #2a5a3a;
-  }
-
-  .node.excluded {
-    opacity: 0.3;
-    cursor: not-allowed;
-    filter: grayscale(60%) sepia(20%);
-  }
-
-  .node.purchased::after {
-    content: '✦';
-    position: absolute;
-    top: 4px; right: 6px;
-    font-size: 0.6rem;
-    color: #4a7c2f;
-    opacity: 0.8;
-  }
-  .node.branch-a.purchased::after { color: #4a3080; }
-  .node.branch-b.purchased::after { color: #2a5a3a; }
-
-  .node-icon { font-size: 1.6rem; line-height: 1; margin-bottom: 4px; display: block; }
-
-  .node-name {
+  .tc-name {
     font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 700;
     color: var(--ink);
     letter-spacing: 0.03em;
-    margin-bottom: 3px;
-    line-height: 1.2;
+    margin-bottom: 4px;
   }
 
-  .node-desc {
+  .tc-spent {
     font-family: 'Crimson Text', serif;
     font-size: 0.78rem;
-    color: var(--ink-light);
     font-style: italic;
-    line-height: 1.3;
-    margin-bottom: 6px;
+    color: var(--ink-faded);
   }
 
-  .node-cost {
-    display: inline-block;
+  .tc-spent.nonzero {
+    color: #4a7c2f;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── DETAIL VIEW ───────────────────────────── */
+  #detailView { display: none; }
+
+  .detail-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .detail-title {
     font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    color: var(--gold);
-    background: rgba(44,26,14,0.08);
-    border: 1px solid rgba(201,150,58,0.4);
-    border-radius: 2px;
-    padding: 1px 7px;
-  }
-
-  .node.purchased .node-cost { color: #4a7c2f; border-color: rgba(74,124,47,0.4); }
-  .node.locked .node-cost { color: #a89070; border-color: rgba(168,144,112,0.4); }
-
-  .tooltip {
-    display: none;
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--ink);
-    color: var(--parchment);
-    font-family: 'Crimson Text', serif;
-    font-size: 0.8rem;
-    padding: 6px 10px;
-    border-radius: 2px;
-    white-space: nowrap;
-    z-index: 100;
-    pointer-events: none;
-    border: 1px solid var(--gold);
-  }
-  .node:hover .tooltip { display: block; }
-
-  /* Summary */
-  .summary { margin-top: 28px; border-top: 1px solid var(--parchment-shadow); padding-top: 20px; }
-
-  .summary h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
     color: var(--ink);
-    margin-bottom: 12px;
     letter-spacing: 0.05em;
+    margin-bottom: 4px;
   }
 
-  .summary-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .summary-list li {
-    font-family: 'Crimson Text', serif;
-    font-size: 0.9rem;
-    color: var(--ink-light);
-    background: rgba(44,26,14,0.05);
-    border: 1px solid rgba(44,26,14,0.15);
-    border-radius: 2px;
-    padding: 3px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .empty-msg {
+  .detail-subtitle {
     font-family: 'Crimson Text', serif;
     font-style: italic;
     color: var(--ink-faded);
+    font-size: 1rem;
+  }
+
+  /* Tree layout */
+  .tree-level {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .tree-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    position: relative;
+  }
+
+  .tree-connector::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%; 
+    width: 2px;
+    background: rgba(139,96,16,0.25);
+  }
+
+  .tree-connector-fan {
+    height: 32px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Tree nodes */
+  .tree-node {
+    width: 220px;
+    background: linear-gradient(145deg, #fdf5d8, var(--parchment));
+    border: 2px solid var(--parchment-shadow);
+    border-radius: 4px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+    user-select: none;
+    position: relative;
+  }
+
+  .tree-node.base-node {
+    width: 280px;
+    background: linear-gradient(145deg, #f5f0e0, #e8e0c8);
+    border-color: var(--gold-dim);
+    text-align: center;
+  }
+
+  .tree-node.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(20%);
+  }
+
+  .tree-node.available {
+    border-color: var(--gold);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 10px rgba(201,150,58,0.25);
+    cursor: pointer;
+  }
+
+  .tree-node.available:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 14px rgba(0,0,0,0.2), 0 0 18px rgba(201,150,58,0.4);
+  }
+
+  .tree-node.purchased {
+    background: linear-gradient(145deg, #e8f5d8, #d4edb8);
+    border-color: #4a7c2f;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 10px rgba(74,124,47,0.2);
+  }
+
+  .tree-node.finale-node {
+    width: 300px;
+    text-align: center;
+    background: linear-gradient(145deg, #f0ecd8, #e0d8b8);
+    border-color: var(--gold-dim);
+  }
+
+  .tree-node.finale-node.available {
+    background: linear-gradient(145deg, #f8f0d0, #f0e4a8);
+    border-color: var(--gold);
+  }
+
+  .tree-node.finale-node.purchased {
+    background: linear-gradient(145deg, #f0e8d0, #e8d890);
+    border-color: var(--gold);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 16px rgba(201,150,58,0.4);
+  }
+
+  .node-badge {
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 0.6rem;
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+  .tree-node.purchased .node-badge { color: #4a7c2f; }
+
+  .tn-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .tn-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .tn-desc {
+    font-family: 'Crimson Text', serif;
     font-size: 0.95rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .tn-cost {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    color: var(--gold);
+    background: rgba(44,26,14,0.07);
+    border: 1px solid rgba(201,150,58,0.35);
+    border-radius: 2px;
+    padding: 2px 8px;
+    margin-top: 8px;
+  }
+
+  .tree-node.purchased .tn-cost { color: #4a7c2f; border-color: rgba(74,124,47,0.35); }
+  .tree-node.locked .tn-cost { color: var(--ink-faded); }
+
+  .tier-label {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink-faded);
+    text-align: center;
+    margin: 4px 0 8px;
+    opacity: 0.7;
+  }
+
+  .back-btn-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
   }
 
   .refund-hint {
     text-align: center;
     font-family: 'Crimson Text', serif;
     font-style: italic;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--ink-faded);
-    margin-top: 12px;
-    opacity: 0.7;
+    margin-top: 16px;
+    opacity: 0.65;
   }
+
 </style>
 </head>
 <body>
 
-<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">Orvis Unbound</a>
   <a href="world.html" class="dir-pill">About Orvis</a>
@@ -299,239 +362,667 @@
     <span class="corner-ornament co-bl">❧</span>
     <span class="corner-ornament co-br">❧</span>
 
-    <h1 class="page-title">Pathways of Myth & Mastery</h1>
-    <p class="page-subtitle">Specialise your skills to survive the wilds of Orvis.</p>
-
-    <div class="ornament">⸻ ✦ ⸻</div>
-
-<p class="welcome-drop-cap fade-in fade-in-delay-1">
-Survival in the frostbitten wastes and crowded city sprawls of Orvis requires more than just basic training—it demands specialization. In this campaign, standard feats are replaced by custom Talent Trees. As your character faces the harsh realities of the world, they will earn Talent Points to spend across these branching paths. Whether you are mastering brutal martial techniques or refining volatile magic, these trees allow you to carve a unique path of mastery that reflects your character's personal journey and survival instincts.</p>
-<h2>How Does it Work?</h2>
-<p>You gain all the base feats of skills you are proficient in.<br>
-You can use a feat point to gain proficiency with a skill.<br>
-You can only put points in a skill tree if you are proficient with that skill. The trees that are not tied to a skill ( Armor, Magical, Martial, Vitality) do not have this requirement.<br>
-You gain 1 feat point every 2nd level (2,4,6 e.t.c).<br>
-Instead of gaining an ASI, you may instead gain 1 feat point.<br>
-<i>Finale</i> abilities (the capstone of a feat tree) cost 2 feat points and require at least one Tier 2 ability from that tree.<br>
-If you have the finale and 2 completed branches in a tree, you gain the following benefit:<br>
-<strong>Skill Talents:</strong> expertise with the skill (or another skill that makes sense if you already have expertise).<br>
-<strong>Armor Talents:</strong> +1 to your AC<br>
-<strong>Magical Talents:</strong> +1 to SDC<br>
-<strong>Martial Talents :</strong> +1 to attacks<br>
-<strong>Vitality Talents:</strong> +1 hit point per level</p>
-    
+    <!-- POINT BAR (always visible) -->
     <div class="point-bar">
-      <div>
-        <div class="point-label">Points Remaining</div>
-        <div class="point-display" id="pointsLeft">10</div>
+      <div class="point-bar-left">
+        <span class="point-label">Points Spent</span>
+        <span class="point-display" id="globalSpent">0</span>
+        <span class="point-sub" id="globalSub">across all trees</span>
       </div>
-      <div class="point-total" id="pointsSummary">of 10 total · 0 spent</div>
-      <button class="reset-btn" onclick="resetAll()">✕ Reset All</button>
+      <button class="reset-btn" onclick="resetAll()">✕ Reset All Talents</button>
     </div>
 
-    <div class="tree-container" id="treeContainer">
-      <svg class="tree-svg" id="treeSvg"></svg>
+    <!-- MAIN VIEW -->
+    <div id="mainView">
+      <h1 class="page-title">Arcane Talent Trees</h1>
+      <p class="page-subtitle">Choose your path, adventurer</p>
+      <div class="ornament">⸻ ✦ ⸻</div>
+      <p style="margin-bottom:20px;">Each talent tree represents a domain of expertise. Spend talent points to unlock abilities within a tree. Click any tree to explore its talents.</p>
 
-      <div class="tier" id="tier1">
-        <div class="node available" id="node-foundation" data-id="foundation" data-cost="1" data-prereq="" data-branch="" onclick="toggleNode(this)">
-          <span class="node-icon">🕯️</span>
-          <div class="node-name">Arcane Foundation</div>
-          <div class="node-desc">The spark of magical potential awakens within.</div>
-          <span class="node-cost">1 pt</span>
-          <div class="tooltip">Required for all paths</div>
-        </div>
+      <div class="talent-section-label">Core Talents</div>
+      <div class="featured-grid" id="featuredGrid"></div>
+
+      <div class="talent-section-label">Skill Talents</div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="detailView">
+      <div class="detail-header">
+        <div class="detail-title" id="detailTitle"></div>
+        <div class="detail-subtitle" id="detailSubtitle"></div>
       </div>
 
-      <div class="branch-tag">Choose your Path</div>
-      <div class="tier" id="tier2">
-        <div class="node locked branch-a" id="node-illusion" data-id="illusion" data-cost="2" data-prereq="foundation" data-branch="a" onclick="toggleNode(this)">
-          <span class="node-icon">🌙</span>
-          <div class="node-name">Veil of Illusion</div>
-          <div class="node-desc">Bend perception, twist reality.</div>
-          <span class="node-cost">2 pts</span>
-          <div class="tooltip">Path of Illusion</div>
-        </div>
-        <div class="node locked branch-b" id="node-evocation" data-id="evocation" data-cost="2" data-prereq="foundation" data-branch="b" onclick="toggleNode(this)">
-          <span class="node-icon">🔥</span>
-          <div class="node-name">Evocation Arts</div>
-          <div class="node-desc">Raw magical force made manifest.</div>
-          <span class="node-cost">2 pts</span>
-          <div class="tooltip">Path of Evocation</div>
-        </div>
-      </div>
+      <div id="treeArea"></div>
 
-      <div class="tier" id="tier3">
-        <div class="node locked branch-a" id="node-mirror" data-id="mirror" data-cost="2" data-prereq="illusion" data-branch="a" onclick="toggleNode(this)">
-          <span class="node-icon">🪞</span>
-          <div class="node-name">Mirror Image</div>
-          <div class="node-desc">Summon duplicates to confound foes.</div>
-          <span class="node-cost">2 pts</span>
-        </div>
-        <div class="node locked branch-a" id="node-glamour" data-id="glamour" data-cost="2" data-prereq="illusion" data-branch="a" onclick="toggleNode(this)">
-          <span class="node-icon">✨</span>
-          <div class="node-name">Glamour</div>
-          <div class="node-desc">Charm and disguise made irresistible.</div>
-          <span class="node-cost">2 pts</span>
-        </div>
-        <div class="node locked branch-b" id="node-bolt" data-id="bolt" data-cost="2" data-prereq="evocation" data-branch="b" onclick="toggleNode(this)">
-          <span class="node-icon">⚡</span>
-          <div class="node-name">Chain Lightning</div>
-          <div class="node-desc">Arc electricity between enemies.</div>
-          <span class="node-cost">2 pts</span>
-        </div>
-        <div class="node locked branch-b" id="node-shield" data-id="shield" data-cost="2" data-prereq="evocation" data-branch="b" onclick="toggleNode(this)">
-          <span class="node-icon">🛡️</span>
-          <div class="node-name">Arcane Ward</div>
-          <div class="node-desc">Forge a barrier of pure magical force.</div>
-          <span class="node-cost">2 pts</span>
-        </div>
-      </div>
+      <p class="refund-hint">Click a purchased talent to refund it · Locked talents cannot be selected</p>
 
-      <div class="tier" id="tier4">
-        <div class="node locked branch-a" id="node-phantasm" data-id="phantasm" data-cost="3" data-prereq="mirror,glamour" data-branch="a" data-requireall="true" onclick="toggleNode(this)">
-          <span class="node-icon">👁️</span>
-          <div class="node-name">Grand Phantasm</div>
-          <div class="node-desc">Weave an inescapable dreamscape reality.</div>
-          <span class="node-cost">3 pts</span>
-          <div class="tooltip">Requires: Mirror Image + Glamour</div>
-        </div>
-        <div class="node locked branch-b" id="node-meteor" data-id="meteor" data-cost="3" data-prereq="bolt,shield" data-branch="b" data-requireall="true" onclick="toggleNode(this)">
-          <span class="node-icon">☄️</span>
-          <div class="node-name">Meteor Swarm</div>
-          <div class="node-desc">Call down devastation from the heavens.</div>
-          <span class="node-cost">3 pts</span>
-          <div class="tooltip">Requires: Chain Lightning + Arcane Ward</div>
-        </div>
+      <div class="back-btn-row">
+        <button class="btn btn-primary" onclick="showMain()">← Return to All Talents</button>
       </div>
     </div>
 
-    <div class="refund-hint">Click a purchased talent to refund it · Locked talents cannot be selected</div>
-
-    <div class="summary">
-      <h3>Chosen Talents</h3>
-      <ul class="summary-list" id="summaryList">
-        <li class="empty-msg">No talents chosen yet.</li>
-      </ul>
-    </div>
   </div>
 </div>
 
 <script>
-  const TOTAL_POINTS = 10;
-  let purchased = new Set();
+// ═══════════════════════════════════════════════
+// TALENT DATA
+// Each tree has: id, name, subtitle, type (featured/skill)
+// nodes: base, tier1 (array), tier2 (array, each linked to one tier1 by branch),
+//        finale (unlocked when any tier2 purchased)
+// ═══════════════════════════════════════════════
 
-  function getNode(id) { return document.getElementById('node-' + id); }
-  function getPrereqs(node) { const p = node.dataset.prereq; return p ? p.split(',').filter(Boolean) : []; }
-  function getBranch(id) { const n = getNode(id); return n ? n.dataset.branch : ''; }
+const TREES = [
+  // ── CORE / FEATURED ──────────────────────────
+  {
+    id: 'armor', name: 'Armor Talents', subtitle: 'Master the art of protection', type: 'featured',
+    base: { name: 'Hardy Constitution', desc: 'Your body and training allow you to endure heavier burdens. You gain proficiency with one additional armor type of your choice.' },
+    tier1: [
+      { id: 'armor-a', branch: 'a', name: 'Shield Mastery', desc: 'You have learned to use a shield as more than mere protection. As a bonus action, you can shove an adjacent creature with your shield.' },
+      { id: 'armor-b', branch: 'b', name: 'Light Footed', desc: 'Even in armor you move with surprising grace. You ignore the Stealth disadvantage imposed by medium armor.' },
+      { id: 'armor-c', branch: 'c', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
+    ],
+    tier2: [
+      { id: 'armor-a2', branch: 'a', name: 'Reactive Guard', desc: 'Your shield reflexes are second to none. When a creature misses you with a melee attack, you can use your reaction to make one attack against it.' },
+      { id: 'armor-b2', branch: 'b', name: 'Fleet Step', desc: 'Armor no longer slows your stride. Your speed is never reduced by wearing armor, and difficult terrain costs you no extra movement when wearing light or medium armor.' },
+      { id: 'armor-c2', branch: 'c', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
+    ],
+    finale: { name: 'Fortress', desc: 'You have become a living fortress. When you are hit by an attack, you can use your reaction to reduce the damage taken by an amount equal to your proficiency bonus + your Constitution modifier. You can use this a number of times equal to your proficiency bonus per long rest.' }
+  },
+  {
+    id: 'magical', name: 'Magical Talents', subtitle: 'Tap the arcane currents', type: 'featured',
+    base: { name: 'Arcane Sensitivity', desc: 'Your connection to the weave heightens your instincts. You can cast the Detect Magic spell once per long rest without expending a spell slot.' },
+    tier1: [
+      { id: 'magical-a', branch: 'a', name: 'Spell Sniper', desc: 'Your magical attacks find gaps in any defense. When you cast a spell that requires a ranged attack roll, the spell\'s range is doubled and it ignores half and three-quarters cover.' },
+      { id: 'magical-b', branch: 'b', name: 'Ritual Caster', desc: 'You have learned to harness residual magical energy. You can cast any spell you know as a ritual if it has the ritual tag, without preparing it.' },
+      { id: 'magical-c', branch: 'c', name: 'Arcane Recovery', desc: 'You can draw on latent magic to restore your power. Once per day during a short rest, you recover one expended spell slot of any level you can cast.' },
+    ],
+    tier2: [
+      { id: 'magical-a2', branch: 'a', name: 'Empowered Magic', desc: 'When you roll damage for a spell, you can reroll a number of damage dice up to your spellcasting modifier (minimum 1). You must use the new results.' },
+      { id: 'magical-b2', branch: 'b', name: 'Expanded Rituals', desc: 'Your ritual knowledge grows. You learn two additional spells with the ritual tag from any class list. These spells count as known for ritual casting only.' },
+      { id: 'magical-c2', branch: 'c', name: 'Font of Magic', desc: 'Your magical reserves run deep. You gain bonus spell slots equal to half your proficiency bonus (rounded down) that replenish on a long rest.' },
+    ],
+    finale: { name: 'Arcane Sovereign', desc: 'Your mastery of the weave is unrivaled. Once per long rest, you can cast any spell you know or have prepared at its lowest level without expending a spell slot. Additionally, your spell save DC increases by 2 permanently.' }
+  },
+  {
+    id: 'martial', name: 'Martial Talents', subtitle: 'Forge your body into a weapon', type: 'featured',
+    base: { name: 'Combat Training', desc: 'Rigorous training has sharpened your instincts. You gain proficiency with one martial weapon of your choice, and your unarmed strikes deal 1d4 + Strength modifier bludgeoning damage.' },
+    tier1: [
+      { id: 'martial-a', branch: 'a', name: 'Duelist\'s Edge', desc: 'One-on-one combat is your domain. When you are fighting a creature and no other hostile creatures are within 5 feet of you, you gain a +2 bonus to attack rolls against that creature.' },
+      { id: 'martial-b', branch: 'b', name: 'Brawler', desc: 'You fight with raw, vicious power. Your unarmed strikes deal 1d6 damage, and you can grapple as a bonus action after landing an unarmed strike.' },
+      { id: 'martial-c', branch: 'c', name: 'Skirmisher', desc: 'You are most dangerous on the move. When you use the Dash action, you can make one weapon attack as a bonus action. Additionally, opportunity attacks against you are made with disadvantage.' },
+    ],
+    tier2: [
+      { id: 'martial-a2', branch: 'a', name: 'Decisive Strike', desc: 'When you have advantage on an attack roll and hit, you can forgo advantage to instead deal extra damage equal to one roll of your weapon\'s damage die.' },
+      { id: 'martial-b2', branch: 'b', name: 'Iron Grasp', desc: 'A creature you grapple cannot easily escape. Creatures grappled by you have disadvantage on their escape attempts, and you can use your grappled creature as half cover.' },
+      { id: 'martial-c2', branch: 'c', name: 'Blitz', desc: 'You are a blur of controlled violence. When you take the Attack action, you can move up to half your speed between each attack without provoking opportunity attacks.' },
+    ],
+    finale: { name: 'Warlord', desc: 'Your martial presence reshapes the battlefield. Once per turn when you hit a creature with a weapon attack, you can choose one ally within 30 feet. That ally can immediately use their reaction to make one weapon attack. Additionally, you can make one additional attack whenever you use the Attack action.' }
+  },
+  {
+    id: 'vitality', name: 'Vitality Talents', subtitle: 'Endure where others falter', type: 'featured',
+    base: { name: 'Resilient Body', desc: 'Your body is hardened against punishment. You gain 2 hit points per character level (retroactive), and your hit point maximum increases by 2 for each level you gain hereafter.' },
+    tier1: [
+      { id: 'vitality-a', branch: 'a', name: 'Second Wind', desc: 'You can dig deep in the heat of battle. As a bonus action, you can regain hit points equal to 1d10 + your character level. You can use this once per short or long rest.' },
+      { id: 'vitality-b', branch: 'b', name: 'Enduring Spirit', desc: 'Mental and physical strain cannot break you easily. You have advantage on saving throws against exhaustion, and the first level of exhaustion has no effect on you.' },
+      { id: 'vitality-c', branch: 'c', name: 'Pain Threshold', desc: 'You can absorb punishment that would cripple others. When you receive damage that would reduce you below half your hit point maximum, you can use your reaction to reduce the damage by your Constitution modifier.' },
+    ],
+    tier2: [
+      { id: 'vitality-a2', branch: 'a', name: 'Surge of Life', desc: 'Your recovery is legendary. When you use Second Wind, roll the die twice and take the higher result. You can also use Second Wind while incapacitated.' },
+      { id: 'vitality-b2', branch: 'b', name: 'Unyielding', desc: 'You refuse to be broken. Once per long rest, when you fail a saving throw, you can choose to succeed instead.' },
+      { id: 'vitality-c2', branch: 'c', name: 'Stalwart', desc: 'You are a wall that does not fall. When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can use this once per long rest.' },
+    ],
+    finale: { name: 'Immortal Resolve', desc: 'Death itself hesitates before you. You have advantage on death saving throws. When you roll a natural 20 on a death saving throw, you regain consciousness with hit points equal to your Constitution modifier + your proficiency bonus. Additionally, your hit point maximum increases by 10.' }
+  },
 
-  function getChosenBranch() {
-    for (let id of purchased) { const b = getBranch(id); if (b) return b; }
-    return '';
+  // ── SKILLS ───────────────────────────────────
+  {
+    id: 'acrobatics', name: 'Acrobatics', subtitle: 'Grace and agility in motion', type: 'skill',
+    base: { name: 'Acrobatic Training', desc: 'Your body moves with practiced elegance. You gain proficiency in Acrobatics. If already proficient, you gain expertise.' },
+    tier1: [
+      { id: 'acro-a', branch: 'a', name: 'Tumble', desc: 'You can roll through enemy spaces. As part of your movement, you can attempt to move through a hostile creature\'s space. Make a DC 15 Acrobatics check; on a success, you pass through without provoking opportunity attacks.' },
+      { id: 'acro-b', branch: 'b', name: 'Wall Runner', desc: 'Vertical surfaces are no obstacle. You can run along walls for up to 10 feet per turn without falling, as long as you end your turn on a horizontal surface.' },
+      { id: 'acro-c', branch: 'c', name: 'Evasive Footwork', desc: 'You are difficult to pin down. When a creature misses you with a melee attack, you can move 5 feet without provoking opportunity attacks.' },
+    ],
+    tier2: [
+      { id: 'acro-a2', branch: 'a', name: 'Untouchable', desc: 'You flow around attacks like water. While you have not used your full movement this turn, you have a +2 bonus to AC.' },
+      { id: 'acro-b2', branch: 'b', name: 'Parkour Mastery', desc: 'The battlefield is your playground. You ignore difficult terrain and can climb at your full movement speed.' },
+      { id: 'acro-c2', branch: 'c', name: 'Reflexive Dodge', desc: 'You can dodge instinctively. Once per round, when you are targeted by an attack, you can add your proficiency bonus to your AC against that attack as a reaction.' },
+    ],
+    finale: { name: 'Phantom Steps', desc: 'You move beyond mortal agility. You can use the Dodge action as a bonus action. While dodging, your movement does not provoke opportunity attacks, and you can move through enemy spaces freely.' }
+  },
+  {
+    id: 'animal-handling', name: 'Animal Handling', subtitle: 'Speak the language of beasts', type: 'skill',
+    base: { name: 'Beast Affinity', desc: 'Animals sense your calm intent. You gain proficiency in Animal Handling. Wild animals require a DC 5 lower check for you to calm or approach.' },
+    tier1: [
+      { id: 'anh-a', branch: 'a', name: 'Tame the Wild', desc: 'You can attempt to tame wild beasts. With 1 hour of work, you can attempt to domesticate a beast of CR 1 or lower that you have calmed. Make an Animal Handling check (DC 10 + beast CR × 5).' },
+      { id: 'anh-b', branch: 'b', name: 'Mount Bond', desc: 'Your rapport with mounts is exceptional. You have advantage on all checks to control mounts, mounts bonded to you have +2 AC, and you can mount or dismount using only 5 feet of movement.' },
+      { id: 'anh-c', branch: 'c', name: 'Beast Speech', desc: 'You can communicate simple concepts to any beast. Beasts understand your meaning clearly and can convey simple information back to you through behavior.' },
+    ],
+    tier2: [
+      { id: 'anh-a2', branch: 'a', name: 'Pack Leader', desc: 'Beasts rally to your command. You can command up to three tamed beasts simultaneously as a single bonus action, and they gain +2 to attack and damage rolls while within 30 feet of you.' },
+      { id: 'anh-b2', branch: 'b', name: 'War Rider', desc: 'You and your mount fight as one entity. Your mount can make one attack as part of your Attack action. Your mount also gains resistance to the first source of damage it takes each round.' },
+      { id: 'anh-c2', branch: 'c', name: 'Primal Tongue', desc: 'You speak to beasts as kin. You can cast Speak with Animals at will without a spell slot. Beasts will answer your questions honestly and will not attack you unless magically compelled.' },
+    ],
+    finale: { name: 'Lord of Beasts', desc: 'The wild obeys your call. You can cast Conjure Animals (4th level) once per long rest without a spell slot. Beasts conjured this way are permanently loyal to you and do not disappear when the spell ends, though only one casting\'s worth of beasts can remain at a time.' }
+  },
+  {
+    id: 'arcana', name: 'Arcana', subtitle: 'Unravel the mysteries of the weave', type: 'skill',
+    base: { name: 'Scholarly Study', desc: 'Your study of arcane lore is extensive. You gain proficiency in Arcana. You can identify any spell being cast within 30 feet of you if you can see or hear it.' },
+    tier1: [
+      { id: 'arc-a', branch: 'a', name: 'Counterspell Intuition', desc: 'You can read the threads of a spell as it forms. When you use Counterspell, you automatically know the level of the spell you are attempting to counter.' },
+      { id: 'arc-b', branch: 'b', name: 'Magical Analysis', desc: 'No enchantment is beyond your understanding. You can cast Identify as a ritual without material components, and the casting time is reduced to one action.' },
+      { id: 'arc-c', branch: 'c', name: 'Lore Keeper', desc: 'Ancient magical knowledge flows through your mind. When you make an Arcana check, you can treat any roll of 9 or lower as a 10.' },
+    ],
+    tier2: [
+      { id: 'arc-a2', branch: 'a', name: 'Spell Disruption', desc: 'You can sever magical connections. Once per short rest, you can attempt to dispel any magical effect you can see as an action (DC 10 + spell level). On a success, the effect ends.' },
+      { id: 'arc-b2', branch: 'b', name: 'Enchanted Senses', desc: 'Magic reveals itself to you. You have advantage on all Arcana checks, and you can sense the presence of any active magical aura within 60 feet of you without concentration.' },
+      { id: 'arc-c2', branch: 'c', name: 'Ancient Knowledge', desc: 'Your memory for arcane lore is encyclopedic. You automatically succeed on all Arcana checks with a passive DC of 20 or lower, and you add double your proficiency bonus to all Arcana checks.' },
+    ],
+    finale: { name: 'Arcane Sage', desc: 'The weave holds no secrets from you. You can cast Detect Magic and Identify at will. Once per long rest, you can perfectly reproduce any spell effect you have witnessed in the past 24 hours, casting it as if you knew it. It uses your spellcasting ability and counts as a spell of its lowest possible level.' }
+  },
+  {
+    id: 'athletics', name: 'Athletics', subtitle: 'Raw physical power unleashed', type: 'skill',
+    base: { name: 'Physical Conditioning', desc: 'Your body is a honed instrument of power. You gain proficiency in Athletics. Your carrying capacity and the weight you can push, drag, or lift doubles.' },
+    tier1: [
+      { id: 'ath-a', branch: 'a', name: 'Power Grappler', desc: 'You wrestle with crushing force. You have advantage on grapple checks, and creatures grappled by you have their speed reduced to 0. You can grapple creatures one size larger than you.' },
+      { id: 'ath-b', branch: 'b', name: 'Leaping Charge', desc: 'You can cover enormous distances in a single bound. Your jump distance triples, and you do not need a running start for long or high jumps.' },
+      { id: 'ath-c', branch: 'c', name: 'Powerful Build', desc: 'Your strength is extraordinary even among warriors. You count as one size larger for purposes of carrying capacity, grappling, and shove attempts.' },
+    ],
+    tier2: [
+      { id: 'ath-a2', branch: 'a', name: 'Crusher', desc: 'Your grapples are devastating. While grappling a creature, you can use a bonus action to deal your Strength modifier in bludgeoning damage to it each turn. If you pin them (DC 15 Athletics), they are restrained.' },
+      { id: 'ath-b2', branch: 'b', name: 'Momentum Strike', desc: 'Your charge carries devastating power. When you move at least 20 feet in a straight line before making a melee attack, that attack deals an extra 2d6 damage and the target must make a Strength saving throw (DC = 8 + proficiency + Strength) or be knocked prone.' },
+      { id: 'ath-c2', branch: 'c', name: 'Titan Strength', desc: 'Your physical capabilities approach the mythic. You can attempt to lift and throw objects weighing up to 500 pounds. When you push, drag, or throw a creature or object, it travels up to 15 feet.' },
+    ],
+    finale: { name: 'Herculean', desc: 'Your physical might is legendary. You have advantage on all Athletics checks. Once per turn, when you hit a creature with a melee attack, you can attempt to shove them up to 15 feet in any direction as a free action. Creatures you shove take falling damage if thrown off an edge, and 2d6 bludgeoning damage if they collide with an object or creature.' }
+  },
+  {
+    id: 'deception', name: 'Deception', subtitle: 'Truth is merely a tool', type: 'skill',
+    base: { name: 'Silver Tongue', desc: 'Lies flow from you like honest words. You gain proficiency in Deception. When you tell a lie, creatures have disadvantage on Insight checks to detect it.' },
+    tier1: [
+      { id: 'dec-a', branch: 'a', name: 'Master of Disguise', desc: 'You can become anyone. Given one hour and appropriate materials, you can create a disguise so convincing that creatures who know the person need a DC 20 Insight check to see through it.' },
+      { id: 'dec-b', branch: 'b', name: 'Double Agent', desc: 'You operate comfortably on all sides. You can maintain two separate false identities simultaneously without risk of confusing your stories, even under magical interrogation.' },
+      { id: 'dec-c', branch: 'c', name: 'Misdirection', desc: 'You make people look where you want. As a bonus action, you can create a distraction that causes all creatures within 30 feet to briefly look away, granting you or one ally advantage on the next Stealth check made this turn.' },
+    ],
+    tier2: [
+      { id: 'dec-a2', branch: 'a', name: 'Flawless Persona', desc: 'Your disguises are airtight. Your disguises hold up even against Detect Thoughts and Zone of Truth. You always know when a creature is magically attempting to read your mind or detect lies.' },
+      { id: 'dec-b2', branch: 'b', name: 'Triple Cross', desc: 'Betrayal is an art form to you. Once per long rest, you can perfectly predict an enemy\'s planned action based on their tells. The DM tells you what action they will take next turn, and you have advantage on any check or saving throw directly related to countering it.' },
+      { id: 'dec-c2', branch: 'c', name: 'Con Artist', desc: 'You can sell snow to the Soraki. You have advantage on all Deception checks, and creatures that fail a Deception-opposed check against you become Charmed by you for 1 minute.' },
+    ],
+    finale: { name: 'Faceless', desc: 'You have no true face — only the one you choose to show. You can cast Disguise Self at will and Seeming once per long rest without a spell slot. Under Zone of Truth, you are aware of the effect and can choose to remain silent rather than be compelled. You cannot be detected as a shapechanger by magical means.' }
+  },
+  {
+    id: 'history', name: 'History', subtitle: 'The past holds all answers', type: 'skill',
+    base: { name: 'Scholar\'s Mind', desc: 'Centuries of recorded knowledge fill your memory. You gain proficiency in History. When you succeed on a History check, you learn one additional piece of information beyond what was asked.' },
+    tier1: [
+      { id: 'his-a', branch: 'a', name: 'Tactical Historian', desc: 'You apply the lessons of past battles. When you succeed on a History check related to a creature type, you can advise your party: all allies gain a +2 bonus to AC against that creature type for 1 minute.' },
+      { id: 'his-b', branch: 'b', name: 'Linguist', desc: 'History speaks in many tongues. You learn two additional languages of your choice. You can also attempt to understand unfamiliar languages with a DC 15 History check.' },
+      { id: 'his-c', branch: 'c', name: 'Loremaster', desc: 'You never forget what you\'ve learned. You have advantage on all History checks. When you fail a History check, you can reroll it once.' },
+    ],
+    tier2: [
+      { id: 'his-a2', branch: 'a', name: 'Strategic Mind', desc: 'You see the battlefield through the lens of a thousand campaigns. Once per combat, when initiative is rolled, you can grant one ally you can see an additional first-round action (attack, dash, hide, or cast a cantrip).' },
+      { id: 'his-b2', branch: 'b', name: 'Polyglot', desc: 'Language is no barrier to you. You learn four additional languages and can attempt to communicate with any intelligent creature, even in languages you\'ve never encountered, with a DC 20 History check.' },
+      { id: 'his-c2', branch: 'c', name: 'Sage', desc: 'Your knowledge spans every discipline. You gain proficiency in two other Intelligence-based skills of your choice, and you add double your proficiency bonus to History checks.' },
+    ],
+    finale: { name: 'Living Chronicle', desc: 'You have become a repository of all mortal knowledge. You automatically succeed on History checks with a passive DC of 25 or lower. Once per long rest, you can recall any historical fact, identify any creature, object, or spell, or know the general layout of any location you\'ve studied, with perfect accuracy.' }
+  },
+  {
+    id: 'insight', name: 'Insight', subtitle: 'Read the soul behind the words', type: 'skill',
+    base: { name: 'Keen Intuition', desc: 'People are open books to you. You gain proficiency in Insight. When you succeed on an Insight check against a creature, you learn whether they are currently lying.' },
+    tier1: [
+      { id: 'ins-a', branch: 'a', name: 'Empathy', desc: 'You feel what others feel. You always know the current emotional state of any creature you are speaking with. You have advantage on Insight checks made to determine someone\'s motivation.' },
+      { id: 'ins-b', branch: 'b', name: 'Tell Reader', desc: 'You spot the micro-expressions others miss. You can use Insight as a bonus action rather than an action, and your passive Insight is 5 higher than normal.' },
+      { id: 'ins-c', branch: 'c', name: 'Gut Feeling', desc: 'Your instincts never lead you wrong. Once per short rest, you can ask the DM whether a course of action will lead to obvious immediate danger. The DM must answer honestly.' },
+    ],
+    tier2: [
+      { id: 'ins-a2', branch: 'a', name: 'Heart Reader', desc: 'You can sense the deepest intentions of others. Once per long rest, you can cast Detect Thoughts without a spell slot. The target automatically fails their Wisdom saving throw against your first probing question.' },
+      { id: 'ins-b2', branch: 'b', name: 'Unmasking Gaze', desc: 'Deception is futile under your scrutiny. You automatically succeed on Insight checks against creatures attempting to deceive you with a Deception modifier lower than your Insight modifier.' },
+      { id: 'ins-c2', branch: 'c', name: 'Premonition', desc: 'Your danger sense borders on precognition. You cannot be surprised. At the start of combat, you can immediately move up to half your speed before initiative is rolled without provoking opportunity attacks.' },
+    ],
+    finale: { name: 'Oracle\'s Eye', desc: 'No mind is closed to you. You can cast Detect Thoughts at will without concentration. Once per long rest, you can sense the intended actions of all creatures within 30 feet for 1 minute — at the start of each of their turns, you know what action they intend to take.' }
+  },
+  {
+    id: 'intimidation', name: 'Intimidation', subtitle: 'Fear is the most honest persuasion', type: 'skill',
+    base: { name: 'Fearsome Presence', desc: 'Your bearing demands respect — or fear. You gain proficiency in Intimidation. Creatures that fail an Intimidation check against you remain shaken (disadvantage on their next attack roll) for 1 minute.' },
+    tier1: [
+      { id: 'int-a', branch: 'a', name: 'Unnerving Stare', desc: 'Your gaze alone can break resolve. As an action, you can force a creature within 30 feet to make a Wisdom saving throw (DC = 8 + proficiency + Charisma). On a failure, they are Frightened of you until the end of their next turn.' },
+      { id: 'int-b', branch: 'b', name: 'Menacing', desc: 'You loom large in every room you enter. Creatures that fail Intimidation checks against you have disadvantage on attack rolls against you for 1 hour. You gain advantage on Intimidation checks against creatures smaller than you.' },
+      { id: 'int-c', branch: 'c', name: 'Battle Cry', desc: 'Your war cry drives allies forward. As a bonus action, you can let out a terrifying cry. Allies within 30 feet gain advantage on their next attack roll, and enemies within 30 feet must succeed on a DC 13 Wisdom save or be Frightened until the end of your next turn.' },
+    ],
+    tier2: [
+      { id: 'int-a2', branch: 'a', name: 'Terror', desc: 'One glance from you can shatter minds. Creatures Frightened by you have disadvantage on all saving throws, not just attack rolls. Creatures reduced below half health by your attacks must succeed on a DC 15 Wisdom save or become Frightened for 1 minute.' },
+      { id: 'int-b2', branch: 'b', name: 'Crushing Dominance', desc: 'Your enemies know they cannot win. Creatures you have Intimidated cannot use the Help action to aid others against you, and they must spend their movement moving away from you on a failed Wisdom save (DC 8 + proficiency + Charisma) at the start of their turn.' },
+      { id: 'int-c2', branch: 'c', name: 'Warcry Mastery', desc: 'Your cry echoes across any battlefield. Your Battle Cry now affects all allies within 60 feet and grants them temporary hit points equal to your Charisma modifier in addition to advantage on attacks.' },
+    ],
+    finale: { name: 'Lord of Fear', desc: 'Your presence alone reshapes the battlefield. At the start of combat, all enemy creatures within 30 feet must make a DC (8 + proficiency + Charisma) Wisdom saving throw or be Frightened of you for 1 minute. Frightened creatures that take damage from you must repeat the saving throw or become Paralyzed with fear until the end of their next turn.' }
+  },
+  {
+    id: 'investigation', name: 'Investigation', subtitle: 'Every detail tells a story', type: 'skill',
+    base: { name: 'Analytical Mind', desc: 'You notice what others miss. You gain proficiency in Investigation. You can detect forgeries, secret doors, and hidden compartments automatically if they have a passive DC of 15 or lower.' },
+    tier1: [
+      { id: 'inv-a', branch: 'a', name: 'Crime Scene Analysis', desc: 'A scene speaks volumes to you. Given 10 minutes to examine a location where violence or crime occurred, you can reconstruct a precise account of what happened (who, how, approximately when) with a DC 15 Investigation check.' },
+      { id: 'inv-b', branch: 'b', name: 'Deductive Reasoning', desc: 'Logic illuminates the unclear. When you have at least three clues related to a mystery, you can make a DC 15 Investigation check to determine a conclusion the DM confirms as accurate.' },
+      { id: 'inv-c', branch: 'c', name: 'Trap Sense', desc: 'Danger announces itself to your trained eye. You have advantage on checks to detect traps, and your passive Investigation counts as 5 higher for the purpose of detecting hidden threats.' },
+    ],
+    tier2: [
+      { id: 'inv-a2', branch: 'a', name: 'Infallible Memory', desc: 'Every detail is preserved perfectly. You can recall any detail you have previously examined with total accuracy. The DM cannot withhold information from you that your character would reasonably have observed.' },
+      { id: 'inv-b2', branch: 'b', name: 'Master Detective', desc: 'The truth always surfaces for you. You have advantage on all Investigation checks. When you succeed on an Investigation check with a DC of 20 or higher, you gain one additional piece of information the DM considers most useful.' },
+      { id: 'inv-c2', branch: 'c', name: 'Trap Expert', desc: 'You can dismantle any mechanism. You can disable magical traps as well as mundane ones. When you find a trap, you can trigger it safely from a distance of 30 feet using Investigation tools.' },
+    ],
+    finale: { name: 'The Mind\'s Eye', desc: 'No secret survives your scrutiny. You cannot be surprised. You automatically detect all hidden creatures, objects, and traps within 30 feet. Once per long rest, you can enter a heightened state of analysis for 1 minute: during this time, you automatically succeed on all Investigation checks and can see through any illusion or disguise.' }
+  },
+  {
+    id: 'medicine', name: 'Medicine', subtitle: 'Bind wounds, mend souls', type: 'skill',
+    base: { name: 'Field Medic', desc: 'You can keep people alive where others cannot. You gain proficiency in Medicine. When you stabilize a dying creature, they regain 1 hit point instead of remaining unconscious.' },
+    tier1: [
+      { id: 'med-a', branch: 'a', name: 'Combat Medic', desc: 'You can heal in the heat of battle. As a bonus action, you can expend a healer\'s kit use to restore 1d6 + 4 hit points to a creature within 5 feet, and end one of the following conditions: blinded, deafened, or poisoned.' },
+      { id: 'med-b', branch: 'b', name: 'Diagnostician', desc: 'You can determine exactly what ails any creature. With a 1-minute examination, you learn all diseases, poisons, and curses affecting a creature, their severity, and appropriate treatments.' },
+      { id: 'med-c', branch: 'c', name: 'Herbalist', desc: 'Nature provides all the medicine you need. You can create healing poultices from natural materials with a 1-hour forage and preparation. Each poultice heals 2d4 + your Medicine modifier when applied.' },
+    ],
+    tier2: [
+      { id: 'med-a2', branch: 'a', name: 'Emergency Response', desc: 'You work miracles under pressure. You can use Combat Medic as a free action once per round. Additionally, when you heal a creature that is below half hit points, they regain an additional 1d8 hit points.' },
+      { id: 'med-b2', branch: 'b', name: 'Cure Anything', desc: 'No affliction is beyond your skill. Once per long rest, you can remove any single disease, curse, or poison from a creature through 10 minutes of treatment, without magical components.' },
+      { id: 'med-c2', branch: 'c', name: 'Master Herbalist', desc: 'Your botanical knowledge is vast. You can create potions of healing in the field with 1 hour of work and a DC 12 Medicine check. You can create Superior Healing Potions with a DC 18 check.' },
+    ],
+    finale: { name: 'Miracle Worker', desc: 'Life itself answers to your skill. Once per long rest, over 10 minutes, you can restore a creature to full hit points, remove all conditions, and regain all expended Hit Dice. Additionally, your Combat Medic healing now also restores 1 expended spell slot of 1st or 2nd level to spellcasters.' }
+  },
+  {
+    id: 'nature', name: 'Nature', subtitle: 'The wild is home', type: 'skill',
+    base: { name: 'Child of the Wild', desc: 'The natural world is as familiar as your own skin. You gain proficiency in Nature. You can always find food and clean water in natural environments, and you can predict weather 24 hours in advance.' },
+    tier1: [
+      { id: 'nat-a', branch: 'a', name: 'Terrain Expert', desc: 'Every environment yields to your expertise. Choose two terrain types (arctic, coast, desert, forest, grassland, mountain, swamp, or underdark). In these terrains, your party never becomes lost, and you move at full speed through difficult terrain.' },
+      { id: 'nat-b', branch: 'b', name: 'Toxinologist', desc: 'You understand nature\'s dangerous gifts. You can identify any plant, fungus, or natural toxin on sight. You have advantage on saving throws against natural poisons and disease, and you can apply natural toxins to weapons during a short rest.' },
+      { id: 'nat-c', branch: 'c', name: 'Naturalist', desc: 'Plants and animals hold no mysteries. You have advantage on all Nature checks. When you encounter a creature, you can make a DC 10 Nature check to recall its key vulnerabilities, resistances, and abilities.' },
+    ],
+    tier2: [
+      { id: 'nat-a2', branch: 'a', name: 'Master Tracker', desc: 'Your chosen terrain holds no secrets. In your chosen terrain types, you automatically succeed on all Survival checks to track creatures, and you can track creatures through magically obscured trails (DC 20 Nature check).' },
+      { id: 'nat-b2', branch: 'b', name: 'Poison Crafter', desc: 'You can create deadly natural toxins. With one hour of work in a natural environment, you can create doses of: Paralytic Toxin (DC 15 Con, paralyzed 1 minute), or Weakening Poison (DC 13 Con, -2d6 to all damage for 10 minutes).' },
+      { id: 'nat-c2', branch: 'c', name: 'One with Nature', desc: 'The wild responds to your presence. Animals never attack you unless commanded or provoked. Plants part to ease your passage. You have advantage on all checks when in natural environments.' },
+    ],
+    finale: { name: 'Lord of the Wild', desc: 'You are the apex of the natural world. You can speak with all natural creatures as if under Speak with Animals permanently. You can cast Commune with Nature once per long rest without a spell slot. Plants and animals within 60 feet will warn you of danger, granting you a passive Perception of 30 for the purpose of detecting threats in natural environments.' }
+  },
+  {
+    id: 'perception', name: 'Perception', subtitle: 'Nothing escapes your notice', type: 'skill',
+    base: { name: 'Watchful Eye', desc: 'Your senses are razor sharp. You gain proficiency in Perception. Your passive Perception increases by 3, and you cannot be surprised while you are conscious.' },
+    tier1: [
+      { id: 'per-a', branch: 'a', name: 'Eagle Eye', desc: 'Distance is no barrier to your sight. You can see clearly at twice the normal range in good conditions. You can read lips at up to 60 feet distance, and you spot visual details at distances that stagger others.' },
+      { id: 'per-b', branch: 'b', name: 'Sound Sense', desc: 'You hear what others cannot. You have advantage on all Perception checks based on hearing. You can pinpoint the location of any creature making sound within 60 feet, even invisible ones.' },
+      { id: 'per-c', branch: 'c', name: 'Alertness', desc: 'Your constant vigilance is exhausting to others, flawless in practice. You have advantage on initiative rolls. While on watch, you and your allies cannot be surprised.' },
+    ],
+    tier2: [
+      { id: 'per-a2', branch: 'a', name: 'Hawkeye', desc: 'Your visual acuity approaches the supernatural. You can see through light obscurement (fog, dim light, light precipitation) without disadvantage. You spot hidden creatures with a passive Perception of 5 higher than normal.' },
+      { id: 'per-b2', branch: 'b', name: 'Tremor Sense', desc: 'You feel the world through your feet. While standing on the ground, you sense the presence and location of all creatures touching the same ground within 30 feet of you, even if you cannot see or hear them.' },
+      { id: 'per-c2', branch: 'c', name: 'Uncanny Awareness', desc: 'Your situational awareness is complete. You cannot be flanked. You are aware of all invisible creatures within 30 feet. You have advantage on all Perception checks.' },
+    ],
+    finale: { name: 'All-Seeing', desc: 'Your perception transcends mortal limits. You have blindsight out to 10 feet, and your passive Perception increases by an additional 5. You automatically detect all hidden creatures, invisible or otherwise, within 30 feet. You have advantage on initiative and can never be surprised while conscious.' }
+  },
+  {
+    id: 'performance', name: 'Performance', subtitle: 'Command the stage and the crowd', type: 'skill',
+    base: { name: 'Performer\'s Gift', desc: 'You command attention when you choose it. You gain proficiency in Performance. When you perform for at least 10 minutes, all creatures who witnessed it have their attitude toward you improve by one step for 1 hour.' },
+    tier1: [
+      { id: 'prf-a', branch: 'a', name: 'Bardic Inspiration', desc: 'Your words empower those around you. As a bonus action, you can grant one creature within 60 feet that can hear you a Bardic Inspiration die (1d6). They can add it to one ability check, attack roll, or saving throw in the next 10 minutes.' },
+      { id: 'prf-b', branch: 'b', name: 'Captivating Presence', desc: 'An audience cannot look away. When you perform, creatures within 30 feet must succeed on a DC (8 + proficiency + Charisma) Wisdom save or be unable to take hostile actions against you until you stop performing or attack.' },
+      { id: 'prf-c', branch: 'c', name: 'Master Entertainer', desc: 'Your performances are unforgettable. You have advantage on all Performance checks. After a successful performance, the venue\'s owner will offer you free lodging and meals for the night without question.' },
+    ],
+    tier2: [
+      { id: 'prf-a2', branch: 'a', name: 'Inspiring Leader', desc: 'Your inspiration carries the weight of legend. Your Bardic Inspiration die improves to 1d8, and you can grant it to a number of creatures equal to your Charisma modifier simultaneously as one bonus action.' },
+      { id: 'prf-b2', branch: 'b', name: 'Spellbound', desc: 'Your performance is almost magical in its power. Creatures who fail your Captivating Presence save are also Charmed by you for 1 hour after you stop performing. They become friendly and willing to answer reasonable questions.' },
+      { id: 'prf-c2', branch: 'c', name: 'Living Legend', desc: 'Your reputation precedes you everywhere. In any populated area, there is a 50% chance an NPC recognizes you from a performance (or reputation). Recognized creatures begin with an initial attitude of Friendly.' },
+    ],
+    finale: { name: 'The Great Performance', desc: 'The world is your stage. Once per long rest, over the course of a 1-minute performance, you can affect all creatures within 60 feet who can see and hear you. Choose: grant all allies 20 temporary hit points and advantage on all checks for 1 hour; or force all enemies to make a DC (8 + proficiency + Charisma) Wisdom save or be Charmed and unable to take hostile actions for 1 minute.' }
+  },
+  {
+    id: 'persuasion', name: 'Persuasion', subtitle: 'Bend the world to your will with words', type: 'skill',
+    base: { name: 'Compelling Voice', desc: 'People want to believe what you say. You gain proficiency in Persuasion. When you succeed on a Persuasion check, the creature\'s attitude toward you improves by an additional step, beyond what was asked.' },
+    tier1: [
+      { id: 'prs-a', branch: 'a', name: 'Negotiator', desc: 'You can always find common ground. You can make Persuasion checks to negotiate with creatures that would normally be hostile, as long as they can communicate. Creatures you negotiate with agree to a temporary truce for the duration of talks.' },
+      { id: 'prs-b', branch: 'b', name: 'Inspiring Words', desc: 'Your words carry the weight of conviction. When you spend 1 minute addressing a creature on a specific topic, you can grant advantage on their next check related to that topic, lasting up to 1 hour.' },
+      { id: 'prs-c', branch: 'c', name: 'Social Tactician', desc: 'You read social situations instantly. You always know the current attitude of any creature toward you and your party. You have advantage on Persuasion checks when you address a creature\'s stated concern or goal.' },
+    ],
+    tier2: [
+      { id: 'prs-a2', branch: 'a', name: 'Master Negotiator', desc: 'No deal is beyond your reach. You can make Persuasion checks to negotiate with any intelligent creature, including those under magical compulsion to be hostile (though the DC increases by 10). Creatures bound by agreement cannot break it without first succeeding on a DC 20 Wisdom save.' },
+      { id: 'prs-b2', branch: 'b', name: 'Rousing Speech', desc: 'Your words ignite action. After 1 minute of speech, all allies who heard it gain advantage on all checks for 1 hour and cannot be Frightened for the duration. Additionally, they have advantage on their next death saving throw.' },
+      { id: 'prs-c2', branch: 'c', name: 'Diplomatic Immunity', desc: 'Your social mastery grants real protection. Creatures with an attitude of Friendly or better toward you will not take hostile actions against you unless magically compelled, and will warn you of threats to your safety.' },
+    ],
+    finale: { name: 'Voice of Command', desc: 'Words alone can move the world. Once per long rest, you can make a Persuasion check against any number of creatures who can hear you. On a success, they treat you as an trusted authority on whatever topic you address for 24 hours. They will follow reasonable requests and can be convinced to reveal secrets with a follow-up DC 15 Persuasion check.' }
+  },
+  {
+    id: 'religion', name: 'Religion', subtitle: 'The divine speaks through the learned', type: 'skill',
+    base: { name: 'Devotee', desc: 'Your understanding of the divine transcends simple faith. You gain proficiency in Religion. You can recognize all divine symbols, rituals, and tenets of any religion you encounter, and you know how to appropriately address any divine servant.' },
+    tier1: [
+      { id: 'rel-a', branch: 'a', name: 'Divine Lore', desc: 'The histories of every faith are known to you. You have advantage on Religion checks. When you succeed on a Religion check, you learn one additional piece of information about the subject beyond what was asked.' },
+      { id: 'rel-b', branch: 'b', name: 'Holy Ward', desc: 'Your faith provides real protection. You can spend 1 minute in prayer to grant yourself or one creature a ward of divine protection. The warded creature has advantage on saving throws against spells and abilities from undead, fiends, and celestials for 8 hours.' },
+      { id: 'rel-c', branch: 'c', name: 'Turn the Tide', desc: 'Your invocation of divine power can repel darkness. As an action, you can present a holy symbol. Undead and fiends within 30 feet must succeed on a DC (8 + proficiency + Wisdom) Wisdom save or be Frightened of you for 1 minute.' },
+    ],
+    tier2: [
+      { id: 'rel-a2', branch: 'a', name: 'Divine Scholar', desc: 'No religious secret is beyond your knowledge. You can identify the divine abilities, weaknesses, and divine portfolios of any deity, celestial, or fiend with a DC 15 Religion check. You add double your proficiency bonus to all Religion checks.' },
+      { id: 'rel-b2', branch: 'b', name: 'Blessed Endurance', desc: 'Divine favor sustains you. You have resistance to radiant and necrotic damage. Once per long rest, when you or an ally within 30 feet would be reduced to 0 hit points, you can use your reaction to stabilize them at 1 hit point instead.' },
+      { id: 'rel-c2', branch: 'c', name: 'Banishment', desc: 'You can send creatures back to their native planes. Once per long rest, you can attempt to banish a fiend or undead as an action. The creature must succeed on a DC (8 + proficiency + Wisdom) Charisma save or be banished to its home plane for 1 minute.' },
+    ],
+    finale: { name: 'Voice of the Divine', desc: 'The gods themselves acknowledge your devotion. Once per long rest, you can call for divine intervention. Roll percentile dice; on a result equal to or lower than your character level × 5, your deity intervenes in a meaningful way of the DM\'s choosing. Whether or not the roll succeeds, undead and fiends treat you as a sacred object — they must succeed on a DC 20 Wisdom save to take any hostile action against you.' }
+  },
+  {
+    id: 'sleight-of-hand', name: 'Sleight of Hand', subtitle: 'The hand is faster than the eye', type: 'skill',
+    base: { name: 'Nimble Fingers', desc: 'Your hands move with practiced precision. You gain proficiency in Sleight of Hand. You can perform simple tricks and palming at will without a check.' },
+    tier1: [
+      { id: 'soh-a', branch: 'a', name: 'Pickpocket', desc: 'Wealth has a way of finding its way to your pockets. You can attempt to steal an item from a creature\'s person as a bonus action, with advantage on the Sleight of Hand check if the creature is distracted or engaged with another creature.' },
+      { id: 'soh-b', branch: 'b', name: 'Quick Draw', desc: 'Weapons appear in your hands like magic. You can draw or stow two weapons instead of one as part of your movement. You can also conceal small weapons on your person even during a casual search (DC 20 Perception to detect).' },
+      { id: 'soh-c', branch: 'c', name: 'Lock Artist', desc: 'No lock is beyond your skill. You have advantage on checks to pick locks and disable devices. You can attempt to pick any non-magical lock in half the normal time.' },
+    ],
+    tier2: [
+      { id: 'soh-a2', branch: 'a', name: 'Master Pickpocket', desc: 'You can steal the boots off a sleeping giant. You can steal items directly from a creature\'s hands or worn on their body without disadvantage, even during combat (as a bonus action on your turn).' },
+      { id: 'soh-b2', branch: 'b', name: 'Hidden Arsenal', desc: 'You are never truly unarmed. You can conceal up to three weapons of any size on your person that cannot be detected by casual searching or detect magic. You have advantage on Sleight of Hand checks to draw hidden weapons.' },
+      { id: 'soh-c2', branch: 'c', name: 'Master Infiltrator', desc: 'No security can hold you. You can pick magical locks with a DC 20 Sleight of Hand check. You can disarm magical traps as easily as mundane ones. You leave no trace of tampering unless a creature succeeds on a DC 25 Perception or Investigation check.' },
+    ],
+    finale: { name: 'Ghost Hands', desc: 'Your touch is imperceptible. You can steal any item from any creature without any chance of detection unless they succeed on a DC 25 Perception check. You can pick any lock, mundane or magical, in one action with advantage on the check. Once per long rest, you can make any item on your person vanish completely, undetectable by any means, reappearing when you choose.' }
+  },
+  {
+    id: 'stealth', name: 'Stealth', subtitle: 'Darkness is your armor', type: 'skill',
+    base: { name: 'Shadow Step', desc: 'Shadows welcome you like old friends. You gain proficiency in Stealth. You can attempt to hide as a bonus action, and dim light does not impose disadvantage on your Stealth checks.' },
+    tier1: [
+      { id: 'ste-a', branch: 'a', name: 'Vanishing Act', desc: 'You can disappear in the blink of an eye. When you are in dim light or darkness, you can take the Hide action as a free action (no action required) once per turn.' },
+      { id: 'ste-b', branch: 'b', name: 'Silent Movement', desc: 'You move without a whisper. You have advantage on all Stealth checks based on sound. Your movement never triggers noise-based traps or alarms.' },
+      { id: 'ste-c', branch: 'c', name: 'Camouflage', desc: 'You blend into any environment. In natural environments, you have advantage on Stealth checks. You can remain hidden while moving at full speed without disadvantage.' },
+    ],
+    tier2: [
+      { id: 'ste-a2', branch: 'a', name: 'One with Shadow', desc: 'You are indistinguishable from darkness. While hidden in dim light or darkness, you are invisible to darkvision. You can make Stealth checks even while under magical observation, with a DC equal to the spell\'s save DC.' },
+      { id: 'ste-b2', branch: 'b', name: 'Absolute Silence', desc: 'You move through the world without sound. You automatically succeed on all Stealth checks based on sound. Your footsteps cannot be heard by any natural or magical means unless you choose otherwise.' },
+      { id: 'ste-c2', branch: 'c', name: 'Master of Camouflage', desc: 'You can hide anywhere. You have advantage on all Stealth checks regardless of environment. You can attempt to hide even when only lightly obscured or under mild scrutiny.' },
+    ],
+    finale: { name: 'Wraith', desc: 'You have transcended the mortal art of stealth. You can become invisible at will as a bonus action. This invisibility ends only if you attack, cast a spell, or choose to end it. While invisible, you cannot be detected by magical means unless the spell specifically targets invisible creatures.' }
+  },
+  {
+    id: 'survival', name: 'Survival', subtitle: 'Thrive where others perish', type: 'skill',
+    base: { name: 'Wilderness Expert', desc: 'The harshest environments hold no mystery for you. You gain proficiency in Survival. You and your party always find sufficient food, water, and shelter in any environment, and extreme weather only imposes disadvantage on checks rather than automatic failure.' },
+    tier1: [
+      { id: 'sur-a', branch: 'a', name: 'Expert Tracker', desc: 'You can follow any trail. You have advantage on Survival checks to track creatures. You can track through any terrain and follow trails up to 7 days old. Magically obscured trails only impose disadvantage rather than making tracking impossible.' },
+      { id: 'sur-b', branch: 'b', name: 'Elemental Endurance', desc: 'Nature\'s extremes cannot break you. You have resistance to cold and fire damage. You are immune to the effects of extreme heat and extreme cold, and you need only half the food and water a normal creature requires.' },
+      { id: 'sur-c', branch: 'c', name: 'Resourceful', desc: 'You make the most of whatever the world offers. During a short rest in a natural environment, you can forage sufficient material to create one of: a healer\'s kit use, a torch and fire, rope from vines (50 ft), or a simple weapon.' },
+    ],
+    tier2: [
+      { id: 'sur-a2', branch: 'a', name: 'Bloodhound', desc: 'No quarry can escape you. You can track any creature that has passed through an area within the past 30 days, including through magically obscured trails (DC 25 Survival). You know the exact number of creatures and their general size.' },
+      { id: 'sur-b2', branch: 'b', name: 'Iron Body', desc: 'Your body has adapted to endure anything. You are immune to disease and have advantage on saving throws against poison. You can survive on a quarter of the normal food and water requirement indefinitely.' },
+      { id: 'sur-c2', branch: 'c', name: 'Wilderness Smith', desc: 'You can craft anything from what nature provides. During a long rest in a natural environment, you can craft: basic armor (AC 13), a shield, any simple weapon, or a week\'s worth of rations. These items have the same properties as their standard counterparts.' },
+    ],
+    finale: { name: 'Apex Survivor', desc: 'You are at home in any environment, under any conditions. You have advantage on all Survival checks. You are immune to disease, poison, extreme weather, and environmental hazards. Once per long rest, you can perfectly recall the layout of any terrain you have passed through in the last 30 days and instantly know the optimal path through it, including the locations of any creatures that have recently used it.' }
+  }
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// purchased: Map of treeId -> Set of purchased node ids
+// ═══════════════════════════════════════════════
+const purchased = {};
+TREES.forEach(t => purchased[t.id] = new Set());
+
+let currentTree = null;
+
+function totalSpent() {
+  return Object.values(purchased).reduce((sum, s) => sum + s.size, 0);
+}
+
+function treeSpent(treeId) {
+  return purchased[treeId].size;
+}
+
+// ═══════════════════════════════════════════════
+// MAIN VIEW
+// ═══════════════════════════════════════════════
+function buildMainView() {
+  const featured = TREES.filter(t => t.type === 'featured');
+  const skills = TREES.filter(t => t.type === 'skill');
+
+  const fg = document.getElementById('featuredGrid');
+  fg.innerHTML = '';
+  featured.forEach(t => fg.appendChild(makeTalentCard(t)));
+
+  const sg = document.getElementById('skillsGrid');
+  sg.innerHTML = '';
+  skills.forEach(t => sg.appendChild(makeTalentCard(t)));
+}
+
+function makeTalentCard(tree) {
+  const div = document.createElement('div');
+  const spent = treeSpent(tree.id);
+  div.className = 'talent-card' + (spent > 0 ? ' has-points' : '');
+  div.onclick = () => showDetail(tree.id);
+  div.innerHTML = `
+    <div class="tc-name">${tree.name}</div>
+    <div class="tc-spent ${spent > 0 ? 'nonzero' : ''}">${spent > 0 ? spent + ' pt' + (spent !== 1 ? 's' : '') + ' spent' : 'No points spent'}</div>
+  `;
+  return div;
+}
+
+function refreshMainCards() {
+  document.querySelectorAll('#featuredGrid .talent-card, #skillsGrid .talent-card').forEach((card, i) => {
+    const tree = [...TREES.filter(t => t.type === 'featured'), ...TREES.filter(t => t.type === 'skill')][i];
+    const spent = treeSpent(tree.id);
+    card.className = 'talent-card' + (spent > 0 ? ' has-points' : '');
+    const spentEl = card.querySelector('.tc-spent');
+    spentEl.className = 'tc-spent' + (spent > 0 ? ' nonzero' : '');
+    spentEl.textContent = spent > 0 ? spent + ' pt' + (spent !== 1 ? 's' : '') + ' spent' : 'No points spent';
+  });
+}
+
+// ═══════════════════════════════════════════════
+// DETAIL VIEW
+// ═══════════════════════════════════════════════
+function showDetail(treeId) {
+  currentTree = TREES.find(t => t.id === treeId);
+  document.getElementById('mainView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('detailTitle').textContent = currentTree.name;
+  document.getElementById('detailSubtitle').textContent = currentTree.subtitle;
+  renderTree();
+}
+
+function showMain() {
+  currentTree = null;
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('mainView').style.display = 'block';
+  refreshMainCards();
+  updatePointBar();
+}
+
+function renderTree() {
+  const tree = currentTree;
+  const ps = purchased[tree.id];
+  const area = document.getElementById('treeArea');
+  area.innerHTML = '';
+
+  const hasAnyTier2 = tree.tier2.some(n => ps.has(n.id));
+
+  // BASE
+  area.appendChild(makeLevel([makeTreeNode(tree.id, 'base', tree.base.name, tree.base.desc, 0, 'base-node', ps, tree)]));
+  area.appendChild(makeDivider());
+
+  // TIER 1
+  area.appendChild(makeTierLabel('Tier I — Choose your path (1 pt each)'));
+  area.appendChild(makeLevel(tree.tier1.map(n => makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch))));
+  area.appendChild(makeDivider());
+
+  // TIER 2
+  area.appendChild(makeTierLabel('Tier II — Deepen your mastery (1 pt each)'));
+  area.appendChild(makeLevel(tree.tier2.map(n => {
+    const parent = tree.tier1.find(t => t.branch === n.branch);
+    const prereqMet = parent && ps.has(parent.id);
+    return makeTreeNode(tree.id, n.id, n.name, n.desc, 1, '', ps, tree, n.branch, prereqMet);
+  })));
+  area.appendChild(makeDivider());
+
+  // FINALE
+  area.appendChild(makeTierLabel('Finale — The pinnacle of mastery (1 pt)'));
+  area.appendChild(makeLevel([makeTreeNode(tree.id, 'finale', tree.finale.name, tree.finale.desc, 1, 'finale-node', ps, tree, '', hasAnyTier2)]));
+}
+
+function makeTierLabel(text) {
+  const d = document.createElement('div');
+  d.className = 'tier-label';
+  d.textContent = text;
+  return d;
+}
+
+function makeDivider() {
+  const d = document.createElement('div');
+  d.className = 'tree-connector';
+  return d;
+}
+
+function makeLevel(nodes) {
+  const d = document.createElement('div');
+  d.className = 'tree-level';
+  nodes.forEach(n => d.appendChild(n));
+  return d;
+}
+
+function makeTreeNode(treeId, nodeId, name, desc, cost, extraClass, ps, tree, branch, prereqOverride) {
+  const isPurchased = ps.has(nodeId);
+  const isBase = nodeId === 'base';
+
+  let prereqMet;
+  if (isBase) {
+    prereqMet = true;
+  } else if (prereqOverride !== undefined) {
+    prereqMet = prereqOverride;
+  } else {
+    prereqMet = ps.has('base');
   }
 
-  function spentPoints() { return [...purchased].reduce((s, id) => s + parseInt(getNode(id).dataset.cost), 0); }
+  const canAfford = true; // no point limit
+  let state = 'locked';
+  if (isPurchased) state = 'purchased';
+  else if (prereqMet && canAfford) state = 'available';
 
-  function prereqsMet(node) {
-    const prereqs = getPrereqs(node);
-    if (!prereqs.length) return true;
-    return node.dataset.requireall === 'true'
-      ? prereqs.every(p => purchased.has(p))
-      : prereqs.some(p => purchased.has(p));
+  const div = document.createElement('div');
+  div.className = `tree-node ${state} ${extraClass}`;
+  if (!isBase) {
+    div.onclick = () => handleNodeClick(treeId, nodeId, tree, branch);
   }
 
-  function isExcluded(node) {
-    const branch = node.dataset.branch;
-    if (!branch) return false;
-    const chosen = getChosenBranch();
-    return chosen && branch !== chosen;
-  }
+  let badge = '';
+  if (isPurchased) badge = '<span class="node-badge">✦ Acquired</span>';
 
-  function canAfford(node) { return parseInt(node.dataset.cost) <= (TOTAL_POINTS - spentPoints()); }
+  let label = '';
+  if (isBase) label = '<span class="tn-label">Foundation</span>';
+  else if (extraClass.includes('finale')) label = '<span class="tn-label">Finale</span>';
+  else if (branch) label = `<span class="tn-label">Path ${branch.toUpperCase()}</span>`;
 
-  function toggleNode(node) {
-    const id = node.dataset.id;
-    if (purchased.has(id)) {
-      const deps = [...document.querySelectorAll('.node')].filter(n => getPrereqs(n).includes(id) && purchased.has(n.dataset.id));
-      if (deps.length) { node.style.outline = '2px solid #c44'; setTimeout(() => node.style.outline = '', 600); return; }
-      purchased.delete(id);
-    } else {
-      if (node.classList.contains('locked') || node.classList.contains('excluded')) return;
-      if (!canAfford(node) || !prereqsMet(node)) return;
-      purchased.add(id);
+  div.innerHTML = `
+    ${badge}
+    ${label}
+    <div class="tn-name">${name}</div>
+    <div class="tn-desc">${desc}</div>
+    ${!isBase ? `<span class="tn-cost">${cost} pt</span>` : ''}
+  `;
+  return div;
+}
+
+function handleNodeClick(treeId, nodeId, tree, branch) {
+  const ps = purchased[treeId];
+
+  const isTier1 = tree.tier1.some(n => n.id === nodeId);
+  const isTier2 = tree.tier2.some(n => n.id === nodeId);
+  const isFinale = nodeId === 'finale';
+  const isBase = nodeId === 'base';
+
+  if (ps.has(nodeId)) {
+    // ── REFUND ──────────────────────────────────
+
+    if (isBase) {
+      // Can only refund base if nothing else is purchased
+      if (ps.size > 1) { flash('Refund all other talents first.'); return; }
+      ps.delete(nodeId);
+
+    } else if (isTier1) {
+      // Can't refund Tier 1 if its Tier 2 child is still purchased
+      const tier2Child = tree.tier2.find(n => n.branch === branch);
+      if (tier2Child && ps.has(tier2Child.id)) {
+        flash('Refund the Tier II talent in this path first.');
+        return;
+      }
+      ps.delete(nodeId);
+
+    } else if (isTier2) {
+      // Can refund a Tier 2 even if finale is purchased,
+      // as long as at least one OTHER Tier 2 remains after this refund
+      if (ps.has('finale')) {
+        const otherTier2Remaining = tree.tier2.some(n => n.id !== nodeId && ps.has(n.id));
+        if (!otherTier2Remaining) {
+          flash('Refund the Finale first, or keep another Tier II talent.');
+          return;
+        }
+      }
+      ps.delete(nodeId);
+
+    } else if (isFinale) {
+      // Finale can always be refunded
+      ps.delete(nodeId);
     }
-    updateTree();
-  }
 
-  function resetAll() { purchased.clear(); updateTree(); }
+  } else {
+    // ── PURCHASE ────────────────────────────────
 
-  function updateTree() {
-    const spent = spentPoints();
-    document.getElementById('pointsLeft').textContent = TOTAL_POINTS - spent;
-    document.getElementById('pointsSummary').textContent = `of ${TOTAL_POINTS} total · ${spent} spent`;
+    if (isBase) {
+      ps.add(nodeId);
 
-    document.querySelectorAll('.node').forEach(node => {
-      const id = node.dataset.id;
-      node.classList.remove('purchased', 'available', 'locked', 'excluded');
-      if (purchased.has(id)) node.classList.add('purchased');
-      else if (isExcluded(node)) node.classList.add('excluded', 'locked');
-      else if (prereqsMet(node) && canAfford(node)) node.classList.add('available');
-      else node.classList.add('locked');
-    });
+    } else if (isTier1) {
+      if (!ps.has('base')) { flash('Purchase the Foundation first.'); return; }
+      ps.add(nodeId);
 
-    const list = document.getElementById('summaryList');
-    if (purchased.size === 0) { list.innerHTML = '<li class="empty-msg">No talents chosen yet.</li>'; }
-    else {
-      list.innerHTML = '';
-      purchased.forEach(id => {
-        const node = getNode(id);
-        const li = document.createElement('li');
-        li.textContent = node.querySelector('.node-icon').textContent + ' ' + node.querySelector('.node-name').textContent;
-        const badge = document.createElement('span');
-        badge.style.cssText = 'font-size:0.7rem;color:var(--gold);opacity:0.8;';
-        badge.textContent = `(${node.dataset.cost}pt)`;
-        li.appendChild(badge);
-        list.appendChild(li);
-      });
+    } else if (isTier2) {
+      const parent = tree.tier1.find(t => t.branch === branch);
+      if (!parent || !ps.has(parent.id)) {
+        flash('Purchase the Tier I talent in this path first.');
+        return;
+      }
+      ps.add(nodeId);
+
+    } else if (isFinale) {
+      const anyTier2 = tree.tier2.some(n => ps.has(n.id));
+      if (!anyTier2) { flash('Purchase at least one Tier II talent first.'); return; }
+      ps.add(nodeId);
     }
-    drawLines();
   }
 
-  function getCenter(node) {
-    const cr = document.getElementById('treeContainer').getBoundingClientRect();
-    const nr = node.getBoundingClientRect();
-    return { x: nr.left - cr.left + nr.width / 2, y: nr.top - cr.top + nr.height / 2 };
+  updatePointBar();
+  renderTree();
+}
+
+function flash(msg) {
+  // Simple flash message
+  let el = document.getElementById('flashMsg');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'flashMsg';
+    el.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#2c1a0e;border:1px solid #c44;color:#c44;font-family:Cinzel,serif;font-size:0.8rem;padding:8px 20px;border-radius:3px;z-index:999;pointer-events:none;';
+    document.body.appendChild(el);
   }
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.opacity = '0', 2000);
+}
 
-  function drawLines() {
-    const svg = document.getElementById('treeSvg');
-    const container = document.getElementById('treeContainer');
-    svg.innerHTML = '';
-    svg.setAttribute('viewBox', `0 0 ${container.offsetWidth} ${container.offsetHeight}`);
+function updatePointBar() {
+  const spent = totalSpent();
+  document.getElementById('globalSpent').textContent = spent;
+  const trees = spent === 1 ? 'talent' : 'talents';
+  document.getElementById('globalSub').textContent = `${trees} acquired`;
+}
 
-    const connections = [
-      ['foundation','illusion'],['foundation','evocation'],
-      ['illusion','mirror'],['illusion','glamour'],
-      ['evocation','bolt'],['evocation','shield'],
-      ['mirror','phantasm'],['glamour','phantasm'],
-      ['bolt','meteor'],['shield','meteor']
-    ];
+function resetAll() {
+  TREES.forEach(t => purchased[t.id].clear());
+  updatePointBar();
+  if (currentTree) renderTree();
+  else refreshMainCards();
+}
 
-    connections.forEach(([from, to]) => {
-      const fn = getNode(from), tn = getNode(to);
-      if (!fn || !tn) return;
-      const fc = getCenter(fn), tc = getCenter(tn);
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', fc.x); line.setAttribute('y1', fc.y);
-      line.setAttribute('x2', tc.x); line.setAttribute('y2', tc.y);
-      if (purchased.has(from) && purchased.has(to)) line.classList.add('active');
-      svg.appendChild(line);
-    });
-  }
-
-  updateTree();
-  window.addEventListener('resize', drawLines);
-  setTimeout(drawLines, 100);
+// ── INIT ─────────────────────────────────────
+buildMainView();
+updatePointBar();
 </script>
+
 <canvas id="runeCanvas"></canvas>
 <script src="runes.js"></script>
 </body>
