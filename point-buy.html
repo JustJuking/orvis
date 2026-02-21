@@ -12,12 +12,10 @@
     margin-bottom: 28px;
   }
 
-  /* Budget bar */
   .budget-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
     background: linear-gradient(135deg, #2c1a0e, #4a2e10);
     border: 2px solid var(--gold);
     border-radius: 4px;
@@ -26,6 +24,18 @@
     box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 2px 4px rgba(201,150,58,0.3);
     flex-wrap: wrap;
     gap: 16px;
+  }
+
+  .budget-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .budget-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .budget-item {
@@ -60,7 +70,33 @@
     background: rgba(201,150,58,0.3);
   }
 
-  /* Stat grid */
+  .budget-control-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .budget-control-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .budget-control-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    min-width: 40px;
+    text-align: center;
+    line-height: 1;
+  }
+
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -70,6 +106,8 @@
 
   @media (max-width: 560px) {
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .budget-bar { flex-direction: column; align-items: center; }
+    .budget-left { flex-direction: column; }
   }
 
   .stat-card {
@@ -89,7 +127,7 @@
 
   .stat-name {
     font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--ink-faded);
     letter-spacing: 0.15em;
@@ -147,7 +185,7 @@
 
   .stat-modifier {
     font-family: 'Cinzel', serif;
-    font-size: 1.55rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--gold);
     display: block;
@@ -156,47 +194,12 @@
 
   .stat-cost {
     font-family: 'Crimson Text', serif;
-    font-size: 1.5rem;
+    font-size: 0.78rem;
     font-style: italic;
     color: var(--ink-faded);
     display: block;
   }
 
-  /* Cost table */
-  .cost-table-wrapper {
-    margin: 20px 0;
-    overflow-x: auto;
-  }
-
-  .cost-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Crimson Text', serif;
-    font-size: 0.9rem;
-  }
-
-  .cost-table th {
-    font-family: 'Cinzel', serif;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faded);
-    padding: 6px 12px;
-    border-bottom: 2px solid rgba(139,96,16,0.3);
-    text-align: center;
-  }
-
-  .cost-table td {
-    padding: 6px 12px;
-    border-bottom: 1px solid rgba(139,96,16,0.1);
-    text-align: center;
-    color: var(--ink-light);
-  }
-
-  .cost-table td:first-child { font-weight: 600; color: var(--ink); }
-  .cost-table tr.current-row td { background: rgba(201,150,58,0.08); }
-
-  /* Reset */
   .action-row {
     display: flex;
     gap: 12px;
@@ -206,13 +209,13 @@
     flex-wrap: wrap;
   }
 
-  /* Summary block */
   .stat-summary {
     margin-top: 28px;
     padding: 16px 20px;
     background: rgba(44,26,14,0.04);
     border: 1px solid rgba(139,96,16,0.2);
     border-radius: 3px;
+    text-align: center;
   }
 
   .stat-summary h3 {
@@ -252,7 +255,6 @@
 </head>
 <body>
 
-<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">Orvis Unbound</a>
   <a href="world.html" class="dir-pill">About Orvis</a>
@@ -278,30 +280,36 @@
 
     <div class="ornament">⸻ ✦ ⸻</div>
 
-    <p>This calculator can be used to assign starting stat points for your character. All stats start at 8. You have <strong>25 points</strong> to spend. Stats above 13 cost more per point — plan carefully.</p>
+    <p>This calculator can be used to assign starting stat points for your character. All stats start at 8. You have <strong id="introPoints">25</strong> points to spend. Stats above 13 cost more per point — plan carefully.</p>
 
-    <!-- Budget display -->
+    <!-- Budget bar -->
     <div class="budget-bar">
-      <div class="budget-item">
-        <span class="budget-label">Points Spent</span>
-        <div class="budget-value" id="spentDisplay">0</div>
+      <div class="budget-left">
+        <div class="budget-item">
+          <span class="budget-label">Points Spent</span>
+          <div class="budget-value" id="spentDisplay">0</div>
+        </div>
+        <div class="budget-divider"></div>
+        <div class="budget-item">
+          <span class="budget-label">Remaining</span>
+          <div class="budget-value" id="remainDisplay">25</div>
+        </div>
       </div>
-      <div class="budget-divider"></div>
-      <div class="budget-item">
-        <span class="budget-label">Budget</span>
-        <div class="budget-value" id="totalDisplay">25</div>
-      </div>
-      <div class="budget-divider"></div>
-      <div class="budget-item">
-        <span class="budget-label">Remaining</span>
-        <div class="budget-value" id="remainDisplay">25</div>
+
+      <div class="budget-right">
+        <div>
+          <span class="budget-control-label">Point Budget</span>
+          <div class="budget-control-row">
+            <button class="stat-btn" onclick="adjustBudget(-1)">−</button>
+            <div class="budget-control-value" id="totalDisplay">25</div>
+            <button class="stat-btn" onclick="adjustBudget(1)">+</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Stat cards -->
-    <div class="stat-grid" id="statGrid">
-      <!-- Generated by JS -->
-    </div>
+    <div class="stat-grid" id="statGrid"></div>
 
     <!-- Actions -->
     <div class="action-row">
@@ -312,22 +320,21 @@
 </div>
 
 <script>
-  const TOTAL_POINTS = 25;
+  let TOTAL_POINTS = 25;
   const MIN_SCORE = 8;
   const MAX_SCORE = 15;
 
-  // D&D 5e point costs
   const COST_TABLE = {
     8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9
   };
 
   const STATS = [
-    { id: 'str', name: 'Strength', abbr: 'STR', icon: '⚔️' },
-    { id: 'dex', name: 'Dexterity', abbr: 'DEX', icon: '🏹' },
-    { id: 'con', name: 'Constitution', abbr: 'CON', icon: '🛡️' },
-    { id: 'int', name: 'Intelligence', abbr: 'INT', icon: '📚' },
-    { id: 'wis', name: 'Wisdom', abbr: 'WIS', icon: '🌿' },
-    { id: 'cha', name: 'Charisma', abbr: 'CHA', icon: '🎭' },
+    { id: 'str', abbr: 'STR' },
+    { id: 'dex', abbr: 'DEX' },
+    { id: 'con', abbr: 'CON' },
+    { id: 'int', abbr: 'INT' },
+    { id: 'wis', abbr: 'WIS' },
+    { id: 'cha', abbr: 'CHA' },
   ];
 
   let values = {};
@@ -340,6 +347,13 @@
 
   function totalSpent() {
     return Object.values(values).reduce((sum, v) => sum + COST_TABLE[v], 0);
+  }
+
+  function adjustBudget(delta) {
+    TOTAL_POINTS = Math.max(0, TOTAL_POINTS + delta);
+    document.getElementById('totalDisplay').textContent = TOTAL_POINTS;
+    document.getElementById('introPoints').textContent = TOTAL_POINTS;
+    updateDisplay();
   }
 
   function buildGrid() {
@@ -361,7 +375,6 @@
       `;
       grid.appendChild(card);
     });
-    buildCostTable();
     updateDisplay();
   }
 
@@ -373,7 +386,7 @@
     const oldCost = COST_TABLE[values[id]];
     const remaining = TOTAL_POINTS - totalSpent();
 
-    if (delta > 0 && (newCost - oldCost) > remaining) return; // can't afford
+    if (delta > 0 && (newCost - oldCost) > remaining) return;
 
     values[id] = newVal;
     updateDisplay();
@@ -383,7 +396,6 @@
     const spent = totalSpent();
     const remaining = TOTAL_POINTS - spent;
 
-    // Update budget bar
     document.getElementById('spentDisplay').textContent = spent;
     document.getElementById('remainDisplay').textContent = remaining;
 
@@ -392,14 +404,12 @@
     if (remaining === 0) remEl.classList.add('perfect');
     else if (remaining < 0) remEl.classList.add('danger');
 
-    // Update each stat card
     STATS.forEach(stat => {
       const v = values[stat.id];
       document.getElementById('val-' + stat.id).textContent = v;
       document.getElementById('mod-' + stat.id).textContent = getModifier(v);
       document.getElementById('cost-' + stat.id).textContent = 'Cost: ' + COST_TABLE[v] + ' pts';
 
-      // Buttons
       const dec = document.getElementById('dec-' + stat.id);
       const inc = document.getElementById('inc-' + stat.id);
       dec.disabled = v <= MIN_SCORE;
@@ -408,39 +418,6 @@
       inc.disabled = v >= MAX_SCORE || nextCost > remaining;
     });
 
-    // Summary
-    const summaryEl = document.getElementById('summaryStats');
-    summaryEl.innerHTML = STATS.map(s => `
-      <div class="summary-stat">
-        ${s.abbr}
-        <span>${values[s.id]} <small style="font-size:0.75rem;color:var(--gold)">(${getModifier(values[s.id])})</small></span>
-      </div>
-    `).join('');
-
-    // Highlight cost table
-    document.querySelectorAll('#costTableBody tr').forEach(row => {
-      row.classList.remove('current-row');
-    });
-  }
-
-  function buildCostTable() {
-    const tbody = document.getElementById('costTableBody');
-    tbody.innerHTML = '';
-    for (let score = 8; score <= 15; score++) {
-      const incrementalCost = score > 8 ? COST_TABLE[score] - COST_TABLE[score - 1] : 0;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${score}</td>
-        <td>${COST_TABLE[score]}</td>
-        <td>${getModifier(score)}</td>
-        <td style="font-style:italic; color:var(--ink-faded); font-size:0.85rem;">${
-          score <= 13 ? '1 pt per increase' :
-          score === 14 ? '2 pts to reach 14' :
-          '2 pts to reach 15'
-        }</td>
-      `;
-      tbody.appendChild(tr);
-    }
   }
 
   function resetStats() {
@@ -450,6 +427,7 @@
 
   buildGrid();
 </script>
+
 <canvas id="runeCanvas"></canvas>
 <script src="runes.js"></script>
 </body>
