@@ -530,8 +530,9 @@ em { color: var(--text-gold); }
 .info-card .card-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .info-card .card-title {
