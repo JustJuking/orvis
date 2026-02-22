@@ -528,6 +528,12 @@ em { color: var(--text-gold); }
 
 .info-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 
+.info-card .card-header > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .info-card .card-title {
   font-family: 'Cinzel', serif;
   font-size: 1.1rem !important;
