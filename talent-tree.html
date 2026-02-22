@@ -449,7 +449,7 @@ Frostbitten wastes and crowded city sprawls make survival in Orvis require more 
 <h2>How it Works</h2>
 <p>You gain all the base feats of skills you are proficient in. You can apply proficiencies for your character below.<br>
 You can use a feat point to gain proficiency with a skill.<br>
-You can only put points in a skill tree if you are proficient with that skill. The core skill trees ( Armor, Magical, Martial, Vitality) do not have this requirement.<br>
+You can only put points in a skill tree if you are proficient with that skill. The core skill trees ( Armor & Shields, Magical Talents, Martial Talents, and Vitality) do not have this requirement.<br>
 You gain 1 feat point every 2nd level (2,4,6 e.t.c).<br>
 Instead of gaining an ASI, you may instead gain 1 additional feat point.<br>
 Finale abilities (the capstone of a feat tree) cost 2 feat points and require at least one Tier 2 ability from that tree.</p>
@@ -457,10 +457,10 @@ Finale abilities (the capstone of a feat tree) cost 2 feat points and require at
 <h2>A Bonus for Specialising</h2>
 <p>If you have the finale and 2 completed branches in a tree, you gain the following benefit:<br>
 <strong>Skill Talents:</strong> expertise with the skill (or another skill that makes sense if you already have expertise).<br>
-<strong>Armor Talents:</strong> +1 to your AC<br>
+<strong>Armor & Shields:</strong> +1 to your AC<br>
 <strong>Magical Talents:</strong> +1 to SDC<br>
 <strong>Martial Talents:</strong> +1 to attacks<br>
-<strong>Vitality Talents:</strong> +1 hit point per level</p>
+<strong>Vitality:</strong> +1 hit point per level</p>
     
     <!-- PROFICIENCY PANEL -->
     <div class="prof-panel" id="profPanel">
@@ -517,19 +517,19 @@ Finale abilities (the capstone of a feat tree) cost 2 feat points and require at
 const TREES = [
   // ── CORE / FEATURED ──────────────────────────
   {
-    id: 'armor', name: 'Armor Talents', subtitle: 'Turn yourself into a walking fortress against teeth and blades.', type: 'featured',
+    id: 'armorshields', name: 'Armor & Shields', subtitle: 'Turn yourself into a walking fortress against teeth and blades.', type: 'featured',
     base: { name: 'Basic Training', desc: 'You gain proficiency with armor or improve your existing armor proficiencies. You can take this talent multiple times. You gain proficiency with light armor. If you already have proficiency in light armor, you also gain proficiency in medium armor and shields. If you already have proficiency in medium armor, you also gain proficiency in heavy armor. When you take this option, if you already have proficiency with the armor you desire, you can choose to progress again on this tree instead of gaining any armor proficiencies.' },
     tier1: [
-      { id: 'armor-a', branch: 'a', name: 'Feather Step', desc: 'Creatures have Disadvantage on attacks of opportunity against you while you are wearing light or no armor.' },
-      { id: 'armor-b', branch: 'b', name: 'Light Footed', desc: 'Even in armor you move with surprising grace. You ignore the Stealth disadvantage imposed by medium armor.' },
-      { id: 'armor-c', branch: 'c', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
-      { id: 'armor-d', branch: 'd', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
+      { id: 'armorshields-a', branch: 'a', name: 'Feather Step', desc: 'Creatures have Disadvantage on attacks of opportunity against you while you are wearing light or no armor.' },
+      { id: 'armorshields-b', branch: 'b', name: 'Shield Bash', desc: 'You can use a bonus action to try to shove a creature within 5 feet of you with your shield.' },
+      { id: 'armorshields-c', branch: 'c', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
+      { id: 'armorshields-d', branch: 'd', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
     ],
     tier2: [
-      { id: 'armor-a2', branch: 'a', name: 'A Leaf in the Wind', desc: 'You can don and doff Light armor as an action and can wear it inconspicuously under normal clothes. While wearing light or no armor, you gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You take half damage from opportunity attacks.</li><li>Your speed is increased by 5ft</li><li>You gain advantage on dexterity saving throws</li><li>Whenever a creature makes an opportunity attack against you, your speed increases by 5 feet until the end of the turn.</li></ul>' },
-      { id: 'armor-b2', branch: 'b', name: 'Fleet Step', desc: 'Armor no longer slows your stride. Your speed is never reduced by wearing armor, and difficult terrain costs you no extra movement when wearing light or medium armor.' },
-      { id: 'armor-c2', branch: 'c', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
-      { id: 'armor-d2', branch: 'd', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
+      { id: 'armorshields-a2', branch: 'a', name: 'A Leaf in the Wind', desc: 'You can don and doff Light armor as an action and can wear it inconspicuously under normal clothes. While wearing light or no armor, you gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You take half damage from opportunity attacks.</li><li>Your speed is increased by 5ft</li><li>You gain advantage on dexterity saving throws</li><li>Whenever a creature makes an opportunity attack against you, your speed increases by 5 feet until the end of the turn.</li></ul>' },
+      { id: 'armorshields-b2', branch: 'b', name: 'Fleet Step', desc: 'Armor no longer slows your stride. Your speed is never reduced by wearing armor, and difficult terrain costs you no extra movement when wearing light or medium armor.' },
+      { id: 'armorshields-c2', branch: 'c', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
+      { id: 'armorshields-d2', branch: 'd', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
     ],
     finale: { name: 'Fortress', desc: 'You have become a living fortress. When you are hit by an attack, you can use your reaction to reduce the damage taken by an amount equal to your proficiency bonus + your Constitution modifier. You can use this a number of times equal to your proficiency bonus per long rest.' }
   },
@@ -564,7 +564,7 @@ const TREES = [
     finale: { name: 'Warlord', desc: 'Your martial presence reshapes the battlefield. Once per turn when you hit a creature with a weapon attack, you can choose one ally within 30 feet. That ally can immediately use their reaction to make one weapon attack. Additionally, you can make one additional attack whenever you use the Attack action.' }
   },
   {
-    id: 'vitality', name: 'Vitality Talents', subtitle: 'Push your body past it\'s physical limits to endure the killing blow.', type: 'featured',
+    id: 'vitality', name: 'Vitality', subtitle: 'Push your body past it\'s physical limits to endure the killing blow.', type: 'featured',
     base: { name: 'Resilient Body', desc: 'Your body is hardened against punishment. You gain 2 hit points per character level (retroactive), and your hit point maximum increases by 2 for each level you gain hereafter.' },
     tier1: [
       { id: 'vitality-a', branch: 'a', name: 'Second Wind', desc: 'You can dig deep in the heat of battle. As a bonus action, you can regain hit points equal to 1d10 + your character level. You can use this once per short or long rest.' },
