@@ -421,7 +421,7 @@ em { color: var(--text-gold); }
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
-  padding: 11px 28px;
+  padding: 8px 14px;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.25s;
