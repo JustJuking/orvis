@@ -6,184 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orvis Unbound</title>
 <link rel="stylesheet" href="style.css">
-<style>
-  .lore-block {
-    background: rgba(44,26,14,0.04);
-    border-left: 3px solid var(--gold-dim);
-    padding: 14px 18px;
-    margin: 20px 0;
-    border-radius: 0 3px 3px 0;
-  }
-
-  .lore-block p {
-    font-style: italic;
-    color: var(--ink-faded);
-    margin: 0;
-    font-size: 1.1rem;
-  }
-
-  .lore-block cite {
-    display: block;
-    font-size: 0.9rem;
-    margin-top: 6px;
-    color: var(--gold-dim);
-    font-style: normal;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin: 20px 0;
-  }
-
-  @media (max-width: 600px) {
-    .two-col { grid-template-columns: 1fr; }
-  }
-
-  .info-card {
-    background: linear-gradient(145deg, #fdf8e8, var(--parchment-mid));
-    border: 1px solid var(--parchment-shadow);
-    border-radius: 3px;
-    padding: 16px 18px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.12);
-  }
-
-  .info-card .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .info-card .card-icon { font-size: 1.6rem; }
-
-  .info-card .card-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: 0.04em;
-  }
-
-  .info-card .card-subtitle {
-    font-family: 'Crimson Text', serif;
-    font-size: 1.0rem;
-    font-style: italic;
-    color: var(--gold-dim);
-  }
-
-  .info-card ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .info-card ul li {
-    font-family: 'Crimson Text', serif;
-    font-size: 0.9rem;
-    color: var(--ink-light);
-    padding: 3px 0;
-    border-bottom: 1px dashed rgba(139,96,16,0.15);
-  }
-
-  .info-card ul li:last-child { border-bottom: none; }
-
-  .info-card ul li span {
-    float: right;
-    font-size: 0.8rem;
-    color: var(--ink-faded);
-    font-style: italic;
-  }
-
-  .trait-badge {
-    display: inline-block;
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    background: rgba(44,26,14,0.08);
-    border: 1px solid rgba(139,96,16,0.3);
-    border-radius: 2px;
-    padding: 1px 6px;
-    color: var(--ink-faded);
-    margin: 2px 2px 0 0;
-    letter-spacing: 0.04em;
-  }
-
-  .wax-seal {
-    display: block;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #c02030, #8b1a2a 55%, #5a0f18);
-    line-height: 44px;
-    font-size: 1.1rem;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 20px rgba(139,26,42,0.4), inset 0 2px 4px rgba(255,255,255,0.08);
-    margin: 12px 0 0 auto;
-    border: 2px solid rgba(139,26,42,0.6);
-  }
-
-  .signed-line {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    color: var(--text-dim);
-    font-size: 1rem;
-    text-align: right;
-    margin-top: 20px;
-  }
-
-  .welcome-drop-cap::first-letter {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    float: left;
-    line-height: 0.78;
-    margin: 8px 10px 0 0;
-    color: var(--gold-bright);
-    text-shadow: 0 0 20px rgba(242,192,69,0.5);
-    filter: drop-shadow(0 2px 8px rgba(242,192,69,0.3));
-  }
-
-  .edit-hint {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 0.8rem;
-    color: var(--gold-dim);
-    text-align: center;
-    margin-top: 16px;
-    opacity: 0.7;
-  }
-
-  /* Rules table */
-  .rules-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-family: 'Crimson Text', serif;
-    font-size: 0.95rem;
-  }
-
-  .rules-table th {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faded);
-    padding: 8px 12px;
-    border-bottom: 2px solid rgba(139,96,16,0.3);
-    text-align: left;
-  }
-
-  .rules-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid rgba(139,96,16,0.12);
-    color: var(--ink-light);
-    vertical-align: top;
-  }
-
-  .rules-table tr:last-child td { border-bottom: none; }
-
-  .rules-table tr:hover td { background: rgba(44,26,14,0.03); }
-</style>
 </head>
 <body>
 
@@ -242,7 +64,7 @@
   <p>The Humans' rivals, the Soraki, host silent, glittering courts across the realm, both on land and in the wild oceans of Orivs. These amphibious diplomats do not shout; they project their thoughts directly into your mind. To sign a contract with a Soraki Dynasty is to bind your lineage to theirs forever.</p>
 
   <h2><strong>The Vel'kir</strong></h2>
-  <p>High above, in frozen peaks and dusty mesas, the Vel’kir wage a war against their own savage nature, enforcing a military discipline so strict it rivals the gods themselves. The diligantly mine Aether, a power renowned across the land for it's ability to harness the weave.</p>
+  <p>High above, in frozen peaks and dusty mesas, the Vel'kir wage a war against their own savage nature, enforcing a military discipline so strict it rivals the gods themselves. The diligantly mine Aether, a power renowned across the land for it's ability to harness the weave.</p>
   
   <h2><strong>The Telhen</strong></h2>
   <p>In the quiet corners of the world, in places where the connection to the weave is most potent, the Telhen watch. Stoic, ancient, and steeped in the arcane, they are the librarians of existence. Led by three archmages, "The Council," the Telhen hoard the secrets of the past, pushing the boundaries of magic.</p>
@@ -273,7 +95,7 @@
 
 <h2 class="section-title fade-in fade-in-delay-1">Alignment</h2>
 <p class="fade-in fade-in-delay-2">
-In the harsh world of Orvis, traditional concepts of Good and Evil are often blurred by the desperate need to survive. Alignment is not a rigid cosmic absolute, but a fluid reflection of your character’s personal code and the choices they make under pressure. Whether you are a pragmatic mercenary or an idealistic ranger, your actions—and who you choose to protect—define you far more than a label on your character sheet.</p>
+In the harsh world of Orvis, traditional concepts of Good and Evil are often blurred by the desperate need to survive. Alignment is not a rigid cosmic absolute, but a fluid reflection of your character's personal code and the choices they make under pressure. Whether you are a pragmatic mercenary or an idealistic ranger, your actions—and who you choose to protect—define you far more than a label on your character sheet.</p>
 
 <div class="info-card">
       <div class="card-header">
@@ -283,7 +105,7 @@ In the harsh world of Orvis, traditional concepts of Good and Evil are often blu
           <div class="card-subtitle">Disciplined and Selfless</div>
         </div>
       </div>
-      <p>I selflessly put the needs of others before my own and use the laws and traditions of my people in order to help people the “right” way.</p>
+      <p>I selflessly put the needs of others before my own and use the laws and traditions of my people in order to help people the "right" way.</p>
      </div>
 
     <div class="info-card">
@@ -378,21 +200,21 @@ In the harsh world of Orvis, traditional concepts of Good and Evil are often blu
     
 <h2 class="section-title fade-in fade-in-delay-1">Eldritch Power</h2>
 <p class="fade-in fade-in-delay-2">
-Magic drawn from otherworldly beings—such as the Old Gods—is volatile and corruptive by nature. Those who wield this power walk a constant knife’s edge, risking their minds and bodies each time they call upon it. Mastery demands a lifetime of discipline, yet even the most seasoned practitioners are never fully safe.<br>
+Magic drawn from otherworldly beings—such as the Old Gods—is volatile and corruptive by nature. Those who wield this power walk a constant knife's edge, risking their minds and bodies each time they call upon it. Mastery demands a lifetime of discipline, yet even the most seasoned practitioners are never fully safe.<br>
 Though eldritch power is potent and deadly, it is not purely destructive. It can heal wounds, twist reality, and even create. This vast versatility is what makes it so dangerous: its chaotic nature resists control. Whenever a creature invokes eldritch power, it must assert its will to keep that power in check. Failure can leave the wielder drained—or trigger consequences far worse.<br>
 Use it with care.</p>
 
 <h2><strong>Maintaining Control</strong></h2>
-<p class="fade-in fade-in-delay-2">At the DM’s discretion, whenever a creature uses an eldritch ability or casts an eldritch spell, they must make an ability check using their spellcasting ability. If a creature attempts to access eldritch power without having the Spellcasting feature, Intelligence is used for this check.<br>
-<strong>Casting a Spell.</strong> The creature must succeed on an ability check with a DC equal to 10 + the spell’s level.<br>
-<strong>Using a Class Ability.</strong> The creature must succeed on an ability check with a DC equal to 10 + the creature’s proficiency bonus.<br>
+<p class="fade-in fade-in-delay-2">At the DM's discretion, whenever a creature uses an eldritch ability or casts an eldritch spell, they must make an ability check using their spellcasting ability. If a creature attempts to access eldritch power without having the Spellcasting feature, Intelligence is used for this check.<br>
+<strong>Casting a Spell.</strong> The creature must succeed on an ability check with a DC equal to 10 + the spell's level.<br>
+<strong>Using a Class Ability.</strong> The creature must succeed on an ability check with a DC equal to 10 + the creature's proficiency bonus.<br>
 Regardless of the result, the spell or ability functions as intended, unless the creature rolls a natural 1.<br>
 On a failed check, the creature loses one level of Sanity (see the Sanity rules at the end of this chapter). In addition, the DM may impose further consequences, such as rolling on a Wild Magic Surge table or introducing other eldritch side effects.</p>
 
 <h2 class="section-title fade-in fade-in-delay-1">Sanity</h2>
 <p class="fade-in fade-in-delay-2">
-Certain experiences erode the mind: exposure to otherworldly beings, eldritch magic, forbidden rituals, and incomprehensible horrors. Sanity represents a creature’s mental resilience in the face of such forces.<br>
-Sanity is measured across nine levels. Effects that damage a creature’s psyche may cause it to lose one or more levels of Sanity, as specified in the effect’s description.</p>
+Certain experiences erode the mind: exposure to otherworldly beings, eldritch magic, forbidden rituals, and incomprehensible horrors. Sanity represents a creature's mental resilience in the face of such forces.<br>
+Sanity is measured across nine levels. Effects that damage a creature's psyche may cause it to lose one or more levels of Sanity, as specified in the effect's description.</p>
 
 <h2><strong>Sanity Levels</strong></h2>
   <table class="rules-table">
@@ -416,12 +238,12 @@ Sanity is measured across nine levels. Effects that damage a creature’s psyche
 </table>
     
 <p>A creature suffers the effects of its current Sanity level as well as all higher Sanity levels. For example, a creature at Sanity level 6 suffers -3 on skill checks, a –5 penalty to initiative, and gains a phobia or mania.<br>
-An effect that restores Sanity increases a creature’s Sanity level by the amount specified in the effect’s description. When a creature reaches Sanity level 9, all Sanity-related effects end for that creature.<br>
-Whenever a creature finishes a long rest, it regains some composure and the creature’s Sanity level increases by 1.</p>
+An effect that restores Sanity increases a creature's Sanity level by the amount specified in the effect's description. When a creature reaches Sanity level 9, all Sanity-related effects end for that creature.<br>
+Whenever a creature finishes a long rest, it regains some composure and the creature's Sanity level increases by 1.</p>
 
 <h2 class="section-title fade-in fade-in-delay-1">Orvis Awaits</h2>
 <p class="fade-in fade-in-delay-2">
-From the silence of the Soraki courts to the thunder of the Mechanist’s black powder, Orvis is a land defined by its contradictions. It is a place where ancient magic bleeds into industrial progress, and where a polite handshake can be as deadly as a blade in the dark. As you step into this world, remember: your reputation is your currency, your conviction is your shield, and in Orvis, nothing is ever truly free.<br>
+From the silence of the Soraki courts to the thunder of the Mechanist's black powder, Orvis is a land defined by its contradictions. It is a place where ancient magic bleeds into industrial progress, and where a polite handshake can be as deadly as a blade in the dark. As you step into this world, remember: your reputation is your currency, your conviction is your shield, and in Orvis, nothing is ever truly free.<br>
 Good luck, adventurers!</p>
 </div>
 </div>

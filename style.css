@@ -97,8 +97,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 7px 30px;
+  gap: 8px;
+  padding: 7px 20px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(124,79,196,0.15);
 }
 
@@ -112,7 +112,7 @@ body::before {
   gap: 6px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -143,7 +143,7 @@ body::before {
   gap: 6px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -166,7 +166,7 @@ body::before {
 
 .dir-divider {
   width: 1px;
-  height: 24px;
+  height: 14px;
   background: rgba(124,79,196,0.35);
   margin: 0 4px;
 }
@@ -177,7 +177,7 @@ body::before {
   gap: 6px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -185,7 +185,7 @@ body::before {
   background: rgba(124,79,196,0.12);
   border: 1px solid rgba(124,79,196,0.35);
   border-radius: 30px;
-  padding: 5px 24px;
+  padding: 5px 14px;
   transition: all 0.22s;
   box-shadow: 0 0 8px rgba(124,79,196,0.1), inset 0 1px 0 rgba(176,122,255,0.08);
 }
@@ -255,7 +255,7 @@ body::before {
 /* ─── CORNER ORNAMENTS ───────────────────────────── */
 .corner-ornament {
   position: absolute;
-  font-size: 38px;
+  font-size: 18px;
   color: var(--arcane);
   opacity: 0.28;
   pointer-events: none;
@@ -283,7 +283,7 @@ body::before {
 .page-subtitle {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   text-align: center;
   color: var(--silver-dim);
   margin-bottom: 28px;
@@ -292,7 +292,7 @@ body::before {
 
 .ornament {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1rem;
   letter-spacing: 0.8em;
   margin: 24px 0;
   color: var(--arcane);
@@ -302,7 +302,7 @@ body::before {
 
 .section-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--gold);
   margin-bottom: 12px;
@@ -324,14 +324,50 @@ body::before {
 
 p {
   font-family: 'Crimson Text', serif;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.75;
   color: var(--text-mid);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 strong { color: var(--silver); }
 em { color: var(--text-gold); }
+
+/* ─── DROP CAP ───────────────────────────────────── */
+.welcome-drop-cap::first-letter {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  float: left;
+  line-height: 0.78;
+  margin: 8px 10px 0 0;
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(242,192,69,0.5);
+  filter: drop-shadow(0 2px 8px rgba(242,192,69,0.3));
+}
+
+/* ─── WAX SEAL & SIGNATURE ───────────────────────── */
+.wax-seal {
+  display: block;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #c02030, #8b1a2a 55%, #5a0f18);
+  line-height: 44px;
+  font-size: 1.1rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 20px rgba(139,26,42,0.4), inset 0 2px 4px rgba(255,255,255,0.08);
+  margin: 12px 0 0 auto;
+  border: 2px solid rgba(139,26,42,0.6);
+}
+
+.signed-line {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1rem;
+  text-align: right;
+  margin-top: 20px;
+}
 
 /* ─── CARDS ──────────────────────────────────────── */
 .card-grid {
@@ -360,7 +396,7 @@ em { color: var(--text-gold); }
 
 .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--silver);
   margin-bottom: 5px;
@@ -369,7 +405,7 @@ em { color: var(--text-gold); }
 
 .card-body {
   font-family: 'Crimson Text', serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-style: italic;
   color: var(--text-dim);
   line-height: 1.4;
@@ -379,7 +415,7 @@ em { color: var(--text-gold); }
 /* ─── BUTTONS ────────────────────────────────────── */
 .btn {
   font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -435,7 +471,7 @@ em { color: var(--text-gold); }
   background: var(--stone-mid);
   padding: 0 12px;
   color: var(--arcane-glow);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-shadow: 0 0 8px var(--arcane-glow);
 }
 
@@ -484,7 +520,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.1rem !important;
+  font-size: 1.08rem !important;
   font-weight: 700;
   color: var(--silver);
   letter-spacing: 0.04em;
@@ -492,7 +528,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-subtitle {
   font-family: 'Crimson Text', serif;
-  font-size: 1rem !important;
+  font-size: 0.98rem !important;
   font-style: italic;
   color: var(--arcane-glow);
 }
@@ -501,19 +537,20 @@ em { color: var(--text-gold); }
 
 .info-card ul li {
   font-family: 'Crimson Text', serif;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-mid);
   padding: 4px 0;
   border-bottom: 1px solid rgba(124,79,196,0.07);
 }
 
 .info-card ul li:last-child { border-bottom: none; }
-.info-card ul li span { float: right; font-size: 0.8rem; color: var(--text-dim); font-style: italic; }
+.info-card ul li span { float: right; font-size: 0.82rem; color: var(--text-dim); font-style: italic; }
 
+/* ─── TRAIT BADGE ────────────────────────────────── */
 .trait-badge {
   display: inline-block;
   font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
+  font-size: 0.62rem;
   background: rgba(124,79,196,0.12);
   border: 1px solid rgba(124,79,196,0.3);
   border-radius: 2px;
@@ -523,6 +560,7 @@ em { color: var(--text-gold); }
   letter-spacing: 0.05em;
 }
 
+/* ─── LORE BLOCK ─────────────────────────────────── */
 .lore-block {
   background: rgba(124,79,196,0.05);
   border-left: 2px solid var(--arcane);
@@ -531,11 +569,11 @@ em { color: var(--text-gold); }
   border-radius: 0 4px 4px 0;
 }
 
-.lore-block p { font-style: italic; color: var(--text-mid); margin: 0; font-size: 1.1rem; }
+.lore-block p { font-style: italic; color: var(--text-mid); margin: 0; font-size: 1rem; }
 
 .lore-block cite {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   margin-top: 8px;
   color: var(--arcane-glow);
   font-style: normal;
@@ -543,10 +581,11 @@ em { color: var(--text-gold); }
   letter-spacing: 0.06em;
 }
 
+/* ─── EDIT HINT ──────────────────────────────────── */
 .edit-hint {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-dim);
   text-align: center;
   margin-top: 16px;
@@ -586,7 +625,7 @@ em { color: var(--text-gold); }
 .lore-details { padding: 0 40px; }
 
 .card-body-text {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin-bottom: 10px;
   color: var(--text-dim);
   font-style: italic;
@@ -618,12 +657,12 @@ em { color: var(--text-gold); }
   width: 100%;
   border-collapse: collapse;
   font-family: 'Crimson Text', serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .cost-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
@@ -648,14 +687,14 @@ em { color: var(--text-gold); }
   border-collapse: collapse;
   table-layout: fixed;
   font-family: 'Crimson Text', serif;
-  font-size: 1.1rem;
+  font-size: 0.82rem;
   letter-spacing: -0.01em;
   margin: 16px 0;
 }
 
 .rules-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
@@ -698,7 +737,6 @@ em { color: var(--text-gold); }
 }
 
 /* ─── LISTS ─────────────────────────────────── */
-/* Container for the list */
 .lore-list {
   list-style: none !important;
   padding: 0;
@@ -708,21 +746,21 @@ em { color: var(--text-gold); }
 .lore-list li {
   position: relative;
   margin-bottom: 12px;
-  padding-left: 28px;       /* This creates the gap where the bullet sits */
+  padding-left: 28px;
   line-height: 1.6;
   color: var(--text-mid);
-  text-align: left;         /* Ensures text doesn't try to center and break alignment */
+  text-align: left;
 }
 
 .lore-list li::before {
-  content: '✦';             
+  content: '✦';
   position: absolute;
-  left: 0;                  /* Pins the bullet to the start of the padding-left */
-  top: 0;                   /* Aligns with the first line of text */
-  color: var(--gold);       
+  left: 0;
+  top: 0;
+  color: var(--gold);
   font-size: 0.9rem;
   text-shadow: 0 0 8px var(--gold-glow);
-  line-height: 1.6;         /* Matches the li line-height for perfect vertical centering */
+  line-height: 1.6;
 }
 
 .info-card .lore-list li {
