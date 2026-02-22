@@ -1037,7 +1037,7 @@ function drawConnectors(wrap, tree, ps) {
     const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     l.setAttribute('x1', x1); l.setAttribute('y1', y1);
     l.setAttribute('x2', x2); l.setAttribute('y2', y2);
-    l.setAttribute('stroke', active ? '#4a7c2f' : 'rgba(139,96,16,0.3)');
+    l.setAttribute('stroke', active ? 'var(--arcane)' : 'rgba(124,79,196,0.18)');
     l.setAttribute('stroke-width', active ? '2.5' : '1.5');
     if (!active) l.setAttribute('stroke-dasharray', '4 3');
     svg.appendChild(l);
