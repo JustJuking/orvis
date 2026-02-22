@@ -518,9 +518,7 @@ const TREES = [
   // ── CORE / FEATURED ──────────────────────────
   {
     id: 'armor', name: 'Armor Talents', subtitle: 'Turn yourself into a walking fortress against teeth and blades.', type: 'featured',
-    base: { name: 'Basic Training', desc: 'You gain proficiency with armor or improve your existing armor proficiencies. You can take this talent multiple times. You gain proficiency with light armor. If you already have proficiency in light armor, you also gain proficiency in medium armor and shields. If you already have proficiency in medium armor, you also gain proficiency in heavy armor. When you take this option, if you already have proficiency with the armor you desire, you can choose to progress again on this tree instead of gaining any armor proficiencies.
-
-' },
+    base: { name: 'Basic Training', desc: 'You gain proficiency with armor or improve your existing armor proficiencies. You can take this talent multiple times. You gain proficiency with light armor. If you already have proficiency in light armor, you also gain proficiency in medium armor and shields. If you already have proficiency in medium armor, you also gain proficiency in heavy armor. When you take this option, if you already have proficiency with the armor you desire, you can choose to progress again on this tree instead of gaining any armor proficiencies.' },
     tier1: [
       { id: 'armor-a', branch: 'a', name: 'Feather Step', desc: 'Creatures have Disadvantage on attacks of opportunity against you while you are wearing light or no armor.' },
       { id: 'armor-b', branch: 'b', name: 'Light Footed', desc: 'Even in armor you move with surprising grace. You ignore the Stealth disadvantage imposed by medium armor.' },
@@ -528,7 +526,7 @@ const TREES = [
       { id: 'armor-d', branch: 'd', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
     ],
     tier2: [
-      { id: 'armor-a2', branch: 'a', name: 'Reactive Guard', desc: 'Your shield reflexes are second to none. When a creature misses you with a melee attack, you can use your reaction to make one attack against it.' },
+      { id: 'armor-a2', branch: 'a', name: 'A Leaf in the Wind', desc: 'You can don and doff Light armor as an action and can wear it inconspicuously under normal clothes. While wearing light or no armor, you gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You take half damage from opportunity attacks.</li><li>Your speed is increased by 5ft</li><li>You gain advantage on dexterity saving throws</li><li>Whenever a creature makes an opportunity attack against you, your speed increases by 5 feet until the end of the turn.</li></ul>' },
       { id: 'armor-b2', branch: 'b', name: 'Fleet Step', desc: 'Armor no longer slows your stride. Your speed is never reduced by wearing armor, and difficult terrain costs you no extra movement when wearing light or medium armor.' },
       { id: 'armor-c2', branch: 'c', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
       { id: 'armor-d2', branch: 'd', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
@@ -566,7 +564,7 @@ const TREES = [
     finale: { name: 'Warlord', desc: 'Your martial presence reshapes the battlefield. Once per turn when you hit a creature with a weapon attack, you can choose one ally within 30 feet. That ally can immediately use their reaction to make one weapon attack. Additionally, you can make one additional attack whenever you use the Attack action.' }
   },
   {
-    id: 'vitality', name: 'Vitality Talents', subtitle: 'Push your body past its physical limits to endure the killing blow.', type: 'featured',
+    id: 'vitality', name: 'Vitality Talents', subtitle: 'Push your body past it\'s physical limits to endure the killing blow.', type: 'featured',
     base: { name: 'Resilient Body', desc: 'Your body is hardened against punishment. You gain 2 hit points per character level (retroactive), and your hit point maximum increases by 2 for each level you gain hereafter.' },
     tier1: [
       { id: 'vitality-a', branch: 'a', name: 'Second Wind', desc: 'You can dig deep in the heat of battle. As a bonus action, you can regain hit points equal to 1d10 + your character level. You can use this once per short or long rest.' },
