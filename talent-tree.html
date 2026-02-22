@@ -205,6 +205,7 @@
 
   /* Tree nodes */
   .tree-node {
+    position: relative;
     width: 200px;
     background: linear-gradient(145deg, #fdf5d8, var(--parchment));
     border: 1px solid rgba(124,79,196,0.18);
@@ -230,7 +231,7 @@
   .tree-node.available {
     background: linear-gradient(145deg, #fdf5d8, var(--parchment));
     border: 1px solid rgba(124,79,196,0.18);
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.15), 0 0 10px rgba(201,150,58,0.25);
+    box-shadow: 2px 2px 6px rgba(124,79,196,0.18);
     cursor: pointer;
   }
 
@@ -253,13 +254,12 @@
   }
 
   .node-badge {
-    position: absolute;
-    top: 6px; right: 8px;
-    font-size: 0.8rem;
     font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
     color: var(--gold-dim);
-    opacity: 0.7;
     letter-spacing: 0.05em;
+    margin-top: 4px;
+    display: block;
   }
   .tree-node.purchased .node-badge { color: #7a5a1a; }
 
@@ -297,7 +297,6 @@
     background: rgba(44,26,14,0.07);
     border: 1px solid rgba(124,79,196,0.18);
     border-radius: 3px;
-    box-shadow: 2px 2px 6px rgba(124,79,196,0.18);
     padding: 2px 8px;
     margin-top: 8px;
   }
@@ -382,13 +381,15 @@
 
   /* ── BASE NODE FREE STYLING ─────────────────── */
   .tree-node.base-free {
-    border-color: #4a7c2f !important;
-    background: linear-gradient(145deg, #eef8e0, #dff0c8) !important;
+    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    color: var(--gold-bright);
+    border: 1px solid var(--arcane);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(176,122,255,0.15);
   }
 
   .base-free-badge {
     font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: #4a7c2f;
     letter-spacing: 0.05em;
     margin-top: 4px;
