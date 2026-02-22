@@ -738,13 +738,11 @@ em { color: var(--text-gold); }
 /* ─── LISTS ─────────────────────────────────── */
 .lore-list {
   list-style: none !important;
-  margin: 10px 0 10px 20px;
+  margin: 0px 0px 20px 20px;
 }
 
 .lore-list li {
   position: relative;
-  margin-bottom: 6px;
-  padding-left: 20px;
   line-height: 1.6;
   color: var(--text-mid);
   text-align: left;
@@ -759,13 +757,4 @@ em { color: var(--text-gold); }
   font-size: 0.9rem;
   text-shadow: 0 0 8px var(--gold-glow);
   line-height: 1.6;
-}
-
-.info-card .lore-list {
-  margin: 8px 0 8px 16px;
-}
-
-.info-card .lore-list li {
-  margin-bottom: 6px;
-  line-height: 1.45;
 }
