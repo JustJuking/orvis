@@ -527,7 +527,6 @@ em { color: var(--text-gold); }
 }
 
 .info-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.info-card .card-icon { font-size: 1.5rem; }
 
 .info-card .card-title {
   font-family: 'Cinzel', serif;
