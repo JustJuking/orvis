@@ -648,14 +648,14 @@ em { color: var(--text-gold); }
   border-collapse: collapse;
   table-layout: fixed;
   font-family: 'Crimson Text', serif;
-  font-size: 0.82rem;
+  font-size: 1.3rem;
   letter-spacing: -0.01em;
   margin: 16px 0;
 }
 
 .rules-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
+  font-size: 1.1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
