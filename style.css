@@ -524,14 +524,14 @@ em { color: var(--text-gold); }
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
-.info-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-
-.info-card .card-header > div {
+.info-card .card-header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .info-card .card-title {
