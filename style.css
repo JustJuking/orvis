@@ -255,7 +255,7 @@ body::before {
 /* ─── CORNER ORNAMENTS ───────────────────────────── */
 .corner-ornament {
   position: absolute;
-  font-size: 18px;
+  font-size: 38px;
   color: var(--arcane);
   opacity: 0.28;
   pointer-events: none;
@@ -283,7 +283,7 @@ body::before {
 .page-subtitle {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   text-align: center;
   color: var(--silver-dim);
   margin-bottom: 28px;
@@ -292,7 +292,7 @@ body::before {
 
 .ornament {
   text-align: center;
-  font-size: 1rem;
+  font-size: 2rem;
   letter-spacing: 0.8em;
   margin: 24px 0;
   color: var(--arcane);
@@ -302,7 +302,7 @@ body::before {
 
 .section-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--gold);
   margin-bottom: 12px;
@@ -324,10 +324,10 @@ body::before {
 
 p {
   font-family: 'Crimson Text', serif;
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: 1.1rem;
+  line-height: 1.5;
   color: var(--text-mid);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 strong { color: var(--silver); }
@@ -360,7 +360,7 @@ em { color: var(--text-gold); }
 
 .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--silver);
   margin-bottom: 5px;
@@ -369,7 +369,7 @@ em { color: var(--text-gold); }
 
 .card-body {
   font-family: 'Crimson Text', serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-style: italic;
   color: var(--text-dim);
   line-height: 1.4;
@@ -379,7 +379,7 @@ em { color: var(--text-gold); }
 /* ─── BUTTONS ────────────────────────────────────── */
 .btn {
   font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -435,7 +435,7 @@ em { color: var(--text-gold); }
   background: var(--stone-mid);
   padding: 0 12px;
   color: var(--arcane-glow);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-shadow: 0 0 8px var(--arcane-glow);
 }
 
@@ -484,7 +484,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.08rem !important;
+  font-size: 1.1rem !important;
   font-weight: 700;
   color: var(--silver);
   letter-spacing: 0.04em;
@@ -492,7 +492,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-subtitle {
   font-family: 'Crimson Text', serif;
-  font-size: 0.98rem !important;
+  font-size: 1rem !important;
   font-style: italic;
   color: var(--arcane-glow);
 }
@@ -501,19 +501,19 @@ em { color: var(--text-gold); }
 
 .info-card ul li {
   font-family: 'Crimson Text', serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-mid);
   padding: 4px 0;
   border-bottom: 1px solid rgba(124,79,196,0.07);
 }
 
 .info-card ul li:last-child { border-bottom: none; }
-.info-card ul li span { float: right; font-size: 0.82rem; color: var(--text-dim); font-style: italic; }
+.info-card ul li span { float: right; font-size: 0.8rem; color: var(--text-dim); font-style: italic; }
 
 .trait-badge {
   display: inline-block;
   font-family: 'Cinzel', serif;
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   background: rgba(124,79,196,0.12);
   border: 1px solid rgba(124,79,196,0.3);
   border-radius: 2px;
@@ -531,11 +531,11 @@ em { color: var(--text-gold); }
   border-radius: 0 4px 4px 0;
 }
 
-.lore-block p { font-style: italic; color: var(--text-mid); margin: 0; font-size: 1rem; }
+.lore-block p { font-style: italic; color: var(--text-mid); margin: 0; font-size: 1.1rem; }
 
 .lore-block cite {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   margin-top: 8px;
   color: var(--arcane-glow);
   font-style: normal;
@@ -546,7 +546,7 @@ em { color: var(--text-gold); }
 .edit-hint {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-dim);
   text-align: center;
   margin-top: 16px;
@@ -586,7 +586,7 @@ em { color: var(--text-gold); }
 .lore-details { padding: 0 40px; }
 
 .card-body-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   margin-bottom: 10px;
   color: var(--text-dim);
   font-style: italic;
@@ -618,12 +618,12 @@ em { color: var(--text-gold); }
   width: 100%;
   border-collapse: collapse;
   font-family: 'Crimson Text', serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .cost-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
@@ -648,14 +648,14 @@ em { color: var(--text-gold); }
   border-collapse: collapse;
   table-layout: fixed;
   font-family: 'Crimson Text', serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   letter-spacing: -0.01em;
   margin: 16px 0;
 }
 
 .rules-table th {
   font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
