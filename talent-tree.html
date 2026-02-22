@@ -162,10 +162,11 @@
   }
 
   .detail-title {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel Decorative', serif;
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--ink);
+    color: var(--gold-bright);
+    text-shadow: 0 0 24px rgba(242,192,69,0.5), 0 0 60px rgba(242,192,69,0.18), 0 2px 4px rgba(0,0,0,0.9);
     letter-spacing: 0.05em;
     margin-bottom: 4px;
   }
@@ -173,7 +174,7 @@
   .detail-subtitle {
     font-family: 'Crimson Text', serif;
     font-style: italic;
-    color: var(--ink-faded);
+    color: var(--silver-dim);
     font-size: 1rem;
   }
 
@@ -213,7 +214,6 @@
     transition: all 0.2s;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
     user-select: none;
-    position: relative;
   }
 
   .tree-node.base-node {
@@ -255,27 +255,27 @@
   .node-badge {
     position: absolute;
     top: 6px; right: 8px;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-family: 'Cinzel', serif;
-    color: var(--gold);
+    color: var(--arcane);
     opacity: 0.7;
     letter-spacing: 0.05em;
   }
-  .tree-node.purchased .node-badge { color: #7a5a1a; }
+  .tree-node.purchased .node-badge { color: #4a2d7a; }
 
   .tn-label {
     font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--arcane-glow);
     margin-bottom: 6px;
     display: block;
   }
 
   .tn-name {
     font-family: 'Cinzel', serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--ink);
     margin-bottom: 6px;
@@ -284,7 +284,7 @@
 
   .tn-desc {
     font-family: 'Crimson Text', serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--ink-light);
     line-height: 1.5;
   }
@@ -292,8 +292,8 @@
   .tn-cost {
     display: inline-block;
     font-family: 'Cinzel', serif;
-    font-size: 0.68rem;
-    color: var(--gold);
+    font-size: 0.8rem;
+    color: var(--arcane);
     background: rgba(44,26,14,0.07);
     border: 1px solid rgba(201,150,58,0.35);
     border-radius: 2px;
@@ -301,12 +301,12 @@
     margin-top: 8px;
   }
 
-  .tree-node.purchased .tn-cost { color: #4a7c2f; border-color: rgba(74,124,47,0.35); }
-  .tree-node.locked .tn-cost { color: var(--ink-faded); }
+  .tree-node.purchased .tn-cost { color: #b07aff; border-color: rgba(74,124,47,0.35); }
+  .tree-node.locked .tn-cost { color: var(--arcane); }
 
   .tier-label {
     font-family: 'Crimson Text', serif;
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     font-style: italic;
     color: var(--ink-faded);
     text-align: center;
