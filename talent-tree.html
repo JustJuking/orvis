@@ -253,16 +253,6 @@
     text-align: center;
   }
 
-  .node-badge {
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    color: var(--gold-dim);
-    letter-spacing: 0.05em;
-    margin-top: 4px;
-    display: block;
-  }
-  .tree-node.purchased .node-badge { color: #7a5a1a; }
-
   .tn-label {
     font-family: 'Cinzel', serif;
     font-size: 0.9rem;
@@ -301,7 +291,7 @@
     margin-top: 8px;
   }
 
-  .tree-node.purchased .tn-cost { color: #b07aff; border-color: rgba(74,124,47,0.35); }
+  .tree-node.purchased .tn-cost { color: #037017; }
   .tree-node.locked .tn-cost { color: var(--arcane); }
 
   .tier-label {
@@ -385,15 +375,6 @@
     color: var(--gold-bright);
     border: 1px solid var(--arcane);
     box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(176,122,255,0.15);
-  }
-
-  .base-free-badge {
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    color: #4a7c2f;
-    letter-spacing: 0.05em;
-    margin-top: 4px;
-    display: block;
   }
 
   .refund-hint {
@@ -1132,24 +1113,25 @@ function makeTreeNode(treeId, nodeId, name, desc, cost, extraClass, ps, tree, br
   // All nodes (including base) are clickable
   div.onclick = () => handleNodeClick(treeId, nodeId, tree, branch);
 
-  let badge = '';
-  if (isPurchased && isFreeBase) badge = '<span class="node-badge" style="color:#4a7c2f;">✦ Free (Proficient)</span>';
-  else if (isPurchased) badge = '<span class="node-badge">✦ Acquired</span>';
-
   let label = '';
   if (isBase) label = '<span class="tn-label">Foundation</span>';
   else if (extraClass.includes('finale')) label = '<span class="tn-label">Finale</span>';
   else if (branch) label = `<span class="tn-label">Path ${branch.toUpperCase()}</span>`;
 
   let costHtml = '';
+
   if (isBase && isFreeBase) {
-    costHtml = '<span class="base-free-badge">Unlocked via Proficiency</span>';
+  // Base talent unlocked via proficiency
+  costHtml = `<span class="tn-cost tn-cost-status tn-cost-proficient">Proficient</span>`;
+  } else if (isPurchased) {
+  // Any purchased talent (including non-base)
+  costHtml = `<span class="tn-cost tn-cost-status tn-cost-acquired">Acquired</span>`;
   } else {
-    costHtml = `<span class="tn-cost">${cost} pt</span>`;
+  // Normal unpurchased node
+  costHtml = `<span class="tn-cost">${cost} pt</span>`;
   }
 
   div.innerHTML = `
-    ${badge}
     ${label}
     <div class="tn-name">${name}</div>
     <div class="tn-desc">${desc}</div>
