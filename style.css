@@ -97,8 +97,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 7px 20px;
+  gap: 10px;
+  padding: 7px 30px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(124,79,196,0.15);
 }
 
@@ -109,10 +109,10 @@ body::before {
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -140,10 +140,10 @@ body::before {
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -166,7 +166,7 @@ body::before {
 
 .dir-divider {
   width: 1px;
-  height: 14px;
+  height: 24px;
   background: rgba(124,79,196,0.35);
   margin: 0 4px;
 }
@@ -174,10 +174,10 @@ body::before {
 .dir-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   text-decoration: none;
   font-family: 'Cinzel', serif;
-  font-size: 0.66rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -185,7 +185,7 @@ body::before {
   background: rgba(124,79,196,0.12);
   border: 1px solid rgba(124,79,196,0.35);
   border-radius: 30px;
-  padding: 5px 14px;
+  padding: 5px 24px;
   transition: all 0.22s;
   box-shadow: 0 0 8px rgba(124,79,196,0.1), inset 0 1px 0 rgba(176,122,255,0.08);
 }
@@ -255,7 +255,7 @@ body::before {
 /* ─── CORNER ORNAMENTS ───────────────────────────── */
 .corner-ornament {
   position: absolute;
-  font-size: 18px;
+  font-size: 38px;
   color: var(--arcane);
   opacity: 0.28;
   pointer-events: none;
@@ -324,8 +324,8 @@ body::before {
 
 p {
   font-family: 'Crimson Text', serif;
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: 1.1rem;
+  line-height: 1.5;
   color: var(--text-mid);
   margin-bottom: 16px;
 }
@@ -396,7 +396,7 @@ em { color: var(--text-gold); }
 
 .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--silver);
   margin-bottom: 5px;
@@ -415,7 +415,7 @@ em { color: var(--text-gold); }
 /* ─── BUTTONS ────────────────────────────────────── */
 .btn {
   font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -471,7 +471,7 @@ em { color: var(--text-gold); }
   background: var(--stone-mid);
   padding: 0 12px;
   color: var(--arcane-glow);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-shadow: 0 0 8px var(--arcane-glow);
 }
 
@@ -516,11 +516,11 @@ em { color: var(--text-gold); }
 }
 
 .info-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.info-card .card-icon { font-size: 1.6rem; }
+.info-card .card-icon { font-size: 1.5rem; }
 
 .info-card .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.08rem !important;
+  font-size: 1.1rem !important;
   font-weight: 700;
   color: var(--silver);
   letter-spacing: 0.04em;
@@ -528,7 +528,7 @@ em { color: var(--text-gold); }
 
 .info-card .card-subtitle {
   font-family: 'Crimson Text', serif;
-  font-size: 0.98rem !important;
+  font-size: 0.9rem !important;
   font-style: italic;
   color: var(--arcane-glow);
 }
@@ -537,20 +537,20 @@ em { color: var(--text-gold); }
 
 .info-card ul li {
   font-family: 'Crimson Text', serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-mid);
   padding: 4px 0;
   border-bottom: 1px solid rgba(124,79,196,0.07);
 }
 
 .info-card ul li:last-child { border-bottom: none; }
-.info-card ul li span { float: right; font-size: 0.82rem; color: var(--text-dim); font-style: italic; }
+.info-card ul li span { float: right; font-size: 0.8rem; color: var(--text-dim); font-style: italic; }
 
 /* ─── TRAIT BADGE ────────────────────────────────── */
 .trait-badge {
   display: inline-block;
   font-family: 'Cinzel', serif;
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   background: rgba(124,79,196,0.12);
   border: 1px solid rgba(124,79,196,0.3);
   border-radius: 2px;
@@ -563,7 +563,7 @@ em { color: var(--text-gold); }
 /* ─── LORE BLOCK ─────────────────────────────────── */
 .lore-block {
   background: rgba(124,79,196,0.05);
-  border-left: 2px solid var(--arcane);
+  border-left: 2px solid var(--gold);
   padding: 14px 20px;
   margin: 20px 0;
   border-radius: 0 4px 4px 0;
@@ -573,9 +573,9 @@ em { color: var(--text-gold); }
 
 .lore-block cite {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   margin-top: 8px;
-  color: var(--arcane-glow);
+  color: var(--gold-glow);
   font-style: normal;
   font-family: 'Cinzel', serif;
   letter-spacing: 0.06em;
@@ -585,7 +585,7 @@ em { color: var(--text-gold); }
 .edit-hint {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-dim);
   text-align: center;
   margin-top: 16px;
@@ -625,7 +625,7 @@ em { color: var(--text-gold); }
 .lore-details { padding: 0 40px; }
 
 .card-body-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   margin-bottom: 10px;
   color: var(--text-dim);
   font-style: italic;
@@ -657,12 +657,12 @@ em { color: var(--text-gold); }
   width: 100%;
   border-collapse: collapse;
   font-family: 'Crimson Text', serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 .cost-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
@@ -687,14 +687,14 @@ em { color: var(--text-gold); }
   border-collapse: collapse;
   table-layout: fixed;
   font-family: 'Crimson Text', serif;
-  font-size: 0.82rem;
+  font-size: 1.1rem;
   letter-spacing: -0.01em;
   margin: 16px 0;
 }
 
 .rules-table th {
   font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--silver-dim);
@@ -733,7 +733,7 @@ em { color: var(--text-gold); }
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 640px) {
   .parchment { padding: 36px 24px; }
-  .page-title { font-size: 1.6rem; }
+  .page-title { font-size: 1.5rem; }
 }
 
 /* ─── LISTS ─────────────────────────────────── */
