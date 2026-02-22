@@ -508,6 +508,7 @@ em { color: var(--text-gold); }
   padding: 16px 18px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 6px;
 }
 
 .info-card:hover {
