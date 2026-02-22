@@ -741,7 +741,7 @@ em { color: var(--text-gold); }
 .lore-list {
   list-style: none !important;
   padding: 0;
-  margin: 20px 0 20px 30px;
+  margin: 10px 0 20px 30px;
 }
 
 .lore-list li {
