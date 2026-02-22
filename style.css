@@ -512,8 +512,7 @@ em { color: var(--text-gold); }
 }
 
 .info-card:hover {
-  background: linear-gradient(135deg, var(--arcane), #3a2060);
-  border-color: rgba(124,79,196,0.38);
+  border-color: rgba(124,79,196,0.58);
   box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 12px rgba(124,79,196,0.08);
 }
 
