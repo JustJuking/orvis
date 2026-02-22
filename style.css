@@ -743,6 +743,7 @@ em { color: var(--text-gold); }
 
 .lore-list li {
   position: relative;
+  padding-left: 20px;
   line-height: 1.6;
   color: var(--text-mid);
   text-align: left;
