@@ -517,10 +517,13 @@ em { color: var(--text-gold); }
 }
 
 .info-card .card-icon {
-  font-size: 1.6rem;
-  width: 56px;
-  height: 56px;
+  font-size: 3.2rem;
+  width: 75px;
+  height: 75px;
   object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .info-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
