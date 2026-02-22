@@ -517,22 +517,26 @@ Finale abilities (the capstone of a feat tree) cost 2 feat points and require at
 const TREES = [
   // ── CORE / FEATURED ──────────────────────────
   {
-    id: 'armor', name: 'Armor Talents', subtitle: 'Master the art of protection', type: 'featured',
-    base: { name: 'Hardy Constitution', desc: 'Your body and training allow you to endure heavier burdens. You gain proficiency with one additional armor type of your choice.' },
+    id: 'armor', name: 'Armor Talents', subtitle: 'Turn yourself into a walking fortress against teeth and blades.', type: 'featured',
+    base: { name: 'Basic Training', desc: 'You gain proficiency with armor or improve your existing armor proficiencies. You can take this talent multiple times. You gain proficiency with light armor. If you already have proficiency in light armor, you also gain proficiency in medium armor and shields. If you already have proficiency in medium armor, you also gain proficiency in heavy armor. When you take this option, if you already have proficiency with the armor you desire, you can choose to progress again on this tree instead of gaining any armor proficiencies.
+
+' },
     tier1: [
-      { id: 'armor-a', branch: 'a', name: 'Shield Mastery', desc: 'You have learned to use a shield as more than mere protection. As a bonus action, you can shove an adjacent creature with your shield.' },
+      { id: 'armor-a', branch: 'a', name: 'Feather Step', desc: 'Creatures have Disadvantage on attacks of opportunity against you while you are wearing light or no armor.' },
       { id: 'armor-b', branch: 'b', name: 'Light Footed', desc: 'Even in armor you move with surprising grace. You ignore the Stealth disadvantage imposed by medium armor.' },
       { id: 'armor-c', branch: 'c', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
+      { id: 'armor-d', branch: 'd', name: 'Iron Skin', desc: 'Long hours of conditioning have toughened your body. When not wearing armor, your AC equals 13 + your Constitution modifier.' },
     ],
     tier2: [
       { id: 'armor-a2', branch: 'a', name: 'Reactive Guard', desc: 'Your shield reflexes are second to none. When a creature misses you with a melee attack, you can use your reaction to make one attack against it.' },
       { id: 'armor-b2', branch: 'b', name: 'Fleet Step', desc: 'Armor no longer slows your stride. Your speed is never reduced by wearing armor, and difficult terrain costs you no extra movement when wearing light or medium armor.' },
       { id: 'armor-c2', branch: 'c', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
+      { id: 'armor-d2', branch: 'd', name: 'Unbreakable', desc: 'Your conditioning borders on supernatural. You have resistance to bludgeoning damage while not wearing armor.' },
     ],
     finale: { name: 'Fortress', desc: 'You have become a living fortress. When you are hit by an attack, you can use your reaction to reduce the damage taken by an amount equal to your proficiency bonus + your Constitution modifier. You can use this a number of times equal to your proficiency bonus per long rest.' }
   },
   {
-    id: 'magical', name: 'Magical Talents', subtitle: 'Tap the arcane currents', type: 'featured',
+    id: 'magical', name: 'Magical Talents', subtitle: 'Wrangle the unstable Weave to your will without losing your mind.', type: 'featured',
     base: { name: 'Arcane Sensitivity', desc: 'Your connection to the weave heightens your instincts. You can cast the Detect Magic spell once per long rest without expending a spell slot.' },
     tier1: [
       { id: 'magical-a', branch: 'a', name: 'Spell Sniper', desc: 'Your magical attacks find gaps in any defense. When you cast a spell that requires a ranged attack roll, the spell\'s range is doubled and it ignores half and three-quarters cover.' },
@@ -547,7 +551,7 @@ const TREES = [
     finale: { name: 'Arcane Sovereign', desc: 'Your mastery of the weave is unrivaled. Once per long rest, you can cast any spell you know or have prepared at its lowest level without expending a spell slot. Additionally, your spell save DC increases by 2 permanently.' }
   },
   {
-    id: 'martial', name: 'Martial Talents', subtitle: 'Forge your body into a weapon', type: 'featured',
+    id: 'martial', name: 'Martial Talents', subtitle: 'Master the art of steel and blood to end fights quickly.', type: 'featured',
     base: { name: 'Combat Training', desc: 'Rigorous training has sharpened your instincts. You gain proficiency with one martial weapon of your choice, and your unarmed strikes deal 1d4 + Strength modifier bludgeoning damage.' },
     tier1: [
       { id: 'martial-a', branch: 'a', name: 'Duelist\'s Edge', desc: 'One-on-one combat is your domain. When you are fighting a creature and no other hostile creatures are within 5 feet of you, you gain a +2 bonus to attack rolls against that creature.' },
@@ -562,7 +566,7 @@ const TREES = [
     finale: { name: 'Warlord', desc: 'Your martial presence reshapes the battlefield. Once per turn when you hit a creature with a weapon attack, you can choose one ally within 30 feet. That ally can immediately use their reaction to make one weapon attack. Additionally, you can make one additional attack whenever you use the Attack action.' }
   },
   {
-    id: 'vitality', name: 'Vitality Talents', subtitle: 'Endure where others falter', type: 'featured',
+    id: 'vitality', name: 'Vitality Talents', subtitle: 'Push your body past its physical limits to endure the killing blow.', type: 'featured',
     base: { name: 'Resilient Body', desc: 'Your body is hardened against punishment. You gain 2 hit points per character level (retroactive), and your hit point maximum increases by 2 for each level you gain hereafter.' },
     tier1: [
       { id: 'vitality-a', branch: 'a', name: 'Second Wind', desc: 'You can dig deep in the heat of battle. As a bonus action, you can regain hit points equal to 1d10 + your character level. You can use this once per short or long rest.' },
@@ -594,7 +598,7 @@ const TREES = [
     finale: { name: 'Agility Expert', desc: 'You master your body\'s movements, with grace and flair, gaining the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You gain advantage on Initiative rolls</li><li>You may use your dexterity score instead of your strength score to determine your jumping height and distance</li><li>Creatures have disadvantage on attempts to grapple you</li><li>Whenever you use Handspring , you can move up to half your speed without provoking opportunity attacks</li><li>Standing up from prone uses only 5ft of movement</li><li>Whenever you fail a dexterity saving throw, you may choose to succeed on it instead. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li></ul>' }
   },
   {
-    id: 'animal-handling', name: 'Animal Handling', subtitle: 'Speak the language of beasts', type: 'skill',
+    id: 'animal-handling', name: 'Animal Handling', subtitle: 'Calm beasts of burden and survive encounters with wild predators.', type: 'skill',
     base: { name: 'Beast Affinity', desc: 'Animals sense your calm intent. You gain proficiency in Animal Handling. Wild animals require a DC 5 lower check for you to calm or approach.' },
     tier1: [
       { id: 'anh-a', branch: 'a', name: 'Tame the Wild', desc: 'You can attempt to tame wild beasts. With 1 hour of work, you can attempt to domesticate a beast of CR 1 or lower that you have calmed. Make an Animal Handling check (DC 10 + beast CR × 5).' },
@@ -609,7 +613,7 @@ const TREES = [
     finale: { name: 'Lord of Beasts', desc: 'The wild obeys your call. You can cast Conjure Animals (4th level) once per long rest without a spell slot. Beasts conjured this way are permanently loyal to you and do not disappear when the spell ends, though only one casting\'s worth of beasts can remain at a time.' }
   },
   {
-    id: 'arcana', name: 'Arcana', subtitle: 'Unravel the mysteries of the weave', type: 'skill',
+    id: 'arcana', name: 'Arcana', subtitle: 'Understand the volatile Weave and the arcane forces that warp the world.', type: 'skill',
     base: { name: 'Scholarly Study', desc: 'Your study of arcane lore is extensive. You gain proficiency in Arcana. You can identify any spell being cast within 30 feet of you if you can see or hear it.' },
     tier1: [
       { id: 'arc-a', branch: 'a', name: 'Counterspell Intuition', desc: 'You can read the threads of a spell as it forms. When you use Counterspell, you automatically know the level of the spell you are attempting to counter.' },
@@ -624,7 +628,7 @@ const TREES = [
     finale: { name: 'Arcane Sage', desc: 'The weave holds no secrets from you. You can cast Detect Magic and Identify at will. Once per long rest, you can perfectly reproduce any spell effect you have witnessed in the past 24 hours, casting it as if you knew it. It uses your spellcasting ability and counts as a spell of its lowest possible level.' }
   },
   {
-    id: 'athletics', name: 'Athletics', subtitle: 'Raw physical power unleashed', type: 'skill',
+    id: 'athletics', name: 'Athletics', subtitle: 'Rely on brute force and raw endurance to overcome physical obstacles.', type: 'skill',
     base: { name: 'Physical Conditioning', desc: 'Your body is a honed instrument of power. You gain proficiency in Athletics. Your carrying capacity and the weight you can push, drag, or lift doubles.' },
     tier1: [
       { id: 'ath-a', branch: 'a', name: 'Power Grappler', desc: 'You wrestle with crushing force. You have advantage on grapple checks, and creatures grappled by you have their speed reduced to 0. You can grapple creatures one size larger than you.' },
@@ -639,7 +643,7 @@ const TREES = [
     finale: { name: 'Herculean', desc: 'Your physical might is legendary. You have advantage on all Athletics checks. Once per turn, when you hit a creature with a melee attack, you can attempt to shove them up to 15 feet in any direction as a free action. Creatures you shove take falling damage if thrown off an edge, and 2d6 bludgeoning damage if they collide with an object or creature.' }
   },
   {
-    id: 'deception', name: 'Deception', subtitle: 'Truth is merely a tool', type: 'skill',
+    id: 'deception', name: 'Deception', subtitle: 'Spin the right lies to mask the truth and save your skin.', type: 'skill',
     base: { name: 'Silver Tongue', desc: 'Lies flow from you like honest words. You gain proficiency in Deception. When you tell a lie, creatures have disadvantage on Insight checks to detect it.' },
     tier1: [
       { id: 'dec-a', branch: 'a', name: 'Master of Disguise', desc: 'You can become anyone. Given one hour and appropriate materials, you can create a disguise so convincing that creatures who know the person need a DC 20 Insight check to see through it.' },
@@ -654,7 +658,7 @@ const TREES = [
     finale: { name: 'Faceless', desc: 'You have no true face — only the one you choose to show. You can cast Disguise Self at will and Seeming once per long rest without a spell slot. Under Zone of Truth, you are aware of the effect and can choose to remain silent rather than be compelled. You cannot be detected as a shapechanger by magical means.' }
   },
   {
-    id: 'history', name: 'History', subtitle: 'The past holds all answers', type: 'skill',
+    id: 'history', name: 'History', subtitle: 'Remember the forgotten lore, dead empires, and bloody past of Orvis.', type: 'skill',
     base: { name: 'Scholar\'s Mind', desc: 'Centuries of recorded knowledge fill your memory. You gain proficiency in History. When you succeed on a History check, you learn one additional piece of information beyond what was asked.' },
     tier1: [
       { id: 'his-a', branch: 'a', name: 'Tactical Historian', desc: 'You apply the lessons of past battles. When you succeed on a History check related to a creature type, you can advise your party: all allies gain a +2 bonus to AC against that creature type for 1 minute.' },
@@ -669,7 +673,7 @@ const TREES = [
     finale: { name: 'Living Chronicle', desc: 'You have become a repository of all mortal knowledge. You automatically succeed on History checks with a passive DC of 25 or lower. Once per long rest, you can recall any historical fact, identify any creature, object, or spell, or know the general layout of any location you\'ve studied, with perfect accuracy.' }
   },
   {
-    id: 'insight', name: 'Insight', subtitle: 'Read the soul behind the words', type: 'skill',
+    id: 'insight', name: 'Insight', subtitle: 'Read the true intentions of liars, allies, and desperate survivors.', type: 'skill',
     base: { name: 'Keen Intuition', desc: 'People are open books to you. You gain proficiency in Insight. When you succeed on an Insight check against a creature, you learn whether they are currently lying.' },
     tier1: [
       { id: 'ins-a', branch: 'a', name: 'Empathy', desc: 'You feel what others feel. You always know the current emotional state of any creature you are speaking with. You have advantage on Insight checks made to determine someone\'s motivation.' },
@@ -684,7 +688,7 @@ const TREES = [
     finale: { name: 'Oracle\'s Eye', desc: 'No mind is closed to you. You can cast Detect Thoughts at will without concentration. Once per long rest, you can sense the intended actions of all creatures within 30 feet for 1 minute — at the start of each of their turns, you know what action they intend to take.' }
   },
   {
-    id: 'intimidation', name: 'Intimidation', subtitle: 'Fear is the most honest persuasion', type: 'skill',
+    id: 'intimidation', name: 'Intimidation', subtitle: 'Bend others to your will through fear and the promise of violence.', type: 'skill',
     base: { name: 'Fearsome Presence', desc: 'Your bearing demands respect — or fear. You gain proficiency in Intimidation. Creatures that fail an Intimidation check against you remain shaken (disadvantage on their next attack roll) for 1 minute.' },
     tier1: [
       { id: 'int-a', branch: 'a', name: 'Unnerving Stare', desc: 'Your gaze alone can break resolve. As an action, you can force a creature within 30 feet to make a Wisdom saving throw (DC = 8 + proficiency + Charisma). On a failure, they are Frightened of you until the end of their next turn.' },
@@ -699,7 +703,7 @@ const TREES = [
     finale: { name: 'Lord of Fear', desc: 'Your presence alone reshapes the battlefield. At the start of combat, all enemy creatures within 30 feet must make a DC (8 + proficiency + Charisma) Wisdom saving throw or be Frightened of you for 1 minute. Frightened creatures that take damage from you must repeat the saving throw or become Paralyzed with fear until the end of their next turn.' }
   },
   {
-    id: 'investigation', name: 'Investigation', subtitle: 'Every detail tells a story', type: 'skill',
+    id: 'investigation', name: 'Investigation', subtitle: 'Deduce the truth from hidden clues left behind in the wreckage.', type: 'skill',
     base: { name: 'Analytical Mind', desc: 'You notice what others miss. You gain proficiency in Investigation. You can detect forgeries, secret doors, and hidden compartments automatically if they have a passive DC of 15 or lower.' },
     tier1: [
       { id: 'inv-a', branch: 'a', name: 'Crime Scene Analysis', desc: 'A scene speaks volumes to you. Given 10 minutes to examine a location where violence or crime occurred, you can reconstruct a precise account of what happened (who, how, approximately when) with a DC 15 Investigation check.' },
@@ -714,7 +718,7 @@ const TREES = [
     finale: { name: 'The Mind\'s Eye', desc: 'No secret survives your scrutiny. You cannot be surprised. You automatically detect all hidden creatures, objects, and traps within 30 feet. Once per long rest, you can enter a heightened state of analysis for 1 minute: during this time, you automatically succeed on all Investigation checks and can see through any illusion or disguise.' }
   },
   {
-    id: 'medicine', name: 'Medicine', subtitle: 'Bind wounds, mend souls', type: 'skill',
+    id: 'medicine', name: 'Medicine', subtitle: 'Stitch wounds, treat diseases, and keep your allies breathing.', type: 'skill',
     base: { name: 'Field Medic', desc: 'You can keep people alive where others cannot. You gain proficiency in Medicine. When you stabilize a dying creature, they regain 1 hit point instead of remaining unconscious.' },
     tier1: [
       { id: 'med-a', branch: 'a', name: 'Combat Medic', desc: 'You can heal in the heat of battle. As a bonus action, you can expend a healer\'s kit use to restore 1d6 + 4 hit points to a creature within 5 feet, and end one of the following conditions: blinded, deafened, or poisoned.' },
@@ -729,7 +733,7 @@ const TREES = [
     finale: { name: 'Miracle Worker', desc: 'Life itself answers to your skill. Once per long rest, over 10 minutes, you can restore a creature to full hit points, remove all conditions, and regain all expended Hit Dice. Additionally, your Combat Medic healing now also restores 1 expended spell slot of 1st or 2nd level to spellcasters.' }
   },
   {
-    id: 'nature', name: 'Nature', subtitle: 'The wild is home', type: 'skill',
+    id: 'nature', name: 'Nature', subtitle: 'Read the unforgiving wilds and understand the beasts that claim them.', type: 'skill',
     base: { name: 'Child of the Wild', desc: 'The natural world is as familiar as your own skin. You gain proficiency in Nature. You can always find food and clean water in natural environments, and you can predict weather 24 hours in advance.' },
     tier1: [
       { id: 'nat-a', branch: 'a', name: 'Terrain Expert', desc: 'Every environment yields to your expertise. Choose two terrain types (arctic, coast, desert, forest, grassland, mountain, swamp, or underdark). In these terrains, your party never becomes lost, and you move at full speed through difficult terrain.' },
@@ -744,7 +748,7 @@ const TREES = [
     finale: { name: 'Lord of the Wild', desc: 'You are the apex of the natural world. You can speak with all natural creatures as if under Speak with Animals permanently. You can cast Commune with Nature once per long rest without a spell slot. Plants and animals within 60 feet will warn you of danger, granting you a passive Perception of 30 for the purpose of detecting threats in natural environments.' }
   },
   {
-    id: 'perception', name: 'Perception', subtitle: 'Nothing escapes your notice', type: 'skill',
+    id: 'perception', name: 'Perception', subtitle: 'Spot the ambush before the trap springs shut around you.', type: 'skill',
     base: { name: 'Watchful Eye', desc: 'Your senses are razor sharp. You gain proficiency in Perception. Your passive Perception increases by 3, and you cannot be surprised while you are conscious.' },
     tier1: [
       { id: 'per-a', branch: 'a', name: 'Eagle Eye', desc: 'Distance is no barrier to your sight. You can see clearly at twice the normal range in good conditions. You can read lips at up to 60 feet distance, and you spot visual details at distances that stagger others.' },
@@ -759,7 +763,7 @@ const TREES = [
     finale: { name: 'All-Seeing', desc: 'Your perception transcends mortal limits. You have blindsight out to 10 feet, and your passive Perception increases by an additional 5. You automatically detect all hidden creatures, invisible or otherwise, within 30 feet. You have advantage on initiative and can never be surprised while conscious.' }
   },
   {
-    id: 'performance', name: 'Performance', subtitle: 'Command the stage and the crowd', type: 'skill',
+    id: 'performance', name: 'Performance', subtitle: 'Captivate a room to earn a few coins or create a vital distraction.', type: 'skill',
     base: { name: 'Performer\'s Gift', desc: 'You command attention when you choose it. You gain proficiency in Performance. When you perform for at least 10 minutes, all creatures who witnessed it have their attitude toward you improve by one step for 1 hour.' },
     tier1: [
       { id: 'prf-a', branch: 'a', name: 'Bardic Inspiration', desc: 'Your words empower those around you. As a bonus action, you can grant one creature within 60 feet that can hear you a Bardic Inspiration die (1d6). They can add it to one ability check, attack roll, or saving throw in the next 10 minutes.' },
@@ -774,7 +778,7 @@ const TREES = [
     finale: { name: 'The Great Performance', desc: 'The world is your stage. Once per long rest, over the course of a 1-minute performance, you can affect all creatures within 60 feet who can see and hear you. Choose: grant all allies 20 temporary hit points and advantage on all checks for 1 hour; or force all enemies to make a DC (8 + proficiency + Charisma) Wisdom save or be Charmed and unable to take hostile actions for 1 minute.' }
   },
   {
-    id: 'persuasion', name: 'Persuasion', subtitle: 'Bend the world to your will with words', type: 'skill',
+    id: 'persuasion', name: 'Persuasion', subtitle: 'Charm, negotiate, and reason your way out of drawing a blade.', type: 'skill',
     base: { name: 'Compelling Voice', desc: 'People want to believe what you say. You gain proficiency in Persuasion. When you succeed on a Persuasion check, the creature\'s attitude toward you improves by an additional step, beyond what was asked.' },
     tier1: [
       { id: 'prs-a', branch: 'a', name: 'Negotiator', desc: 'You can always find common ground. You can make Persuasion checks to negotiate with creatures that would normally be hostile, as long as they can communicate. Creatures you negotiate with agree to a temporary truce for the duration of talks.' },
@@ -789,7 +793,7 @@ const TREES = [
     finale: { name: 'Voice of Command', desc: 'Words alone can move the world. Once per long rest, you can make a Persuasion check against any number of creatures who can hear you. On a success, they treat you as an trusted authority on whatever topic you address for 24 hours. They will follow reasonable requests and can be convinced to reveal secrets with a follow-up DC 15 Persuasion check.' }
   },
   {
-    id: 'religion', name: 'Religion', subtitle: 'The divine speaks through the learned', type: 'skill',
+    id: 'religion', name: 'Religion', subtitle: 'Recall knowledge of the gods, ancient myths, and celestial forces.', type: 'skill',
     base: { name: 'Devotee', desc: 'Your understanding of the divine transcends simple faith. You gain proficiency in Religion. You can recognize all divine symbols, rituals, and tenets of any religion you encounter, and you know how to appropriately address any divine servant.' },
     tier1: [
       { id: 'rel-a', branch: 'a', name: 'Divine Lore', desc: 'The histories of every faith are known to you. You have advantage on Religion checks. When you succeed on a Religion check, you learn one additional piece of information about the subject beyond what was asked.' },
@@ -804,7 +808,7 @@ const TREES = [
     finale: { name: 'Voice of the Divine', desc: 'The gods themselves acknowledge your devotion. Once per long rest, you can call for divine intervention. Roll percentile dice; on a result equal to or lower than your character level × 5, your deity intervenes in a meaningful way of the DM\'s choosing. Whether or not the roll succeeds, undead and fiends treat you as a sacred object — they must succeed on a DC 20 Wisdom save to take any hostile action against you.' }
   },
   {
-    id: 'sleight-of-hand', name: 'Sleight of Hand', subtitle: 'The hand is faster than the eye', type: 'skill',
+    id: 'sleight-of-hand', name: 'Sleight of Hand', subtitle: 'Use quick fingers to take what you need or hide what you hold.', type: 'skill',
     base: { name: 'Nimble Fingers', desc: 'Your hands move with practiced precision. You gain proficiency in Sleight of Hand. You can perform simple tricks and palming at will without a check.' },
     tier1: [
       { id: 'soh-a', branch: 'a', name: 'Pickpocket', desc: 'Wealth has a way of finding its way to your pockets. You can attempt to steal an item from a creature\'s person as a bonus action, with advantage on the Sleight of Hand check if the creature is distracted or engaged with another creature.' },
@@ -819,7 +823,7 @@ const TREES = [
     finale: { name: 'Ghost Hands', desc: 'Your touch is imperceptible. You can steal any item from any creature without any chance of detection unless they succeed on a DC 25 Perception check. You can pick any lock, mundane or magical, in one action with advantage on the check. Once per long rest, you can make any item on your person vanish completely, undetectable by any means, reappearing when you choose.' }
   },
   {
-    id: 'stealth', name: 'Stealth', subtitle: 'Darkness is your armor', type: 'skill',
+    id: 'stealth', name: 'Stealth', subtitle: 'Move unseen and unheard to avoid the dangers lurking in the dark.', type: 'skill',
     base: { name: 'Shadow Step', desc: 'Shadows welcome you like old friends. You gain proficiency in Stealth. You can attempt to hide as a bonus action, and dim light does not impose disadvantage on your Stealth checks.' },
     tier1: [
       { id: 'ste-a', branch: 'a', name: 'Vanishing Act', desc: 'You can disappear in the blink of an eye. When you are in dim light or darkness, you can take the Hide action as a free action (no action required) once per turn.' },
@@ -834,7 +838,7 @@ const TREES = [
     finale: { name: 'Wraith', desc: 'You have transcended the mortal art of stealth. You can become invisible at will as a bonus action. This invisibility ends only if you attack, cast a spell, or choose to end it. While invisible, you cannot be detected by magical means unless the spell specifically targets invisible creatures.' }
   },
   {
-    id: 'survival', name: 'Survival', subtitle: 'Thrive where others perish', type: 'skill',
+    id: 'survival', name: 'Survival', subtitle: 'Track, forage, and endure the harsh realities beyond the city walls.', type: 'skill',
     base: { name: 'Wilderness Expert', desc: 'The harshest environments hold no mystery for you. You gain proficiency in Survival. You and your party always find sufficient food, water, and shelter in any environment, and extreme weather only imposes disadvantage on checks rather than automatic failure.' },
     tier1: [
       { id: 'sur-a', branch: 'a', name: 'Expert Tracker', desc: 'You can follow any trail. You have advantage on Survival checks to track creatures. You can track through any terrain and follow trails up to 7 days old. Magically obscured trails only impose disadvantage rather than making tracking impossible.' },
