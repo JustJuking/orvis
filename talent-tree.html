@@ -544,18 +544,18 @@ const TREES = [
   },
   {
     id: 'vitality', name: 'Vitality', subtitle: 'Push your body past it\'s physical limits to endure the killing blow.', type: 'featured',
-    base: { name: 'Resilient Body', desc: 'Your body is hardened against punishment. You gain 2 hit points per character level (retroactive), and your hit point maximum increases by 2 for each level you gain hereafter.' },
+    base: { name: 'Down but not Out', desc: 'You gain proficiency with death saving throws. If your total would be 20 or higher, you gain the benefits of rolling a 20 on the d20.' },
     tier1: [
-      { id: 'vitality-a', branch: 'a', name: 'Second Wind', desc: 'You can dig deep in the heat of battle. As a bonus action, you can regain hit points equal to 1d10 + your character level. You can use this once per short or long rest.' },
-      { id: 'vitality-b', branch: 'b', name: 'Enduring Spirit', desc: 'Mental and physical strain cannot break you easily. You have advantage on saving throws against exhaustion, and the first level of exhaustion has no effect on you.' },
-      { id: 'vitality-c', branch: 'c', name: 'Pain Threshold', desc: 'You can absorb punishment that would cripple others. When you receive damage that would reduce you below half your hit point maximum, you can use your reaction to reduce the damage by your Constitution modifier.' },
+      { id: 'vitality-a', branch: 'a', name: 'Enduring', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You need to fail 4 death saves before you die</li><li>Rolling a natural 1 on a death save only counts as 1 failure</li><li>While at 0 hit points, critical hits against you only count as 1 failure.</li></ul>' },
+      { id: 'vitality-b', branch: 'b', name: 'Top Up', desc: 'Whenever you roll a hit die to restore hit points, you regain an additional amount equal to half your proficiency modifier (rounded up).' },
+      { id: 'vitality-c', branch: 'c', name: 'Resilient', desc: 'Choose one ability score. You gain proficiency in saving throws using the chosen ability. You may choose a different one each long rest.' },
     ],
     tier2: [
-      { id: 'vitality-a2', branch: 'a', name: 'Surge of Life', desc: 'Your recovery is legendary. When you use Second Wind, roll the die twice and take the higher result. You can also use Second Wind while incapacitated.' },
-      { id: 'vitality-b2', branch: 'b', name: 'Unyielding', desc: 'You refuse to be broken. Once per long rest, when you fail a saving throw, you can choose to succeed instead.' },
-      { id: 'vitality-c2', branch: 'c', name: 'Stalwart', desc: 'You are a wall that does not fall. When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can use this once per long rest.' },
+      { id: 'vitality-a2', branch: 'a', name: 'Tough', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>Your hit point maximum increases by an amount equal to twice your level when you gain this talent. Whenever you gain a level, your hit point maximum increases by 2 additional hit points</li><li>All damage you take is reduced by 1.</li></ul>' },
+      { id: 'vitality-b2', branch: 'b', name: 'Perserverance', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You can use a bonus action to expend a hit die and restore hit points equal to the roll plus your constitution modifier</li><li>During a short rest, the first hit die you roll is maximized</li><li>You regain all hit die at the end of a long rest</li></ul>' },
+      { id: 'vitality-c2', branch: 'c', name: 'Resistant', desc: 'Choose one of the following damage types: acid, cold, fire, lighting, poison, or thunder. You gain resistance to damage of the chosen type. During a long rest, you may change your chosen damage type to a different one from the list. Once per long rest, as a reaction when taking damage from the chosen type, you can gain immunity to to it instead, for the next 10 minutes. While immune, any damage you would have taken from it instead heals you for half the amount.' },
     ],
-    finale: { name: 'Immortal Resolve', desc: 'Death itself hesitates before you. You have advantage on death saving throws. When you roll a natural 20 on a death saving throw, you regain consciousness with hit points equal to your Constitution modifier + your proficiency bonus. Additionally, your hit point maximum increases by 10.' }
+    finale: { name: 'Immortal Resolve', desc: 'Your resilience pushes far beyond normal limits. You gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>*Choose one of your saving throw proficiencies. Your proficiency bonus is doubled for saves you make with it. You may swap your choice on a long rest</li><li>You may add half your proficiency(rounded up) to saves you are not proficient in</li><li>Your hit point and ability score maximums cannot be reduced</li><li>Whenever you succeed on a saving throw, you may gain temporary hit points equal to 2d6 plus your proficiency modifer. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li><li>Whenever you fail a saving throw you may choose to succeed it instead and take no damage or other effects from it. Once used you must finish a long rest before using it again.</li></ul>' }
   },
 
   // ── SKILLS ───────────────────────────────────
