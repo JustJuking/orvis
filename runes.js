@@ -50,8 +50,8 @@
 
       ctx.save();
       ctx.globalAlpha = p.opacity;
-      ctx.fillStyle = 'rgba(176, 122, 255, 1)';
-      ctx.shadowColor = 'rgba(176, 122, 255, 0.8)';
+      ctx.fillStyle = 'rgba(255, 107, 107, 1)';
+      ctx.shadowColor = 'rgba(204, 32, 32, 0.8)';
       ctx.shadowBlur = 10;
       ctx.font = `${p.size}px serif`;
       ctx.fillText(p.rune, p.x, p.y);
