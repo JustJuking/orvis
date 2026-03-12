@@ -181,7 +181,7 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--arcane-glow);
+  color: var(--gold);
   background: rgba(204,32,32,0.10);
   border: 1px solid rgba(204,32,32,0.35);
   border-radius: 30px;
