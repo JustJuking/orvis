@@ -121,14 +121,14 @@
 
   .talent-card:hover {
     border-color: rgba(204,32,32,0.58);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 12px rgba(124,79,196,0.08);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 12px rgba(204,32,32,0.08)
   }
 
   .talent-card.has-points {
-    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    background: linear-gradient(135deg, var(--arcane-dim), #3a0808);
     color: var(--gold-bright);
     border: 1px solid var(--arcane);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(176,122,255,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,107,107,0.15)
   }
 
   .tc-name {
@@ -213,7 +213,7 @@
     padding: 12px 14px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 2px 2px 6px rgba(124,79,196,0.18);
+    box-shadow: 2px 2px 6px rgba(204,32,32,0.18)
     user-select: none;
   }
 
@@ -231,21 +231,21 @@
   .tree-node.available {
     background: linear-gradient(145deg, #fdf5d8, var(--parchment));
     border: 1px solid rgba(204,32,32,0.18);
-    box-shadow: 2px 2px 6px rgba(124,79,196,0.18);
+    box-shadow: 2px 2px 6px rgba(204,32,32,0.18)
     cursor: pointer;
   }
 
   .tree-node.available:hover {
     border-color: rgba(204,32,32,0.58);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 12px rgba(124,79,196,0.08);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 12px rgba(204,32,32,0.08)
     transform: translateY(-1px);
   }
 
   .tree-node.purchased {
-    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    background: linear-gradient(135deg, var(--arcane-dim), #3a0808)
     color: var(--gold-bright);
     border: 1px solid var(--arcane);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(176,122,255,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,107,107,0.15)
   }
 
   .tree-node.finale-node {
@@ -286,7 +286,7 @@
     font-size: 0.9rem;
     color: var(--arcane-glow);
     background: rgba(44,26,14,0.07);
-    border: 2px solid rgba(124,79,196,0.4);
+    border: 2px solid rgba(204,32,32,0.4)
     border-radius: 3px;
     padding: 2px 8px;
     margin-top: 8px;
@@ -370,7 +370,7 @@
   }
 
   .prof-chip.active {
-    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    background: linear-gradient(135deg, var(--arcane-dim), #3a0808)
     border-color: var(--arcane-glow);
     color: var(--gold-bright);
     box-shadow: 0 0 12px rgba(255,107,107,0.6), 0 0 24px rgba(204,32,32,0.3);
@@ -385,10 +385,10 @@
 
   /* ── BASE NODE FREE STYLING ─────────────────── */
   .tree-node.base-free {
-    background: linear-gradient(135deg, var(--arcane-dim), #2a1a50);
+    background: linear-gradient(135deg, var(--arcane-dim), #3a0808)
     color: var(--gold-bright);
     border: 1px solid var(--arcane);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(176,122,255,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,107,107,0.15)
   }
 
   .refund-hint {
@@ -553,7 +553,7 @@ const TREES = [
       { id: 'martial-c2', branch: 'c', name: 'Arms Maestro', desc: 'You gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You may draw and stow weapons as a free action</li><li>Your weapon attacks ignore half cover and three-quarters cover</li><li>Being within 5 feet of a hostile creature doesn’t impose disadvantage on your ranged weapon attack rolls. Additionally, you have advantage on ranged weapon attacks against prone creatures within 5 feet of you</li><li>Whenever you make a weapon attack at advantage, you may reroll 1 of the dice once</li><li>You can use a free action during your turn to enhance your precision until the start of your next turn, giving you advantage on attack rolls. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest.</li></ul>' },
       { id: 'martial-d2', branch: 'd', name: 'Reactive Sentinel', desc: 'You gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>Whenever you use your reaction to do something besides make an opportunity attack, you can make an opportunity attack against a creature within range as part of that reaction</li><li>Whenever you make an opportunity attack, you can reduce the creatures speed to 5 for the rest of the turn</li><li>Your gain +1 AC while wielding a weapon</li><li>When you hit a creature with a weapon attack, you can impose disadvantage on all its attack rolls until the start of your next turn. You can use this feature a number of times equal to your proficiency modifier, regaining all expended uses after a long rest</li></ul>' },
     ],
-    finale: { name: 'Warfare Paragon', desc: 'Your mastery of the martial form give you the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>Unarmed attacks and weapons you use are considered magical for the purposes of overcoming resistances and immunites</li><li>During a long rest you may change your feat choices in Martial Talents</li><li>You may use a bonus action to make 1 weapon attack</li><li>You deal bonus damage with weapon attacks, equal to your proficiency modifier</li><li>Once per short rest, when you hit with two or more weapon attacks on the same turn, you can unleash a tactical surge of pressure and violence. All hostile creatures of your choice within 15 feet of one of the creatures you hit must succeed on a Strength saving throw (DC = 8 + your Strength or Dexterity modifier + your proficiency bonus) or be knocked prone and have their movement speed halved until the end of their next turn</li><li>When you take the Attack action, you can choose to make 1 additional attack as part of that action and increase your speed by 15ft until the end of the turn. You may use this ability a number of times equal to your proficiency modifier, regaining 1 use at the end of a short rest and all uses at the ned of a long rest.</li></ul>' }
+    finale: { name: 'Warfare Paragon', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>Unarmed attacks and weapons you use are considered magical for the purposes of overcoming resistances and immunites</li><li>During a long rest you may change your feat choices in Martial Talents</li><li>You may use a bonus action to make 1 weapon attack</li><li>You deal bonus damage with weapon attacks, equal to your proficiency modifier</li><li>Once per short rest, when you hit with two or more weapon attacks on the same turn, you can unleash a tactical surge of pressure and violence. All hostile creatures of your choice within 15 feet of one of the creatures you hit must succeed on a Strength saving throw (DC = 8 + your Strength or Dexterity modifier + your proficiency bonus) or be knocked prone and have their movement speed halved until the end of their next turn</li><li>When you take the Attack action, you can choose to make 1 additional attack as part of that action and increase your speed by 15ft until the end of the turn. You may use this ability a number of times equal to your proficiency modifier, regaining 1 use at the end of a short rest and all uses at the ned of a long rest.</li></ul>' }
   },
   {
     id: 'vitality', name: 'Vitality', subtitle: 'Push your body past it\'s physical limits to endure the killing blow.', type: 'featured',
@@ -568,7 +568,7 @@ const TREES = [
       { id: 'vitality-b2', branch: 'b', name: 'Perserverance', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You can use a bonus action to expend a hit die and restore hit points equal to the roll plus your constitution modifier</li><li>During a short rest, the first hit die you roll is maximized</li><li>You regain all hit die at the end of a long rest</li></ul>' },
       { id: 'vitality-c2', branch: 'c', name: 'Resistant', desc: 'Choose one of the following damage types: acid, cold, fire, lighting, poison, or thunder. You gain resistance to damage of the chosen type. During a long rest, you may change your chosen damage type to a different one from the list. Once per long rest, as a reaction when taking damage from the chosen type, you can gain immunity to to it instead, for the next 10 minutes. While immune, any damage you would have taken from it instead heals you for half the amount.' },
     ],
-    finale: { name: 'Immortal Resolve', desc: 'Your resilience pushes far beyond normal limits. You gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>*Choose one of your saving throw proficiencies. Your proficiency bonus is doubled for saves you make with it. You may swap your choice on a long rest</li><li>You may add half your proficiency(rounded up) to saves you are not proficient in</li><li>Your hit point and ability score maximums cannot be reduced</li><li>Whenever you succeed on a saving throw, you may gain temporary hit points equal to 2d6 plus your proficiency modifer. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li><li>Whenever you fail a saving throw you may choose to succeed it instead and take no damage or other effects from it. Once used you must finish a long rest before using it again.</li></ul>' }
+    finale: { name: 'Immortal Resolve', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>*Choose one of your saving throw proficiencies. Your proficiency bonus is doubled for saves you make with it. You may swap your choice on a long rest</li><li>You may add half your proficiency(rounded up) to saves you are not proficient in</li><li>Your hit point and ability score maximums cannot be reduced</li><li>Whenever you succeed on a saving throw, you may gain temporary hit points equal to 2d6 plus your proficiency modifer. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li><li>Whenever you fail a saving throw you may choose to succeed it instead and take no damage or other effects from it. Once used you must finish a long rest before using it again.</li></ul>' }
   },
 
   // ── SKILLS ───────────────────────────────────
@@ -585,15 +585,15 @@ const TREES = [
       { id: 'acro-b2', branch: 'b', name: 'Parkour Mastery', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You can use a bonus action to attempt to dive through the space of a hostile creature that is within 5 feet of you. Make a Dexterity (Acrobatics) check vs. their Strength (Athletics) or Dexterity (Acrobatics) (their choice). You have advantage if they are larger than you. On a success, you move to a space of your choice within 5 feet of them, and the next attack against them has advantage.</li><li>You gain resistance to damage from falling, and always land on your feet when falling as long as you are conscious</li><li>When you are forced to move by a push, pull, or similar effect, you may redirect that movement up to 90 degrees from the original direction. If you do, you can move up to 10 feet farther than the original forced movement</li><li>You gain a climbing speed equal to your movement speed</li></ul>' },
       { id: 'acro-c2', branch: 'c', name: 'Reflexive Dodge', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>During your turn, you can use all your movement to automatically escape from restraints and grapples</li><li>Whenever you succeed on a Dexterity saving throw you may move up to 10ft without provoking opportunity attacks. If you roll a natural 20 on it, you may instead move up to your movement speed</li><li>Whenever you would have to make a Strength saving throw, you can instead make a Dexterity saving throw, at advantage. You may do this a number of times equal to your proficiency modifier, regaining all uses on a long rest</li><li>Whenever a creature misses you with an attack, you can use your reaction to move up to half your speed without provoking opportunity attacks</li></ul>' },
     ],
-    finale: { name: 'Agility Expert', desc: 'You master your body\'s movements, with grace and flair, gaining the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You gain advantage on Initiative rolls</li><li>You may use your dexterity score instead of your strength score to determine your jumping height and distance</li><li>Creatures have disadvantage on attempts to grapple you</li><li>Whenever you use Handspring , you can move up to half your speed without provoking opportunity attacks</li><li>Standing up from prone uses only 5ft of movement</li><li>Whenever you fail a dexterity saving throw, you may choose to succeed on it instead. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li></ul>' }
+    finale: { name: 'Agility Expert', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You gain advantage on Initiative rolls</li><li>You may use your dexterity score instead of your strength score to determine your jumping height and distance</li><li>Creatures have disadvantage on attempts to grapple you</li><li>Whenever you use Handspring , you can move up to half your speed without provoking opportunity attacks</li><li>Standing up from prone uses only 5ft of movement</li><li>Whenever you fail a dexterity saving throw, you may choose to succeed on it instead. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li></ul>' }
   },
   {
     id: 'animal-handling', name: 'Animal Handling', subtitle: 'Calm beasts of burden and survive encounters with wild predators.', type: 'skill',
     base: { name: 'Beast Whisperer', desc: 'If you spend at least 1 minute observing or interacting with a beast, you can communicate simple ideas with the animal and understand its responses.' },
     tier1: [
       { id: 'anh-a', branch: 'a', name: 'Animal Training', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>If you subdue a hostile beast of CR 1/4 or less, you can attempt to domesticate it during a long rest. Make a Wisdom (Animal Handling) check with a DC of 10 + their CR. On a success, the animal will be friendly to you and your allies. A friendly beast can be turned into a willing companion during a long rest with a successful Wisdom (Animal Handling) check with a DC of 10 + their CR</li><li>As an action, you can issue a command to a willing companion beast and it will use its action to attempt to follow it as long as it can hear you, though it will not likely follow a command that would lead it to be injured or killed. The beast can be commanded to dash, disengage, hide, help or attack.</li></ul>' },
-      { id: 'anh-b2', branch: 'b', name: 'Mounted Combatant', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>If a creature would target your mount with an attack or spell, you can choose to have the attack or spell target you instead</li><li>Your mount gains Evasion</li></ul>' },
-      { id: 'anh-c2', branch: 'c', name: 'Nurturing Presence', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You have advantage on Wisdom (Animal Handling) checks related to approaching or pacifying frightened or injured beasts</li><li>You can use Wisdom (Animal Handling) instead of Wisdom (Medicine) to stabilize a dying beast</li></ul>' },
+      { id: 'anh-b', branch: 'b', name: 'Mounted Combatant', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>If a creature would target your mount with an attack or spell, you can choose to have the attack or spell target you instead</li><li>Your mount gains Evasion</li></ul>' },
+      { id: 'anh-c', branch: 'c', name: 'Nurturing Presence', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You have advantage on Wisdom (Animal Handling) checks related to approaching or pacifying frightened or injured beasts</li><li>You can use Wisdom (Animal Handling) instead of Wisdom (Medicine) to stabilize a dying beast</li></ul>' },
     ],
     tier2: [
       { id: 'anh-a2', branch: 'a', name: 'Beast Master', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>Beasts you subdue are considered friendly towards you</li><li>You can now domesticate beasts that have a CR equal to your proficiency modifier or less and can use a bonus action to command them</li><li>During a long rest, you can attempt to train a willing beast to follow more complex commands. Choose a complex command (such as “fetch a healing potion from my bag,” “watch for intruders,” or “follow the scent on this rag”) and make a Wisdom (Animal Handling) check with a DC of 15 plus its CR. If you succeed, the beast learns to follow the command.</li><li>Beasts will continue their last command without input from you</li></li>Beasts of your choice within 30ft gain a bonus to their AC and damage rolls equal to your proficiency modifier</li><li>During a short rest, you can spend time petting and coddling a willing beast, giving it temporary hit points equal to your level and a bonus to its next attack roll and saving throw, equal to your proficiency modifier</li></ul>' },
@@ -645,7 +645,7 @@ const TREES = [
       { id: 'dec-b2', branch: 'b', name: 'Fake it Til you Make It', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>When attempting an ability check, you can use Charisma (Deception) instead of the original skill, but do so with disadvantage. For example, this would allow you to replace a Strength (Athletics) check with a Charisma (Deception) check made at disadvantage. You can use this feature a number of times equal to your proficiency modifier, regaining all uses when you complete a long rest. Whenever you roll a natural 20 on a Deception check, you regain 1 use of this ability</li><li>When you are hit by an attack, you can use your reaction to claim it actually missed. Make a Charisma (Deception) check contested by the attack roll total. On a success, the attack misses you. Once you successfully use this effect, you must finish a short or long rest before using it again</li></ul>' },
       { id: 'dec-c2', branch: 'c', name: 'Liar\'s Liar', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You can use your Deception bonus for your Insight checks and you have advantage on checks to determine if someone is lying or attempting to pass themselves off as a different person</li><li>Whenever you roll a Charisma check at disadvantage, you may choose to roll it at advantage instead. You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest</li><li>You have advantage on saving throws against any effect that would compel or detect truthfulness. Whether or not you pass or fail the saving throw, the caster will believe you failed</li></ul>' },
     ],
-    finale: { name: 'Heart of Treachery', desc: 'You gain the following benefits: <ul style="margin:6px 0 0 16px; padding:0;"><li>You are immune to the charmed condition</li><li>You gain advantage on Dexterity (Initiative) rolls</li><li>During the first round of combat, you deal an additional 4d8 psychic damage to the first creature you damage</li><li>Divination magic is unable to detect you</li></ul>' }
+    finale: { name: 'Heart of Treachery', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You are immune to the charmed condition</li><li>You gain advantage on Dexterity (Initiative) rolls</li><li>During the first round of combat, you deal an additional 4d8 psychic damage to the first creature you damage</li><li>Divination magic is unable to detect you</li></ul>' }
   },
   {
     id: 'history', name: 'History', subtitle: 'Remember the forgotten lore, dead empires, and bloody past of Orvis.', type: 'skill',
@@ -656,7 +656,7 @@ const TREES = [
       { id: 'his-c', branch: 'c', name: 'War Stories', desc: 'You studied ancient war journals extensively, allowing you to perform special combat maneuvers. You gain the following benefits: <br>You can use your Intelligence or Wisdom modifier in place of your Dexterity modifier when rolling initiative.<br>You can use a bonus action to issue a command to a friendly creature within 60 feet of you that can hear and understand you. That creature gains the following benefits until the start of your next turn: <ul style="margin:6px 0 0 16px; padding:0;"><li>Advantage on the next attack roll it makes</li><li>+2 to AC until the start of your next turn</li></ul><br>You may use this ability a number of times equal to your proficiency modifier, regaining all uses at the end of a long rest.' },
     ],
     tier2: [
-      { id: 'his-a2', branch: 'a', name: 'Strategic Mind', desc: 'You see the battlefield through the lens of a thousand campaigns. Once per combat, when initiative is rolled, you can grant one ally you can see an additional first-round action (attack, dash, hide, or cast a cantrip).' },
+      { id: 'his-a2', branch: 'a', name: 'Linguist', desc: '<ul style="margin:6px 0 0 16px; padding:0;"><li>You learn to read and write 3 languages of your choice, and if you spend 1 minute or more examining a mundane or magical script, you can determine the language in which it is written</li><li>You learn to create written ciphers. Others can't decipher this code unless you teach them or they succeed on an Intelligence (Investigation) check (DC equal to your Intelligence score + your proficiency bonus)</li><li>You can use your Repository of Lore feature twice between rests and can share the advantage benefit with a number of creatures equal to your proficiency modifier</li></ul>' },
       { id: 'his-b2', branch: 'b', name: 'Polyglot', desc: 'Language is no barrier to you. You learn four additional languages and can attempt to communicate with any intelligent creature, even in languages you\'ve never encountered, with a DC 20 History check.' },
       { id: 'his-c2', branch: 'c', name: 'Sage', desc: 'Your knowledge spans every discipline. You gain proficiency in two other Intelligence-based skills of your choice, and you add double your proficiency bonus to History checks.' },
     ],
@@ -1056,7 +1056,7 @@ function drawConnectors(wrap, tree, ps) {
     const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     l.setAttribute('x1', x1); l.setAttribute('y1', y1);
     l.setAttribute('x2', x2); l.setAttribute('y2', y2);
-    l.setAttribute('stroke', active ? 'var(--arcane)' : 'rgba(124,79,196,0.18)');
+    l.setAttribute('stroke', active ? 'var(--arcane)' : 'rgba(204,32,32,0.18)');
     l.setAttribute('stroke-width', active ? '2.5' : '1.5');
     if (!active) l.setAttribute('stroke-dasharray', '4 3');
     svg.appendChild(l);
