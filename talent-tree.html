@@ -443,15 +443,22 @@
 </head>
 <body>
 
+<!-- ══ DIRECTORY BAR ══════════════════════════════ -->
 <div class="dir-bar">
   <a href="index.html" class="dir-home">Orvis Unbound</a>
-  <a href="world.html" class="dir-pill">About Orvis</a>
-  <a href="species.html" class="dir-pill">New Species</a>
-  <a href="classes.html" class="dir-pill">New Classes</a>
-  <a href="talent-tree.html" class="dir-pill">Talent Trees</a>
-  <a href="point-buy.html" class="dir-pill">Point Buy</a>
-  <a href="house-rules.html" class="dir-pill">House Rules</a>
-  <a href="https://app.syrinscape.com/d3d373e5ef4d4d80a701418f53ae5462/player/" class="dir-end">Syrinscape</a>
+  <button class="hamburger" onclick="this.parentElement.querySelector('.dir-pills').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="dir-pills">
+    <a href="world.html" class="dir-pill">About Orvis</a>
+    <a href="species.html" class="dir-pill">New Species</a>
+    <a href="classes.html" class="dir-pill">New Classes</a>
+    <a href="talent-tree.html" class="dir-pill">Talent Trees</a>
+    <a href="point-buy.html" class="dir-pill">Point Buy</a>
+    <a href="house-rules.html" class="dir-pill">House Rules</a>
+    <a href="cosmology.html" class="dir-pill">Cosmology</a>
+    <a href="https://app.syrinscape.com/d3d373e5ef4d4d80a701418f53ae5462/player/" class="dir-end">Syrinscape</a>
+  </div>
 </div>
 
 <div class="page-wrapper">
@@ -877,11 +884,10 @@ function isBaseFreeThroughProf(treeId) {
 }
 
 function totalSpent() {
-  // Only count points that were actively purchased (not free from proficiency)
   return Object.entries(purchased).reduce((sum, [treeId, s]) => {
     let count = s.size;
-    // If base is purchased and this tree has proficiency, don't count the base
     if (s.has('base') && isBaseFreeThroughProf(treeId)) count -= 1;
+    if (s.has('finale')) count += 1; // finale costs 2, add the extra point
     return sum + count;
   }, 0);
 }
@@ -889,6 +895,7 @@ function totalSpent() {
 function treeSpent(treeId) {
   let count = purchased[treeId].size;
   if (purchased[treeId].has('base') && isBaseFreeThroughProf(treeId)) count -= 1;
+  if (purchased[treeId].has('finale')) count += 1; // finale costs 2
   return count;
 }
 
